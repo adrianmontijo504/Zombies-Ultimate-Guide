@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Paradox Junction</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body>
+
+<header class="glass">
+  <h1>Paradox Junction</h1>
+  <a href="../index.html" style="color:#22c55e;">⬅ Back</a>
+</header>
+
+<section class="content">
+
+<h2>🧪 Easter Egg Tracker</h2>
+
+<div id="progress-container">
+  <div id="progress-bar"></div>
+</div>
+
+<ul id="steps">
+  <li><input type="checkbox"> Turn on power</li>
+  <li><input type="checkbox"> Collect all parts</li>
+  <li><input type="checkbox"> Build device</li>
+  <li><input type="checkbox"> Activate portals</li>
+  <li><input type="checkbox"> Boss fight</li>
+</ul>
+
+<h2>🔫 Best Weapons</h2>
+<p>Ray Gun, Shotgun, Wonder Weapon</p>
+
+<h2>📺 Video Guide</h2>
+
+<iframe width="100%" height="300"
+src="https://www.youtube.com/embed/YOUR_VIDEO_ID">
+</iframe>
+
+</section>
+
+<script>
+const checkboxes = document.querySelectorAll("#steps input");
+
+checkboxes.forEach((box, index) => {
+  const saved = localStorage.getItem("step_" + index);
+  if (saved === "true") box.checked = true;
+
+  box.addEventListener("change", () => {
+    localStorage.setItem("step_" + index, box.checked);
+    updateProgress();
+  });
+});
+
+function updateProgress() {
+  let total = checkboxes.length;
+  let checked = [...checkboxes].filter(c => c.checked).length;
+  document.getElementById("progress-bar").style.width =
+    (checked / total) * 100 + "%";
+}
+
+updateProgress();
+</script>
+
+</body>
+</html>
