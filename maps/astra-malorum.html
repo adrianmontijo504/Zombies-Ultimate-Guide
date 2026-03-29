@@ -2,18 +2,23 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Astra Malorum</title>
+  <title>Astra Malorum - Undead Intel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="../css/style.css">
 </head>
-
 <body class="loaded">
 
-  <div class="cursor-flame"></div>
-  <canvas id="particles"></canvas>
+  <div class="cursor-flame" aria-hidden="true"></div>
+  <canvas id="particles" aria-hidden="true"></canvas>
 
-  <header class="glass">
-    <h1>Astra Malorum</h1>
+  <header class="glass page-header">
+    <div class="header-left">
+      <h1 class="site-title">
+        <a href="../index.html">🧟 Undead Intel</a>
+      </h1>
+      <div class="page-subtitle">Astra Malorum</div>
+    </div>
+
     <div class="top-buttons">
       <a class="back-link" href="../index.html">🏠 Home</a>
       <a class="back-link" href="../maps.html">⬅ Back to Maps</a>
@@ -28,12 +33,12 @@
     </div>
 
     <ul id="steps">
-      <li><label><input type="checkbox"> Turn on power</label></li>
-      <li><label><input type="checkbox"> Unlock ritual room</label></li>
-      <li><label><input type="checkbox"> Collect relic pieces</label></li>
-      <li><label><input type="checkbox"> Build the relic</label></li>
-      <li><label><input type="checkbox"> Charge the altar</label></li>
-      <li><label><input type="checkbox"> Start the boss fight</label></li>
+      <li><label><input type="checkbox"> Turn on power.</label></li>
+      <li><label><input type="checkbox"> Unlock ritual room.</label></li>
+      <li><label><input type="checkbox"> Collect relic pieces.</label></li>
+      <li><label><input type="checkbox"> Build the relic.</label></li>
+      <li><label><input type="checkbox"> Charge the altar.</label></li>
+      <li><label><input type="checkbox"> Start the boss fight.</label></li>
     </ul>
 
     <h2>🔫 Notes</h2>
@@ -46,16 +51,16 @@
 
     function updateProgress() {
       const total = checkboxes.length;
-      const done = [...checkboxes].filter(c => c.checked).length;
+      const done = [...checkboxes].filter((checkbox) => checkbox.checked).length;
       document.getElementById("progress-bar").style.width = ((done / total) * 100) + "%";
     }
 
-    checkboxes.forEach((box, i) => {
-      const saved = localStorage.getItem(pageKey + i);
+    checkboxes.forEach((box, index) => {
+      const saved = localStorage.getItem(pageKey + index);
       if (saved === "true") box.checked = true;
 
       box.addEventListener("change", () => {
-        localStorage.setItem(pageKey + i, box.checked);
+        localStorage.setItem(pageKey + index, box.checked);
         updateProgress();
       });
     });
