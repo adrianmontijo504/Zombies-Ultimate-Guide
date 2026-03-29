@@ -1,48 +1,60 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Zombies Complete Guide</title>
-  <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>Zombies Mastery</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/style.css">
 </head>
 
 <body>
 
-<header>
-  <h1>🧟 Zombies Complete Guide</h1>
-  <nav>
-    <a href="index.html">Home</a>
-    <a href="maps.html">Maps</a>
-    <a href="easter-eggs.html">Easter Eggs</a>
-    <a href="weapons.html">Weapons</a>
-  </nav>
+<div class="cursor-glow"></div>
+
+<header class="glass">
+  <h1>🧟 Zombies Mastery</h1>
+  <input type="text" id="search" placeholder="Search guides...">
 </header>
 
+<nav class="glass">
+  <a href="#">Home</a>
+  <a href="#">Maps</a>
+  <a href="#">Easter Eggs</a>
+  <a href="#">Weapons</a>
+</nav>
+
 <section class="hero">
-  <h2>Master Every Zombies Map</h2>
-  <p>Step-by-step Easter eggs, best weapons, and pro strategies.</p>
+  <h2>DOMINATE EVERY MAP</h2>
+  <p>Step-by-step guides, pro strategies, and Easter eggs.</p>
 </section>
 
-<section class="cards">
-  <div class="card">
-    <h3>🗺️ Maps</h3>
-    <p>All Zombies maps broken down.</p>
+<section id="guideList" class="grid">
+
+  <div class="card" data-name="paradox junction easter egg">
+    <h3>Paradox Junction</h3>
+    <p>Full Easter Egg Guide</p>
+    <a href="maps/paradox-junction.html">ENTER GUIDE</a>
   </div>
 
-  <div class="card">
-    <h3>🧪 Easter Eggs</h3>
-    <p>Exact steps to complete every Easter egg.</p>
+  <div class="card" data-name="kino der toten strategy">
+    <h3>Kino Der Toten</h3>
+    <p>Beginner Strategy</p>
   </div>
 
-  <div class="card">
-    <h3>🔫 Weapons</h3>
-    <p>Best guns and loadouts.</p>
+  <div class="card" data-name="mob of the dead weapons">
+    <h3>Mob of the Dead</h3>
+    <p>Best Weapons</p>
   </div>
+
 </section>
 
 <footer>
-  <p>© 2026 Zombies Guide</p>
+  <p>© 2026 Zombies Mastery</p>
 </footer>
+
+<script src="js/app.js"></script>
 
 </body>
 </html>
+
 
