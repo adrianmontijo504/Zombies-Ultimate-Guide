@@ -5,11 +5,18 @@
 <title>Paradox Junction</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link rel="stylesheet" href="../css/style.css">
+
+<!-- 🔥 FORCE PAGE VISIBLE (FIX) -->
+<style>
+body {
+  opacity: 1 !important;
+}
+</style>
+
 </head>
 
 <body>
 
-<!-- CURSOR GLOW -->
 <div class="cursor-glow"></div>
 
 <header class="glass">
@@ -39,7 +46,6 @@
 </section>
 
 <script>
-// 🧪 CHECKLIST SYSTEM
 const checkboxes = document.querySelectorAll("#steps input");
 
 checkboxes.forEach((box, i) => {
@@ -52,7 +58,6 @@ checkboxes.forEach((box, i) => {
   });
 });
 
-// 📊 PROGRESS BAR
 function update() {
   let total = checkboxes.length;
   let done = [...checkboxes].filter(c => c.checked).length;
@@ -61,14 +66,8 @@ function update() {
 }
 
 update();
-
-// 🔥 FIX FOR BLACK SCREEN (VERY IMPORTANT)
-window.addEventListener("load", () => {
-  document.body.classList.add("loaded");
-});
 </script>
 
-<!-- ✅ THIS LOADS ALL YOUR EFFECTS -->
 <script src="../js/app.js"></script>
 
 </body>
