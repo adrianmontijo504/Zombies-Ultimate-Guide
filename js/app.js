@@ -12,7 +12,6 @@ if (searchInput) {
   });
 }
 
-/* flame cursor */
 document.addEventListener("mousemove", (e) => {
   const flame = document.querySelector(".cursor-flame");
   if (flame) {
@@ -21,7 +20,6 @@ document.addEventListener("mousemove", (e) => {
   }
 });
 
-/* falling ash particles */
 const canvas = document.getElementById("particles");
 
 if (canvas) {
