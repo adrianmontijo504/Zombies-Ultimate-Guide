@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Ashes of the Damned</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+
+<body class="loaded">
+
+  <div class="cursor-glow"></div>
+  <canvas id="particles"></canvas>
+
+  <header class="glass">
+    <h1>Ashes of the Damned</h1>
+    <a class="back-link" href="../maps.html">⬅ Back to Maps</a>
+  </header>
+
+  <section class="content">
+    <h2>🧪 Easter Egg Tracker</h2>
+
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>
+
+    <ul id="steps">
+      <li><label><input type="checkbox"> Turn on power</label></li>
+      <li><label><input type="checkbox"> Open the lower crypt</label></li>
+      <li><label><input type="checkbox"> Collect skull fragments</label></li>
+      <li><label><input type="checkbox"> Build the cursed key</label></li>
+      <li><label><input type="checkbox"> Activate the fire pillars</label></li>
+      <li><label><input type="checkbox"> Enter the final encounter</label></li>
+    </ul>
+
+    <h2>🔫 Notes</h2>
+    <p>Add your full Ashes of the Damned guide steps here later.</p>
+  </section>
+
+  <script>
+    const pageKey = "ashes_of_the_damned_";
+    const checkboxes = document.querySelectorAll("#steps input");
+
+    function updateProgress() {
+      const total = checkboxes.length;
+      const done = [...checkboxes].filter(c => c.checked).length;
+      document.getElementById("progress-bar").style.width = ((done / total) * 100) + "%";
+    }
+
+    checkboxes.forEach((box, i) => {
+      const saved = localStorage.getItem(pageKey + i);
+      if (saved === "true") box.checked = true;
+
+      box.addEventListener("change", () => {
+        localStorage.setItem(pageKey + i, box.checked);
+        updateProgress();
+      });
+    });
+
+    updateProgress();
+  </script>
+
+  <script src="../js/app.js"></script>
+</body>
+</html>
