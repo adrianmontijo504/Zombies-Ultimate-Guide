@@ -1,74 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Paradox Junction</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="../css/style.css">
-
-<!-- 🔥 FORCE PAGE VISIBLE (FIX) -->
-<style>
-body {
-  opacity: 1 !important;
-}
-</style>
-
+  <meta charset="UTF-8">
+  <title>Paradox Junction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
 
-<body>
+<body class="loaded">
 
-<div class="cursor-glow"></div>
+  <div class="cursor-glow"></div>
+  <canvas id="particles"></canvas>
 
-<header class="glass">
-  <h1>Paradox Junction</h1>
-  <a href="../index.html" style="color:#22c55e;">⬅ Back</a>
-</header>
+  <header class="glass">
+    <h1>Paradox Junction</h1>
+    <a class="back-link" href="../maps.html">⬅ Back to Maps</a>
+  </header>
 
-<section class="content">
+  <section class="content">
+    <h2>🧪 Easter Egg Tracker</h2>
 
-<h2>🧪 Easter Egg Tracker</h2>
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>
 
-<div id="progress-container">
-  <div id="progress-bar"></div>
-</div>
+    <ul id="steps">
+      <li><label><input type="checkbox"> Turn on power</label></li>
+      <li><label><input type="checkbox"> Collect all parts</label></li>
+      <li><label><input type="checkbox"> Build device</label></li>
+      <li><label><input type="checkbox"> Activate portals</label></li>
+      <li><label><input type="checkbox"> Boss fight</label></li>
+    </ul>
 
-<ul id="steps">
-  <li><input type="checkbox"> Turn on power</li>
-  <li><input type="checkbox"> Collect all parts</li>
-  <li><input type="checkbox"> Build device</li>
-  <li><input type="checkbox"> Activate portals</li>
-  <li><input type="checkbox"> Boss fight</li>
-</ul>
+    <h2>🔫 Notes</h2>
+    <p>Add your full Paradox Junction guide here.</p>
+  </section>
 
-<h2>🔫 Best Weapons</h2>
-<p>Ray Gun, Shotgun, Wonder Weapon</p>
+  <script>
+    const pageKey = "paradox_junction_";
+    const checkboxes = document.querySelectorAll("#steps input");
 
-</section>
+    function updateProgress() {
+      const total = checkboxes.length;
+      const done = [...checkboxes].filter(c => c.checked).length;
+      document.getElementById("progress-bar").style.width = ((done / total) * 100) + "%";
+    }
 
-<script>
-const checkboxes = document.querySelectorAll("#steps input");
+    checkboxes.forEach((box, i) => {
+      const saved = localStorage.getItem(pageKey + i);
+      if (saved === "true") box.checked = true;
 
-checkboxes.forEach((box, i) => {
-  const saved = localStorage.getItem("step_" + i);
-  if (saved === "true") box.checked = true;
+      box.addEventListener("change", () => {
+        localStorage.setItem(pageKey + i, box.checked);
+        updateProgress();
+      });
+    });
 
-  box.addEventListener("change", () => {
-    localStorage.setItem("step_" + i, box.checked);
-    update();
-  });
-});
+    updateProgress();
+  </script>
 
-function update() {
-  let total = checkboxes.length;
-  let done = [...checkboxes].filter(c => c.checked).length;
-  document.getElementById("progress-bar").style.width =
-    (done / total) * 100 + "%";
-}
-
-update();
-</script>
-
-<script src="../js/app.js"></script>
-
+  <script src="../js/app.js"></script>
 </body>
 </html>
