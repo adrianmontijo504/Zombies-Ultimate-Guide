@@ -1,4 +1,3 @@
-// search
 const searchInput = document.getElementById("search");
 if (searchInput) {
   searchInput.addEventListener("keyup", function () {
@@ -12,7 +11,6 @@ if (searchInput) {
   });
 }
 
-// smaller cursor glow
 document.addEventListener("mousemove", e => {
   const glow = document.querySelector(".cursor-glow");
   if (glow) {
@@ -21,7 +19,6 @@ document.addEventListener("mousemove", e => {
   }
 });
 
-// particles background
 const canvas = document.getElementById("particles");
 if (canvas) {
   const ctx = canvas.getContext("2d");
