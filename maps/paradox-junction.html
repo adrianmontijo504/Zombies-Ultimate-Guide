@@ -33,35 +33,29 @@
 <h2>🔫 Best Weapons</h2>
 <p>Ray Gun, Shotgun, Wonder Weapon</p>
 
-<h2>📺 Video Guide</h2>
-
-<iframe width="100%" height="300"
-src="https://www.youtube.com/embed/YOUR_VIDEO_ID">
-</iframe>
-
 </section>
 
 <script>
 const checkboxes = document.querySelectorAll("#steps input");
 
-checkboxes.forEach((box, index) => {
-  const saved = localStorage.getItem("step_" + index);
+checkboxes.forEach((box, i) => {
+  const saved = localStorage.getItem("step_" + i);
   if (saved === "true") box.checked = true;
 
   box.addEventListener("change", () => {
-    localStorage.setItem("step_" + index, box.checked);
-    updateProgress();
+    localStorage.setItem("step_" + i, box.checked);
+    update();
   });
 });
 
-function updateProgress() {
+function update() {
   let total = checkboxes.length;
-  let checked = [...checkboxes].filter(c => c.checked).length;
+  let done = [...checkboxes].filter(c => c.checked).length;
   document.getElementById("progress-bar").style.width =
-    (checked / total) * 100 + "%";
+    (done / total) * 100 + "%";
 }
 
-updateProgress();
+update();
 </script>
 
 </body>
