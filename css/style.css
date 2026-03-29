@@ -212,6 +212,12 @@ nav a:hover::after {
   box-shadow: 0 0 18px rgba(49, 217, 117, 0.55);
 }
 
+.top-buttons {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
 /* content pages */
 .content {
   max-width: 980px;
@@ -302,5 +308,9 @@ footer {
 
   .featured-card .map-image {
     height: 190px;
+  }
+
+  .top-buttons {
+    justify-content: flex-start;
   }
 }
