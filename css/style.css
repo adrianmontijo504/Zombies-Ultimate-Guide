@@ -4,17 +4,48 @@ body {
   color: white;
   background: radial-gradient(circle at top, #020617, #000);
   overflow-x: hidden;
+  opacity: 0;
+  transition: opacity 0.6s ease;
 }
 
-/* 🌌 BACKGROUND */
+body.loaded {
+  opacity: 1;
+}
+
+/* LOADER */
+#loader {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+/* GLITCH */
+.glitch {
+  font-size: 40px;
+  color: #22c55e;
+  animation: glitch 1s infinite;
+}
+
+@keyframes glitch {
+  0% { text-shadow: 2px 0 red; }
+  50% { text-shadow: -2px 0 blue; }
+  100% { text-shadow: 2px 0 red; }
+}
+
+/* BACKGROUND */
 body::before {
   content: "";
   position: fixed;
   width: 200%;
   height: 200%;
-  background: radial-gradient(circle, rgba(34,197,94,0.15), transparent 70%);
+  background: radial-gradient(circle, rgba(34,197,94,0.15), transparent);
   animation: moveBg 10s linear infinite;
-  z-index: -1;
+  z-index: -2;
 }
 
 @keyframes moveBg {
@@ -23,12 +54,22 @@ body::before {
   100% { transform: translate(0,0); }
 }
 
-/* CURSOR GLOW */
+/* PARTICLES */
+#particles {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+}
+
+/* CURSOR */
 .cursor-glow {
   position: fixed;
   width: 200px;
   height: 200px;
-  background: radial-gradient(circle, rgba(34,197,94,0.3), transparent 70%);
+  background: radial-gradient(circle, rgba(34,197,94,0.3), transparent);
   pointer-events: none;
   transform: translate(-50%, -50%);
 }
@@ -37,7 +78,6 @@ body::before {
 .glass {
   backdrop-filter: blur(12px);
   background: rgba(255,255,255,0.05);
-  border-bottom: 1px solid rgba(255,255,255,0.1);
 }
 
 /* HEADER */
@@ -66,22 +106,6 @@ nav a {
   margin: 0 15px;
   color: #22c55e;
   text-decoration: none;
-  position: relative;
-}
-
-nav a::after {
-  content: "";
-  position: absolute;
-  width: 0%;
-  height: 2px;
-  background: #22c55e;
-  bottom: -5px;
-  left: 0;
-  transition: 0.3s;
-}
-
-nav a:hover::after {
-  width: 100%;
 }
 
 /* HERO */
@@ -92,8 +116,14 @@ nav a:hover::after {
 
 .hero h2 {
   font-size: 42px;
-  text-shadow: 0 0 10px #22c55e, 0 0 20px #22c55e;
+  text-shadow: 0 0 20px #22c55e;
   animation: pulseGlow 2s infinite;
+}
+
+@keyframes pulseGlow {
+  0% { text-shadow: 0 0 10px #22c55e; }
+  50% { text-shadow: 0 0 25px #22c55e; }
+  100% { text-shadow: 0 0 10px #22c55e; }
 }
 
 /* GRID */
@@ -110,20 +140,6 @@ nav a:hover::after {
   padding: 20px;
   border-radius: 12px;
   transition: 0.3s;
-  position: relative;
-}
-
-.card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(120deg, transparent, rgba(34,197,94,0.4), transparent);
-  opacity: 0;
-  transition: 0.5s;
-}
-
-.card:hover::before {
-  opacity: 1;
 }
 
 .card:hover {
@@ -131,6 +147,7 @@ nav a:hover::after {
   box-shadow: 0 0 25px #22c55e;
 }
 
+/* BUTTON RIPPLE */
 .card a {
   display: inline-block;
   margin-top: 10px;
@@ -138,11 +155,23 @@ nav a:hover::after {
   padding: 8px 12px;
   border: 1px solid #22c55e;
   border-radius: 6px;
+  position: relative;
+  overflow: hidden;
 }
 
-.card a:hover {
-  background: #22c55e;
-  color: black;
+.card a::after {
+  content: "";
+  position: absolute;
+  width: 0;
+  height: 0;
+  background: rgba(34,197,94,0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.card a:active::after {
+  width: 200px;
+  height: 200px;
 }
 
 /* CONTENT */
@@ -150,18 +179,11 @@ nav a:hover::after {
   padding: 20px;
 }
 
-/* CHECKBOX */
-#steps input {
-  accent-color: #22c55e;
-  transform: scale(1.2);
-}
-
-/* PROGRESS BAR */
+/* PROGRESS */
 #progress-container {
   width: 100%;
   background: #111;
   border-radius: 10px;
-  margin: 20px 0;
   height: 20px;
 }
 
@@ -169,19 +191,10 @@ nav a:hover::after {
   height: 100%;
   width: 0%;
   background: #22c55e;
-  border-radius: 10px;
-  box-shadow: 0 0 10px #22c55e;
 }
 
 /* FOOTER */
 footer {
   text-align: center;
   padding: 20px;
-}
-
-/* ANIMATION */
-@keyframes pulseGlow {
-  0% { text-shadow: 0 0 10px #22c55e; }
-  50% { text-shadow: 0 0 25px #22c55e; }
-  100% { text-shadow: 0 0 10px #22c55e; }
 }
