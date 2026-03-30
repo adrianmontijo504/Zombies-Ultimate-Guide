@@ -44,7 +44,7 @@ body::before {
   pointer-events: none;
 }
 
-/* flame cursor */
+/* realistic burning flame cursor */
 .cursor-flame,
 .cursor-flame *,
 .cursor-flame::before,
