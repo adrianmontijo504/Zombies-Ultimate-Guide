@@ -7,15 +7,6 @@ body {
   min-height: 100vh;
 }
 
-body,
-a,
-button,
-input,
-label,
-.card {
-  cursor: none !important;
-}
-
 body.loaded {
   opacity: 1;
 }
@@ -56,222 +47,243 @@ body::after {
   pointer-events: none;
 }
 
-/* realistic bloody zombie hand cursor */
-.zombie-hand,
-.zombie-hand *,
-.zombie-hand::before,
-.zombie-hand::after {
-  pointer-events: none !important;
-}
-
+/* hide fake cursor on phones/tablets */
 .zombie-hand {
-  position: fixed;
-  width: 48px;
-  height: 66px;
-  transform: translate(-24%, -10%) rotate(-16deg);
-  z-index: 9999;
-  pointer-events: none !important;
-  filter:
-    drop-shadow(0 0 8px rgba(120, 0, 0, 0.42))
-    drop-shadow(0 0 14px rgba(38, 62, 36, 0.20));
-  animation: zombieHandSway 0.22s infinite alternate ease-in-out;
+  display: none;
 }
 
-.zombie-hand::before {
-  content: "";
-  position: absolute;
-  left: 10px;
-  bottom: -4px;
-  width: 18px;
-  height: 14px;
-  background:
-    radial-gradient(circle at 50% 30%, rgba(130, 20, 20, 0.55), transparent 45%),
-    linear-gradient(180deg, #4a312b 0%, #2a1815 100%);
-  border: 1px solid #1a0b09;
-  border-radius: 0 0 10px 10px;
-  transform: rotate(2deg);
-  box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.18);
-}
+/* realistic zombie hand cursor for desktop only */
+@media (hover: hover) and (pointer: fine) {
+  body,
+  a,
+  button,
+  input,
+  label,
+  .card {
+    cursor: none !important;
+  }
 
-.zombie-hand::after {
-  content: "";
-  position: absolute;
-  left: 6px;
-  bottom: 0;
-  width: 30px;
-  height: 10px;
-  background: radial-gradient(circle, rgba(85, 20, 20, 0.18) 0%, transparent 75%);
-  filter: blur(5px);
-  border-radius: 50%;
-}
+  .zombie-hand,
+  .zombie-hand *,
+  .zombie-hand::before,
+  .zombie-hand::after {
+    pointer-events: none !important;
+  }
 
-.zombie-hand .hand-palm {
-  position: absolute;
-  left: 12px;
-  bottom: 4px;
-  width: 24px;
-  height: 28px;
-  background:
-    radial-gradient(circle at 30% 24%, rgba(255, 235, 220, 0.12), transparent 22%),
-    radial-gradient(circle at 75% 72%, rgba(105, 18, 18, 0.28), transparent 26%),
-    linear-gradient(180deg, #8a6f62 0%, #6b544a 30%, #4d3a33 64%, #34231f 100%);
-  border: 1px solid #21120f;
-  border-radius: 10px 10px 13px 13px;
-  box-shadow:
-    inset -2px -2px 0 rgba(0, 0, 0, 0.20),
-    inset 2px 2px 0 rgba(255, 255, 255, 0.04);
-}
+  .zombie-hand {
+    display: block;
+    position: fixed;
+    width: 54px;
+    height: 76px;
+    left: 0;
+    top: 0;
+    transform: translate(-22%, -8%) rotate(-14deg);
+    z-index: 9999;
+    filter:
+      drop-shadow(0 0 6px rgba(115, 0, 0, 0.48))
+      drop-shadow(0 0 14px rgba(20, 0, 0, 0.30))
+      drop-shadow(0 0 8px rgba(92, 120, 72, 0.12));
+    animation: zombieHandSway 0.18s infinite alternate ease-in-out;
+  }
 
-.zombie-hand .hand-palm::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background:
-    linear-gradient(125deg, transparent 0 42%, rgba(83, 12, 12, 0.22) 49%, transparent 56%),
-    linear-gradient(180deg, transparent 0 60%, rgba(37, 20, 16, 0.24) 100%);
-}
+  .zombie-hand::before {
+    content: "";
+    position: absolute;
+    left: 12px;
+    bottom: -3px;
+    width: 20px;
+    height: 16px;
+    background:
+      radial-gradient(circle at 50% 30%, rgba(120, 8, 8, 0.60), transparent 45%),
+      linear-gradient(180deg, #463129 0%, #281711 100%);
+    border: 1px solid #180907;
+    border-radius: 0 0 10px 10px;
+    transform: rotate(2deg);
+    box-shadow:
+      inset 0 -2px 0 rgba(0, 0, 0, 0.22),
+      inset 0 2px 0 rgba(255, 255, 255, 0.04);
+  }
 
-.zombie-hand .hand-palm::after {
-  content: "";
-  position: absolute;
-  left: 5px;
-  top: 7px;
-  width: 14px;
-  height: 2px;
-  background: rgba(35, 18, 14, 0.42);
-  box-shadow:
-    0 6px 0 rgba(35, 18, 14, 0.34),
-    0 12px 0 rgba(35, 18, 14, 0.25);
-}
+  .zombie-hand::after {
+    content: "";
+    position: absolute;
+    left: 8px;
+    bottom: -1px;
+    width: 34px;
+    height: 12px;
+    background: radial-gradient(circle, rgba(80, 15, 15, 0.22) 0%, transparent 76%);
+    filter: blur(5px);
+    border-radius: 50%;
+  }
 
-.zombie-hand .finger,
-.zombie-hand .thumb {
-  position: absolute;
-  background:
-    radial-gradient(circle at 35% 20%, rgba(255, 235, 220, 0.10), transparent 24%),
-    linear-gradient(180deg, #9a8070 0%, #785f52 28%, #553e36 64%, #372620 100%);
-  border: 1px solid #21120f;
-  border-radius: 10px;
-  box-shadow:
-    inset -1px -2px 0 rgba(0, 0, 0, 0.18),
-    inset 1px 1px 0 rgba(255, 255, 255, 0.03);
-}
+  .zombie-hand .hand-palm {
+    position: absolute;
+    left: 14px;
+    bottom: 5px;
+    width: 27px;
+    height: 31px;
+    background:
+      radial-gradient(circle at 28% 20%, rgba(255, 233, 219, 0.12), transparent 20%),
+      radial-gradient(circle at 72% 72%, rgba(103, 16, 16, 0.25), transparent 24%),
+      linear-gradient(180deg, #8b766b 0%, #6d584f 28%, #4e3a33 63%, #33221d 100%);
+    border: 1px solid #1f120f;
+    border-radius: 10px 10px 14px 14px;
+    box-shadow:
+      inset -2px -2px 0 rgba(0, 0, 0, 0.22),
+      inset 2px 2px 0 rgba(255, 255, 255, 0.04);
+  }
 
-.zombie-hand .finger::before,
-.zombie-hand .thumb::before {
-  content: "";
-  position: absolute;
-  left: 1px;
-  right: 1px;
-  top: 38%;
-  height: 2px;
-  background: rgba(40, 18, 14, 0.34);
-  box-shadow: 0 8px 0 rgba(40, 18, 14, 0.22);
-  border-radius: 2px;
-}
+  .zombie-hand .hand-palm::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      linear-gradient(125deg, transparent 0 40%, rgba(88, 10, 10, 0.20) 49%, transparent 58%),
+      linear-gradient(180deg, transparent 0 62%, rgba(35, 21, 17, 0.26) 100%);
+  }
 
-.zombie-hand .finger::after,
-.zombie-hand .thumb::after {
-  content: "";
-  position: absolute;
-  top: -2px;
-  right: 1px;
-  width: 5px;
-  height: 9px;
-  background: linear-gradient(180deg, #e2d4b4 0%, #c8b089 60%, #8c6d4c 100%);
-  border: 1px solid #70573f;
-  border-radius: 4px 4px 2px 2px;
-  transform: rotate(8deg);
-  box-shadow: 0 0 2px rgba(0, 0, 0, 0.18);
-}
+  .zombie-hand .hand-palm::after {
+    content: "";
+    position: absolute;
+    left: 5px;
+    top: 8px;
+    width: 16px;
+    height: 2px;
+    background: rgba(33, 18, 14, 0.42);
+    box-shadow:
+      0 7px 0 rgba(33, 18, 14, 0.34),
+      0 14px 0 rgba(33, 18, 14, 0.24);
+  }
 
-.zombie-hand .finger-1 {
-  left: 8px;
-  bottom: 24px;
-  width: 7px;
-  height: 29px;
-  transform: rotate(-10deg);
-}
+  .zombie-hand .finger,
+  .zombie-hand .thumb {
+    position: absolute;
+    background:
+      radial-gradient(circle at 35% 18%, rgba(255, 236, 224, 0.10), transparent 24%),
+      linear-gradient(180deg, #9b8577 0%, #786154 30%, #543d35 64%, #36251f 100%);
+    border: 1px solid #1f120f;
+    border-radius: 10px;
+    box-shadow:
+      inset -1px -2px 0 rgba(0, 0, 0, 0.18),
+      inset 1px 1px 0 rgba(255, 255, 255, 0.03);
+  }
 
-.zombie-hand .finger-2 {
-  left: 17px;
-  bottom: 28px;
-  width: 7px;
-  height: 36px;
-  transform: rotate(-4deg);
-}
+  .zombie-hand .finger::before,
+  .zombie-hand .thumb::before {
+    content: "";
+    position: absolute;
+    left: 1px;
+    right: 1px;
+    top: 40%;
+    height: 2px;
+    background: rgba(42, 20, 16, 0.32);
+    box-shadow: 0 9px 0 rgba(42, 20, 16, 0.20);
+    border-radius: 2px;
+  }
 
-.zombie-hand .finger-3 {
-  left: 26px;
-  bottom: 27px;
-  width: 7px;
-  height: 34px;
-  transform: rotate(3deg);
-}
+  .zombie-hand .finger::after,
+  .zombie-hand .thumb::after {
+    content: "";
+    position: absolute;
+    top: -2px;
+    right: 1px;
+    width: 5px;
+    height: 10px;
+    background: linear-gradient(180deg, #e5d8bc 0%, #cdb691 60%, #8b6c4c 100%);
+    border: 1px solid #6e573f;
+    border-radius: 4px 4px 2px 2px;
+    transform: rotate(8deg);
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.18);
+  }
 
-.zombie-hand .finger-4 {
-  left: 35px;
-  bottom: 22px;
-  width: 7px;
-  height: 27px;
-  transform: rotate(10deg);
-}
+  .zombie-hand .finger-1 {
+    left: 9px;
+    bottom: 27px;
+    width: 8px;
+    height: 32px;
+    transform: rotate(-10deg);
+  }
 
-.zombie-hand .thumb {
-  left: 2px;
-  bottom: 10px;
-  width: 9px;
-  height: 18px;
-  transform: rotate(-45deg);
-}
+  .zombie-hand .finger-2 {
+    left: 19px;
+    bottom: 32px;
+    width: 8px;
+    height: 40px;
+    transform: rotate(-4deg);
+  }
 
-.zombie-hand .blood {
-  position: absolute;
-  width: 5px;
-  background: linear-gradient(180deg, #b30014 0%, #7f0010 100%);
-  border-radius: 0 0 10px 10px;
-  box-shadow: 0 0 4px rgba(180, 0, 22, 0.25);
-  opacity: 0.96;
-}
+  .zombie-hand .finger-3 {
+    left: 29px;
+    bottom: 31px;
+    width: 8px;
+    height: 37px;
+    transform: rotate(3deg);
+  }
 
-.zombie-hand .blood-1 {
-  left: 18px;
-  bottom: -1px;
-  height: 12px;
-  animation: bloodDrip1 1.1s infinite ease-in-out;
-}
+  .zombie-hand .finger-4 {
+    left: 39px;
+    bottom: 25px;
+    width: 8px;
+    height: 30px;
+    transform: rotate(10deg);
+  }
 
-.zombie-hand .blood-2 {
-  left: 28px;
-  bottom: 1px;
-  height: 10px;
-  animation: bloodDrip2 1.35s infinite ease-in-out;
-}
+  .zombie-hand .thumb {
+    left: 2px;
+    bottom: 12px;
+    width: 10px;
+    height: 20px;
+    transform: rotate(-46deg);
+  }
 
-.zombie-hand .blood-3 {
-  left: 11px;
-  bottom: 7px;
-  width: 4px;
-  height: 7px;
-  animation: bloodDrip3 1.2s infinite ease-in-out;
+  .zombie-hand .blood {
+    position: absolute;
+    width: 5px;
+    background: linear-gradient(180deg, #bc0018 0%, #7f0010 100%);
+    border-radius: 0 0 10px 10px;
+    box-shadow: 0 0 4px rgba(180, 0, 22, 0.24);
+    opacity: 0.96;
+  }
+
+  .zombie-hand .blood-1 {
+    left: 20px;
+    bottom: -1px;
+    height: 13px;
+    animation: bloodDrip1 1.1s infinite ease-in-out;
+  }
+
+  .zombie-hand .blood-2 {
+    left: 31px;
+    bottom: 2px;
+    height: 10px;
+    animation: bloodDrip2 1.3s infinite ease-in-out;
+  }
+
+  .zombie-hand .blood-3 {
+    left: 12px;
+    bottom: 8px;
+    width: 4px;
+    height: 7px;
+    animation: bloodDrip3 1.2s infinite ease-in-out;
+  }
 }
 
 @keyframes zombieHandSway {
   0% {
-    transform: translate(-24%, -10%) rotate(-16deg);
+    transform: translate(-22%, -8%) rotate(-14deg);
   }
   50% {
-    transform: translate(-24%, -12%) rotate(-13deg);
+    transform: translate(-22%, -10%) rotate(-11deg);
   }
   100% {
-    transform: translate(-24%, -9%) rotate(-19deg);
+    transform: translate(-22%, -7%) rotate(-17deg);
   }
 }
 
 @keyframes bloodDrip1 {
-  0%, 100% { height: 12px; }
-  50% { height: 17px; }
+  0%, 100% { height: 13px; }
+  50% { height: 18px; }
 }
 
 @keyframes bloodDrip2 {
@@ -717,11 +729,6 @@ footer {
     aspect-ratio: 2.05 / 1;
     object-position: center center;
     padding: 5px;
-  }
-
-  .zombie-hand {
-    width: 38px;
-    height: 52px;
   }
 
   .top-buttons {
