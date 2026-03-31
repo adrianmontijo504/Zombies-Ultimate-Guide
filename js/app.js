@@ -13,10 +13,10 @@ if (searchInput) {
 }
 
 document.addEventListener("mousemove", (e) => {
-  const flame = document.querySelector(".cursor-flame");
-  if (flame) {
-    flame.style.left = `${e.clientX}px`;
-    flame.style.top = `${e.clientY}px`;
+  const hand = document.querySelector(".zombie-hand");
+  if (hand) {
+    hand.style.left = `${e.clientX}px`;
+    hand.style.top = `${e.clientY}px`;
   }
 });
 
