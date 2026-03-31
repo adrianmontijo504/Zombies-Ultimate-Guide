@@ -3,7 +3,7 @@ body {
   font-family: Arial, sans-serif;
   color: white;
   background:
-    radial-gradient(circle at 50% 120%, rgba(255, 90, 20, 0.22) 0%, transparent 26%),
+    radial-gradient(circle at 50% 120%, rgba(255, 110, 20, 0.28) 0%, transparent 28%),
     radial-gradient(circle at top, #08111f 0%, #03060d 55%, #000000 100%);
   overflow-x: hidden;
   min-height: 100vh;
@@ -13,20 +13,20 @@ body.loaded {
   opacity: 1;
 }
 
-/* extra noticeable fire background */
+/* stronger fire background */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 118%, rgba(255, 70, 0, 0.72), transparent 21%),
-    radial-gradient(circle at 18% 112%, rgba(255, 120, 20, 0.40), transparent 18%),
-    radial-gradient(circle at 82% 114%, rgba(255, 150, 30, 0.40), transparent 18%),
-    radial-gradient(circle at 50% 98%, rgba(255, 195, 70, 0.20), transparent 30%),
-    linear-gradient(to top, rgba(255, 80, 20, 0.26) 0%, rgba(255, 80, 20, 0.10) 16%, transparent 42%);
+    radial-gradient(circle at 50% 118%, rgba(255, 80, 0, 0.92), transparent 19%),
+    radial-gradient(circle at 18% 112%, rgba(255, 135, 20, 0.52), transparent 17%),
+    radial-gradient(circle at 82% 114%, rgba(255, 155, 30, 0.50), transparent 17%),
+    radial-gradient(circle at 50% 98%, rgba(255, 205, 70, 0.26), transparent 28%),
+    linear-gradient(to top, rgba(255, 90, 20, 0.34) 0%, rgba(255, 90, 20, 0.13) 16%, transparent 42%);
   z-index: -4;
   pointer-events: none;
-  animation: firePulse 3s ease-in-out infinite alternate;
+  animation: firePulse 2.8s ease-in-out infinite alternate;
 }
 
 body::after {
@@ -34,22 +34,22 @@ body::after {
   position: fixed;
   inset: 0;
   background:
-    radial-gradient(circle at 50% 125%, rgba(255, 90, 20, 0.34), transparent 28%),
-    radial-gradient(circle at 30% 108%, rgba(255, 180, 60, 0.16), transparent 16%),
-    radial-gradient(circle at 70% 108%, rgba(255, 120, 40, 0.16), transparent 16%);
+    radial-gradient(circle at 50% 126%, rgba(255, 100, 20, 0.42), transparent 28%),
+    radial-gradient(circle at 28% 108%, rgba(255, 190, 60, 0.20), transparent 16%),
+    radial-gradient(circle at 72% 108%, rgba(255, 120, 40, 0.18), transparent 16%);
   z-index: -3;
   pointer-events: none;
-  animation: firePulse2 4.2s ease-in-out infinite alternate;
+  animation: firePulse2 4s ease-in-out infinite alternate;
 }
 
 @keyframes firePulse {
   0% {
-    opacity: 0.82;
+    opacity: 0.84;
     transform: scale(1);
   }
   100% {
     opacity: 1;
-    transform: scale(1.03);
+    transform: scale(1.04);
   }
 }
 
@@ -73,12 +73,12 @@ body::after {
   pointer-events: none;
 }
 
-/* hide fake cursor on touch devices */
+/* hide cursor on touch devices */
 .zombie-hand {
   display: none;
 }
 
-/* realistic zombie hand cursor only on desktop/laptop */
+/* desktop cursor only */
 @media (hover: hover) and (pointer: fine) {
   body,
   a,
@@ -324,8 +324,8 @@ body::after {
 /* glass */
 .glass {
   backdrop-filter: blur(10px);
-  background: rgba(8, 12, 20, 0.18);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(8, 12, 20, 0.14);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 /* header */
@@ -333,7 +333,7 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 18px 24px;
+  padding: max(18px, env(safe-area-inset-top)) 24px 18px;
   gap: 16px;
 }
 
@@ -374,11 +374,12 @@ header input {
   width: 220px;
   max-width: 42vw;
   padding: 12px 14px;
-  border-radius: 10px;
+  border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  background: rgba(7, 12, 22, 0.72);
+  background: rgba(7, 12, 22, 0.60);
   color: white;
   outline: none;
+  backdrop-filter: blur(8px);
 }
 
 header input::placeholder {
@@ -432,13 +433,13 @@ nav a:hover::after {
   font-size: clamp(2rem, 5vw, 3.5rem);
   color: #fff2d8;
   text-shadow:
-    0 0 10px rgba(255, 138, 42, 0.7),
-    0 0 24px rgba(255, 90, 20, 0.45);
+    0 0 12px rgba(255, 150, 42, 0.82),
+    0 0 30px rgba(255, 90, 20, 0.48);
 }
 
 .hero p {
   margin: 0;
-  color: rgba(255, 255, 255, 0.82);
+  color: rgba(255, 255, 255, 0.84);
   font-weight: 600;
 }
 
@@ -460,13 +461,13 @@ nav a:hover::after {
 /* cards */
 .card {
   width: 100%;
-  background: linear-gradient(180deg, rgba(18, 27, 42, 0.62), rgba(10, 16, 28, 0.48));
+  background: linear-gradient(180deg, rgba(18, 27, 42, 0.42), rgba(10, 16, 28, 0.28));
   border: 1px solid rgba(255, 170, 70, 0.22);
   border-radius: 22px;
-  padding: 22px;
+  padding: 18px;
   box-sizing: border-box;
   box-shadow:
-    0 14px 34px rgba(0, 0, 0, 0.18),
+    0 14px 34px rgba(0, 0, 0, 0.14),
     0 0 0 1px rgba(255, 255, 255, 0.02) inset;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   text-align: center;
@@ -477,9 +478,9 @@ nav a:hover::after {
 .card:hover {
   transform: translateY(-8px) scale(1.015);
   box-shadow:
-    0 18px 38px rgba(0, 0, 0, 0.22),
-    0 0 24px rgba(255, 120, 30, 0.14);
-  border-color: rgba(255, 170, 70, 0.38);
+    0 18px 38px rgba(0, 0, 0, 0.18),
+    0 0 24px rgba(255, 120, 30, 0.16);
+  border-color: rgba(255, 170, 70, 0.40);
 }
 
 .card > a:first-child {
@@ -489,9 +490,10 @@ nav a:hover::after {
   width: 100%;
   border-radius: 18px;
   overflow: hidden;
-  margin: 0 auto 20px;
-  background: rgba(2, 5, 12, 0.24);
-  border: 1px solid rgba(255, 170, 70, 0.38);
+  margin: 0 auto 18px;
+  padding: 10px;
+  background: rgba(2, 5, 12, 0.14);
+  border: 1px solid rgba(255, 170, 70, 0.34);
 }
 
 .card h3 {
@@ -515,9 +517,9 @@ nav a:hover::after {
 .map-image {
   display: block;
   width: 100%;
-  aspect-ratio: 3.7 / 1;
-  height: auto;
-  object-fit: cover;
+  max-width: 100%;
+  height: auto !important;
+  object-fit: contain;
   object-position: center center !important;
   background: transparent;
   padding: 0;
@@ -529,22 +531,23 @@ nav a:hover::after {
 }
 
 .featured-card .map-image {
-  aspect-ratio: 3.7 / 1;
+  width: 100%;
+  height: auto !important;
 }
 
 .content > .map-image {
   display: block;
   width: 100%;
-  aspect-ratio: 3.4 / 1;
-  height: auto;
-  object-fit: cover;
+  max-width: 100%;
+  height: auto !important;
+  object-fit: contain;
   object-position: center center !important;
   background: transparent;
   padding: 0;
   box-sizing: border-box;
   border-radius: 18px;
   margin: 0 auto 24px;
-  border: 1px solid rgba(255, 170, 70, 0.38);
+  border: 1px solid rgba(255, 170, 70, 0.32);
   box-shadow: 0 0 18px rgba(255, 120, 30, 0.08);
 }
 
@@ -701,23 +704,24 @@ footer {
 @media (max-width: 760px) {
   body::before {
     background:
-      radial-gradient(circle at 50% 118%, rgba(255, 70, 0, 0.86), transparent 20%),
-      radial-gradient(circle at 18% 112%, rgba(255, 120, 20, 0.48), transparent 18%),
-      radial-gradient(circle at 82% 114%, rgba(255, 150, 30, 0.48), transparent 18%),
-      radial-gradient(circle at 50% 96%, rgba(255, 195, 70, 0.24), transparent 30%),
-      linear-gradient(to top, rgba(255, 80, 20, 0.30) 0%, rgba(255, 80, 20, 0.12) 16%, transparent 42%);
+      radial-gradient(circle at 50% 118%, rgba(255, 80, 0, 1), transparent 18%),
+      radial-gradient(circle at 18% 112%, rgba(255, 135, 20, 0.58), transparent 17%),
+      radial-gradient(circle at 82% 114%, rgba(255, 155, 30, 0.56), transparent 17%),
+      radial-gradient(circle at 50% 96%, rgba(255, 205, 70, 0.28), transparent 28%),
+      linear-gradient(to top, rgba(255, 90, 20, 0.38) 0%, rgba(255, 90, 20, 0.14) 16%, transparent 42%);
   }
 
   body::after {
     background:
-      radial-gradient(circle at 50% 125%, rgba(255, 90, 20, 0.40), transparent 28%),
-      radial-gradient(circle at 30% 108%, rgba(255, 180, 60, 0.18), transparent 16%),
-      radial-gradient(circle at 70% 108%, rgba(255, 120, 40, 0.18), transparent 16%);
+      radial-gradient(circle at 50% 126%, rgba(255, 100, 20, 0.48), transparent 28%),
+      radial-gradient(circle at 28% 108%, rgba(255, 190, 60, 0.22), transparent 16%),
+      radial-gradient(circle at 72% 108%, rgba(255, 120, 40, 0.20), transparent 16%);
   }
 
   header {
     flex-direction: column;
     align-items: stretch;
+    padding: max(18px, env(safe-area-inset-top)) 16px 16px;
   }
 
   .page-header {
@@ -745,9 +749,9 @@ footer {
   }
 
   .card {
-    padding: 16px;
+    padding: 14px;
     border-radius: 18px;
-    background: linear-gradient(180deg, rgba(18, 27, 42, 0.56), rgba(10, 16, 28, 0.42));
+    background: linear-gradient(180deg, rgba(18, 27, 42, 0.34), rgba(10, 16, 28, 0.22));
   }
 
   .card h3 {
@@ -759,23 +763,28 @@ footer {
   }
 
   .card > a:first-child {
-    margin: 0 auto 18px;
+    margin: 0 auto 16px;
+    padding: 8px;
     border-radius: 16px;
   }
 
   .map-image {
-    aspect-ratio: 3.35 / 1;
-    object-fit: cover;
+    width: 100%;
+    max-width: 100%;
+    height: auto !important;
+    object-fit: contain;
     object-position: center center !important;
   }
 
   .featured-card .map-image {
-    aspect-ratio: 3.35 / 1;
+    width: 100%;
+    height: auto !important;
   }
 
   .content > .map-image {
-    aspect-ratio: 3.1 / 1;
-    object-fit: cover;
+    width: 100%;
+    height: auto !important;
+    object-fit: contain;
     object-position: center center !important;
     border-radius: 16px;
   }
