@@ -336,7 +336,7 @@ body::after {
 /* glass */
 .glass {
   backdrop-filter: blur(10px);
-  background: rgba(8, 12, 20, 0.10);
+  background: rgba(8, 12, 20, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
 }
 
@@ -473,14 +473,16 @@ nav a:hover::after {
 /* cards */
 .card {
   width: 100%;
-  background: linear-gradient(180deg, rgba(18, 27, 42, 0.24), rgba(10, 16, 28, 0.14));
-  border: 1px solid rgba(255, 170, 70, 0.18);
+  max-width: 100%;
+  min-width: 0;
+  background: linear-gradient(180deg, rgba(18, 27, 42, 0.18), rgba(10, 16, 28, 0.10));
+  border: 1px solid rgba(255, 170, 70, 0.16);
   border-radius: 22px;
   padding: 14px;
   box-sizing: border-box;
   box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.10),
-    0 0 0 1px rgba(255, 255, 255, 0.015) inset;
+    0 10px 24px rgba(0, 0, 0, 0.08),
+    0 0 0 1px rgba(255, 255, 255, 0.012) inset;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   text-align: center;
   overflow: hidden;
@@ -501,12 +503,13 @@ nav a:hover::after {
   justify-content: center;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   border-radius: 18px;
   overflow: hidden;
   margin: 0 auto 16px;
-  padding: 6px;
-  background: rgba(2, 5, 12, 0.08);
-  border: 1px solid rgba(255, 170, 70, 0.28);
+  padding: 2px;
+  background: rgba(2, 5, 12, 0.04);
+  border: 1px solid rgba(255, 170, 70, 0.18);
 }
 
 .card h3 {
@@ -531,26 +534,32 @@ nav a:hover::after {
   display: block;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   height: auto !important;
+  margin: 0 auto;
   object-fit: contain;
   object-position: center center !important;
   background: transparent;
   padding: 0;
-  margin: 0 auto;
   border: none;
   box-shadow: none;
+  transform: translateX(0) !important;
 }
 
 .featured-card .map-image {
+  display: block;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   height: auto !important;
+  margin: 0 auto;
 }
 
 .content > .map-image {
   display: block;
   width: 100%;
   max-width: 100%;
+  min-width: 0;
   height: auto !important;
   object-fit: contain;
   object-position: center center !important;
@@ -558,8 +567,9 @@ nav a:hover::after {
   padding: 0;
   border-radius: 18px;
   margin: 0 auto 24px;
-  border: 1px solid rgba(255, 170, 70, 0.22);
-  box-shadow: 0 0 18px rgba(255, 120, 30, 0.06);
+  border: 1px solid rgba(255, 170, 70, 0.14);
+  box-shadow: 0 0 18px rgba(255, 120, 30, 0.04);
+  transform: translateX(0) !important;
 }
 
 /* buttons */
@@ -750,9 +760,12 @@ footer {
   }
 
   .grid {
+    width: 100%;
+    max-width: 100%;
     grid-template-columns: 1fr;
     gap: 18px;
-    padding: 10px 12px 42px;
+    padding: 10px 10px 42px;
+    margin: 0 auto;
   }
 
   .single-featured {
@@ -760,9 +773,12 @@ footer {
   }
 
   .card {
-    padding: 12px;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    padding: 10px;
     border-radius: 18px;
-    background: linear-gradient(180deg, rgba(18, 27, 42, 0.20), rgba(10, 16, 28, 0.12));
+    background: linear-gradient(180deg, rgba(18, 27, 42, 0.18), rgba(10, 16, 28, 0.10));
   }
 
   .card h3 {
@@ -776,32 +792,41 @@ footer {
   .card > a:first-child {
     width: 100%;
     max-width: 100%;
-    margin: 0 auto 14px;
-    padding: 4px;
+    min-width: 0;
+    margin: 0 auto 12px;
+    padding: 2px;
     border-radius: 16px;
   }
 
   .map-image {
+    display: block;
     width: 100%;
     max-width: 100%;
+    min-width: 0;
     height: auto !important;
+    margin: 0 auto;
     object-fit: contain;
     object-position: center center !important;
+    transform: translateX(0) !important;
   }
 
   .featured-card .map-image {
     width: 100%;
     max-width: 100%;
+    min-width: 0;
     height: auto !important;
+    margin: 0 auto;
   }
 
   .content > .map-image {
     width: 100%;
     max-width: 100%;
+    min-width: 0;
     height: auto !important;
     object-fit: contain;
     object-position: center center !important;
     border-radius: 16px;
+    margin: 0 auto 20px;
   }
 
   .top-buttons {
