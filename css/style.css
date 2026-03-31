@@ -335,9 +335,9 @@ body::after {
 
 /* glass */
 .glass {
-  backdrop-filter: blur(10px);
-  background: rgba(8, 12, 20, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(8px);
+  background: rgba(8, 12, 20, 0.04);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
 /* header */
@@ -475,26 +475,26 @@ nav a:hover::after {
   width: 100%;
   max-width: 100%;
   min-width: 0;
-  background: linear-gradient(180deg, rgba(18, 27, 42, 0.12), rgba(10, 16, 28, 0.06));
-  border: 1px solid rgba(255, 170, 70, 0.12);
+  background: linear-gradient(180deg, rgba(18, 27, 42, 0.07), rgba(10, 16, 28, 0.025));
+  border: 1px solid rgba(255, 170, 70, 0.10);
   border-radius: 22px;
   padding: 12px;
   box-sizing: border-box;
   box-shadow:
-    0 10px 24px rgba(0, 0, 0, 0.06),
-    0 0 0 1px rgba(255, 255, 255, 0.010) inset;
+    0 8px 18px rgba(0, 0, 0, 0.04),
+    0 0 0 1px rgba(255, 255, 255, 0.008) inset;
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
   text-align: center;
   overflow: hidden;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(8px);
 }
 
 .card:hover {
-  transform: translateY(-8px) scale(1.015);
+  transform: translateY(-6px) scale(1.01);
   box-shadow:
-    0 18px 38px rgba(0, 0, 0, 0.14),
-    0 0 24px rgba(255, 120, 30, 0.14);
-  border-color: rgba(255, 170, 70, 0.28);
+    0 12px 24px rgba(0, 0, 0, 0.08),
+    0 0 16px rgba(255, 120, 30, 0.08);
+  border-color: rgba(255, 170, 70, 0.18);
 }
 
 .card > a:first-child {
@@ -507,9 +507,9 @@ nav a:hover::after {
   border-radius: 18px;
   overflow: hidden;
   margin: 0 auto 10px;
-  padding: 2px;
-  background: rgba(2, 5, 12, 0.03);
-  border: 1px solid rgba(255, 170, 70, 0.14);
+  padding: 1px;
+  background: rgba(2, 5, 12, 0.015);
+  border: 1px solid rgba(255, 170, 70, 0.10);
 }
 
 .card h3 {
@@ -567,8 +567,8 @@ nav a:hover::after {
   padding: 0;
   border-radius: 18px;
   margin: 0 auto 24px;
-  border: 1px solid rgba(255, 170, 70, 0.12);
-  box-shadow: 0 0 18px rgba(255, 120, 30, 0.03);
+  border: 1px solid rgba(255, 170, 70, 0.08);
+  box-shadow: 0 0 12px rgba(255, 120, 30, 0.02);
   transform: translateX(0) !important;
 }
 
@@ -647,10 +647,10 @@ nav a:hover::after {
 .notes-box {
   margin: 0 0 24px;
   padding: 16px 18px;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: 14px;
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(6px);
 }
 
 .notes-box h3 {
@@ -695,10 +695,10 @@ nav a:hover::after {
 #steps li {
   margin: 12px 0;
   padding: 14px 16px;
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, 0.02);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(6px);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(4px);
 }
 
 #steps input {
@@ -778,7 +778,7 @@ footer {
     min-width: 0;
     padding: 8px;
     border-radius: 18px;
-    background: linear-gradient(180deg, rgba(18, 27, 42, 0.14), rgba(10, 16, 28, 0.08));
+    background: linear-gradient(180deg, rgba(18, 27, 42, 0.05), rgba(10, 16, 28, 0.015));
   }
 
   .card h3 {
@@ -798,6 +798,8 @@ footer {
     margin: 0 auto 8px;
     padding: 1px;
     border-radius: 16px;
+    background: rgba(2, 5, 12, 0.01);
+    border: 1px solid rgba(255, 170, 70, 0.08);
   }
 
   .map-image {
@@ -829,6 +831,7 @@ footer {
     object-position: center center !important;
     border-radius: 16px;
     margin: 0 auto 20px;
+    border: 1px solid rgba(255, 170, 70, 0.08);
   }
 
   .top-buttons {
