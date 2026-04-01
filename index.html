@@ -1,51 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zombies Ultimate Guide</title>
-
-  <style>
-    html {
-      background: #02060c;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background-color: #02060c;
-      background-image:
-        radial-gradient(circle at 50% 120%, rgba(255, 115, 20, 0.30) 0%, transparent 28%),
-        radial-gradient(circle at top, #08111f 0%, #03060d 55%, #000000 100%);
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-    }
-  </style>
-
-  <link rel="stylesheet" href="style.css?v=4" />
+  <meta charset="UTF-8">
+  <title>Undead Intel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
-  <canvas id="particles"></canvas>
+<body class="loaded">
 
   <div class="zombie-hand" aria-hidden="true">
-    <div class="hand-palm"></div>
-    <div class="finger finger-1"></div>
-    <div class="finger finger-2"></div>
-    <div class="finger finger-3"></div>
-    <div class="finger finger-4"></div>
-    <div class="thumb"></div>
-    <div class="blood blood-1"></div>
-    <div class="blood blood-2"></div>
-    <div class="blood blood-3"></div>
+    <span class="hand-palm"></span>
+    <span class="finger finger-1"></span>
+    <span class="finger finger-2"></span>
+    <span class="finger finger-3"></span>
+    <span class="finger finger-4"></span>
+    <span class="thumb"></span>
+    <span class="blood blood-1"></span>
+    <span class="blood blood-2"></span>
+    <span class="blood blood-3"></span>
   </div>
 
-  <header class="glass page-header">
-    <div class="header-left">
-      <h1 class="site-title"><a href="index.html">Zombies Ultimate Guide</a></h1>
-      <div class="page-subtitle">Black Ops Zombies Easter Egg Guides</div>
-    </div>
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <header class="glass">
+    <h1 class="site-title">
+      <a href="index.html">Undead Intel</a>
+    </h1>
+
+    <input
+      type="text"
+      id="search"
+      placeholder="Search guides..."
+      autocomplete="off"
+      autocorrect="off"
+      autocapitalize="off"
+      spellcheck="false"
+    >
   </header>
 
   <nav class="glass">
@@ -53,30 +43,26 @@
     <a href="maps.html">Maps</a>
   </nav>
 
-  <main>
-    <section class="hero hero-small">
-      <h2>MOST RECENT MAP</h2>
-      <p>The newest featured guide is now live.</p>
-    </section>
+  <section class="hero">
+    <h2>MOST RECENT MAP</h2>
+    <p>The newest featured guide is now live.</p>
+  </section>
 
-    <section class="grid single-featured">
-      <article class="card featured-card" data-name="Paradox Junction Easter Egg Guide">
-        <a href="maps/paradox-junction.html" aria-label="Open Paradox Junction guide">
-          <img
-            class="map-image"
-            src="images/paradox-junction-easter-egg-guide.jpg"
-            alt="Paradox Junction Easter Egg Guide"
-          />
-        </a>
-        <h3>Paradox Junction</h3>
-        <p>Easter Egg Guide</p>
-        <a href="maps/paradox-junction.html">ENTER GUIDE</a>
-      </article>
-    </section>
-  </main>
+  <section id="guideList" class="grid single-featured">
+    <div class="card featured-card" data-name="paradox junction">
+      <a href="maps/paradox-junction.html">
+        <img src="images/paradox-junction-easter-egg-guide.jpg" alt="Paradox Junction Easter Egg Guide" class="map-image">
+      </a>
+      <h3>Paradox Junction</h3>
+      <p>Easter Egg Guide</p>
+      <a href="maps/paradox-junction.html">ENTER GUIDE</a>
+    </div>
+  </section>
 
-  <footer>© 2026 Zombies Ultimate Guide</footer>
+  <footer>
+    <p>© 2026 axmpages</p>
+  </footer>
 
-  <script src="app.js?v=4" defer></script>
+  <script src="js/app.js"></script>
 </body>
 </html>
