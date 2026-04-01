@@ -19,13 +19,14 @@ body {
     radial-gradient(circle at 50% 120%, rgba(255, 115, 20, 0.30) 0%, transparent 28%),
     radial-gradient(circle at top, #08111f 0%, #03060d 55%, #000000 100%);
   min-height: 100vh;
+  opacity: 0;
+  transition: opacity 0.25s ease;
 }
 
 body.loaded {
   opacity: 1;
 }
 
-/* stronger fire background */
 body::before {
   content: "";
   position: fixed;
@@ -74,7 +75,6 @@ body::after {
   }
 }
 
-/* particles */
 #particles {
   position: fixed;
   top: 0;
@@ -85,12 +85,13 @@ body::after {
   pointer-events: none;
 }
 
-/* hide cursor on touch devices */
 .zombie-hand {
   display: none;
+  opacity: 0;
+  transition: opacity 0.18s ease;
+  will-change: left, top, opacity, transform;
 }
 
-/* desktop cursor only */
 @media (hover: hover) and (pointer: fine) {
   body,
   a,
@@ -333,14 +334,12 @@ body::after {
   50% { height: 10px; }
 }
 
-/* glass */
 .glass {
   backdrop-filter: blur(8px);
   background: rgba(8, 12, 20, 0.04);
   border-bottom: 1px solid rgba(255, 255, 255, 0.03);
 }
 
-/* header */
 header {
   display: flex;
   justify-content: space-between;
@@ -398,7 +397,6 @@ header input::placeholder {
   color: rgba(255, 255, 255, 0.55);
 }
 
-/* nav */
 nav {
   display: flex;
   justify-content: center;
@@ -430,7 +428,6 @@ nav a:hover::after {
   width: 100%;
 }
 
-/* hero */
 .hero {
   text-align: center;
   padding: 72px 20px 38px;
@@ -455,7 +452,6 @@ nav a:hover::after {
   font-weight: 600;
 }
 
-/* layout */
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
@@ -470,7 +466,6 @@ nav a:hover::after {
   max-width: 760px;
 }
 
-/* cards */
 .card {
   width: 100%;
   max-width: 100%;
@@ -479,14 +474,29 @@ nav a:hover::after {
   border: 1px solid rgba(255, 170, 70, 0.10);
   border-radius: 22px;
   padding: 12px;
-  box-sizing: border-box;
   box-shadow:
     0 8px 18px rgba(0, 0, 0, 0.04),
     0 0 0 1px rgba(255, 255, 255, 0.008) inset;
-  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease,
+    box-shadow 0.25s ease,
+    border-color 0.25s ease;
   text-align: center;
   overflow: hidden;
   backdrop-filter: blur(8px);
+  will-change: opacity, transform;
+}
+
+.card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card.is-hidden {
+  opacity: 0;
+  transform: translateY(10px);
+  pointer-events: none;
 }
 
 .card:hover {
@@ -572,7 +582,6 @@ nav a:hover::after {
   transform: translateX(0) !important;
 }
 
-/* buttons */
 .card a,
 .back-link {
   display: inline-flex;
@@ -613,13 +622,6 @@ nav a:hover::after {
   font-size: 1.12rem;
 }
 
-.top-buttons {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-/* content */
 .content {
   max-width: 1000px;
   margin: 0 auto;
@@ -666,14 +668,13 @@ nav a:hover::after {
   margin: 8px 0;
 }
 
-/* progress */
 #progress-container {
   width: 100%;
   height: 18px;
   background: rgba(255, 255, 255, 0.08);
   border-radius: 999px;
   overflow: hidden;
-  margin: 18px 0 24px;
+  margin: 18px 0 10px;
   border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
@@ -685,7 +686,12 @@ nav a:hover::after {
   transition: width 0.25s ease;
 }
 
-/* steps */
+#progress-text {
+  margin-bottom: 20px;
+  color: rgba(255, 255, 255, 0.88);
+  font-weight: 700;
+}
+
 #steps {
   list-style: none;
   padding: 0;
@@ -701,13 +707,22 @@ nav a:hover::after {
   backdrop-filter: blur(4px);
 }
 
+.step-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+#steps label {
+  flex: 1;
+}
+
 #steps input {
   accent-color: #ff8a2a;
   transform: scale(1.15);
-  margin-right: 10px;
+  margin-top: 4px;
 }
 
-/* footer */
 footer {
   text-align: center;
   padding: 18px 20px 26px;
@@ -832,9 +847,5 @@ footer {
     border-radius: 16px;
     margin: 0 auto 20px;
     border: 1px solid rgba(255, 170, 70, 0.08);
-  }
-
-  .top-buttons {
-    justify-content: flex-start;
   }
 }
