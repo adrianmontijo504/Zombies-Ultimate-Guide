@@ -2,14 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Ashes of the Damned - Undead Intel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Ashes of the Damned Easter Egg guide and tracker on Undead Intel.">
+  <meta name="theme-color" content="#000000">
+  <title>Ashes of the Damned - Undead Intel</title>
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/app.js" defer></script>
 </head>
-<body class="loaded">
-
+<body>
   <div class="zombie-hand" aria-hidden="true"></div>
-
   <canvas id="particles" aria-hidden="true"></canvas>
 
   <header class="glass page-header">
@@ -26,51 +27,83 @@
     </div>
   </header>
 
-  <section class="content">
-    <img src="../images/ashes-of-the-damned-easter-egg-guide.jpg" alt="Ashes of the Damned Easter Egg Guide" class="map-image">
+  <main>
+    <section class="content">
+      <img
+        src="../images/ashes-of-the-damned-easter-egg-guide.jpg"
+        alt="Ashes of the Damned Easter Egg Guide"
+        class="map-image"
+      >
 
-    <h2>🧪 Easter Egg Tracker</h2>
+      <h2>🧪 Easter Egg Tracker</h2>
 
-    <div id="progress-container">
-      <div id="progress-bar"></div>
-    </div>
+      <div id="progress-container" aria-label="Progress tracker">
+        <div id="progress-bar" aria-hidden="true"></div>
+      </div>
 
-    <ul id="steps">
-      <li><label><input type="checkbox"> Turn on power.</label></li>
-      <li><label><input type="checkbox"> Open the lower crypt.</label></li>
-      <li><label><input type="checkbox"> Collect skull fragments.</label></li>
-      <li><label><input type="checkbox"> Build the cursed key.</label></li>
-      <li><label><input type="checkbox"> Activate the fire pillars.</label></li>
-      <li><label><input type="checkbox"> Enter the final encounter.</label></li>
-    </ul>
+      <ul id="steps" aria-label="Ashes of the Damned Easter Egg steps">
+        <li><label><input type="checkbox"> Turn on power.</label></li>
+        <li><label><input type="checkbox"> Open the lower crypt.</label></li>
+        <li><label><input type="checkbox"> Collect skull fragments.</label></li>
+        <li><label><input type="checkbox"> Build the cursed key.</label></li>
+        <li><label><input type="checkbox"> Activate the fire pillars.</label></li>
+        <li><label><input type="checkbox"> Enter the final encounter.</label></li>
+      </ul>
 
-    <h2>🔫 Notes</h2>
-    <p>Add your full Ashes of the Damned guide steps here later.</p>
-  </section>
+      <div class="notes-box">
+        <h3>🔫 Notes</h3>
+        <p>Add your full Ashes of the Damned guide steps here later.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2026 axmpages</p>
+  </footer>
 
   <script>
-    const pageKey = "ashes_of_the_damned_";
-    const checkboxes = document.querySelectorAll("#steps input");
+    document.addEventListener("DOMContentLoaded", () => {
+      const pageKey = "ashes_of_the_damned_";
+      const progressBar = document.getElementById("progress-bar");
+      const checkboxes = document.querySelectorAll("#steps input[type='checkbox']");
 
-    function updateProgress() {
-      const total = checkboxes.length;
-      const done = [...checkboxes].filter((checkbox) => checkbox.checked).length;
-      document.getElementById("progress-bar").style.width = ((done / total) * 100) + "%";
-    }
+      if (!progressBar || checkboxes.length === 0) return;
 
-    checkboxes.forEach((box, index) => {
-      const saved = localStorage.getItem(pageKey + index);
-      if (saved === "true") box.checked = true;
+      function getSavedValue(key) {
+        try {
+          return localStorage.getItem(key);
+        } catch (error) {
+          return null;
+        }
+      }
 
-      box.addEventListener("change", () => {
-        localStorage.setItem(pageKey + index, box.checked);
-        updateProgress();
+      function setSavedValue(key, value) {
+        try {
+          localStorage.setItem(key, value);
+        } catch (error) {
+          /* localStorage unavailable */
+        }
+      }
+
+      function updateProgress() {
+        const total = checkboxes.length;
+        const done = Array.from(checkboxes).filter((checkbox) => checkbox.checked).length;
+        const percent = total > 0 ? (done / total) * 100 : 0;
+        progressBar.style.width = `${percent}%`;
+      }
+
+      checkboxes.forEach((box, index) => {
+        const saved = getSavedValue(pageKey + index);
+        box.checked = saved === "true";
+
+        box.addEventListener("change", () => {
+          setSavedValue(pageKey + index, String(box.checked));
+          updateProgress();
+        });
       });
+
+      updateProgress();
     });
-
-    updateProgress();
   </script>
-
-  <script src="../js/app.js"></script>
 </body>
 </html>
