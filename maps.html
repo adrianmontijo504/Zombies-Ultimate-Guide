@@ -1,41 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Maps - Undead Intel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css" />
 </head>
-<body class="loaded">
+<body>
+  <canvas id="particles"></canvas>
 
   <div class="zombie-hand" aria-hidden="true">
-    <span class="hand-palm"></span>
-    <span class="finger finger-1"></span>
-    <span class="finger finger-2"></span>
-    <span class="finger finger-3"></span>
-    <span class="finger finger-4"></span>
-    <span class="thumb"></span>
-    <span class="blood blood-1"></span>
-    <span class="blood blood-2"></span>
-    <span class="blood blood-3"></span>
+    <div class="hand-palm"></div>
+    <div class="finger finger-1"></div>
+    <div class="finger finger-2"></div>
+    <div class="finger finger-3"></div>
+    <div class="finger finger-4"></div>
+    <div class="thumb"></div>
+    <div class="blood blood-1"></div>
+    <div class="blood blood-2"></div>
+    <div class="blood blood-3"></div>
   </div>
 
-  <canvas id="particles" aria-hidden="true"></canvas>
-
-  <header class="glass">
-    <h1 class="site-title">
-      <a href="index.html">Undead Intel</a>
-    </h1>
+  <header class="glass page-header">
+    <div class="header-left">
+      <h1 class="site-title"><a href="index.html">Undead Intel</a></h1>
+      <div class="page-subtitle">All Zombies Maps</div>
+    </div>
 
     <input
-      type="text"
       id="search"
+      type="text"
       placeholder="Search maps..."
-      autocomplete="off"
-      autocorrect="off"
-      autocapitalize="off"
-      spellcheck="false"
-    >
+      aria-label="Search maps"
+    />
   </header>
 
   <nav class="glass">
@@ -43,44 +40,56 @@
     <a href="maps.html">Maps</a>
   </nav>
 
-  <section class="hero hero-small">
-    <h2>ALL ZOMBIES MAPS</h2>
-    <p>Select a map below to open its full guide.</p>
-  </section>
+  <main>
+    <section class="hero hero-small">
+      <h2>ALL ZOMBIES MAPS</h2>
+      <p>Select a map below to open its full guide.</p>
+    </section>
 
-  <section id="guideList" class="grid">
-    <div class="card" data-name="astra malorum">
-      <a href="maps/astra-malorum.html">
-        <img src="images/astra-malorum-easter-egg-guide.jpg" alt="Astra Malorum Easter Egg Guide" class="map-image">
-      </a>
-      <h3>Astra Malorum</h3>
-      <p>Easter Egg Guide</p>
-      <a href="maps/astra-malorum.html">OPEN GUIDE</a>
-    </div>
+    <section class="grid">
+      <article class="card" data-name="Astra Malorum Easter Egg Guide">
+        <a href="maps/astra-malorum.html" aria-label="Open Astra Malorum guide">
+          <img
+            class="map-image"
+            src="images/astra-malorum-easter-egg-guide.jpg"
+            alt="Astra Malorum Easter Egg Guide"
+          />
+        </a>
+        <h3>Astra Malorum</h3>
+        <p>Easter Egg Guide</p>
+        <a href="maps/astra-malorum.html">OPEN GUIDE</a>
+      </article>
 
-    <div class="card" data-name="ashes of the damned">
-      <a href="maps/ashes-of-the-damned.html">
-        <img src="images/ashes-of-the-damned-easter-egg-guide.jpg" alt="Ashes of the Damned Easter Egg Guide" class="map-image">
-      </a>
-      <h3>Ashes of the Damned</h3>
-      <p>Easter Egg Guide</p>
-      <a href="maps/ashes-of-the-damned.html">OPEN GUIDE</a>
-    </div>
+      <article class="card" data-name="Ashes of the Damned Easter Egg Guide">
+        <a href="maps/ashes-of-the-damned.html" aria-label="Open Ashes of the Damned guide">
+          <img
+            class="map-image"
+            src="images/ashes-of-the-damned-easter-egg-guide.jpg"
+            alt="Ashes of the Damned Easter Egg Guide"
+          />
+        </a>
+        <h3>Ashes of the Damned</h3>
+        <p>Easter Egg Guide</p>
+        <a href="maps/ashes-of-the-damned.html">OPEN GUIDE</a>
+      </article>
 
-    <div class="card" data-name="paradox junction">
-      <a href="maps/paradox-junction.html">
-        <img src="images/paradox-junction-easter-egg-guide.jpg" alt="Paradox Junction Easter Egg Guide" class="map-image">
-      </a>
-      <h3>Paradox Junction</h3>
-      <p>Easter Egg Guide</p>
-      <a href="maps/paradox-junction.html">OPEN GUIDE</a>
-    </div>
-  </section>
+      <article class="card" data-name="Paradox Junction Easter Egg Guide">
+        <a href="maps/paradox-junction.html" aria-label="Open Paradox Junction guide">
+          <img
+            class="map-image"
+            src="images/paradox-junction-easter-egg-guide.jpg"
+            alt="Paradox Junction Easter Egg Guide"
+          />
+        </a>
+        <h3>Paradox Junction</h3>
+        <p>Easter Egg Guide</p>
+        <a href="maps/paradox-junction.html">OPEN GUIDE</a>
+      </article>
+    </section>
+  </main>
 
-  <footer>
-    <p>© 2026 axmpages</p>
-  </footer>
+  <footer>© 2026 axmpages</footer>
 
-  <script src="js/app.js"></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
