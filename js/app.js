@@ -12,13 +12,14 @@ if (searchInput) {
   });
 }
 
-document.addEventListener("mousemove", (e) => {
-  const hand = document.querySelector(".zombie-hand");
-  if (hand) {
+const hand = document.querySelector(".zombie-hand");
+
+if (hand) {
+  document.addEventListener("mousemove", (e) => {
     hand.style.left = `${e.clientX}px`;
     hand.style.top = `${e.clientY}px`;
-  }
-});
+  });
+}
 
 const canvas = document.getElementById("particles");
 
