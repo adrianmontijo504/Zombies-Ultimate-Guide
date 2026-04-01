@@ -2,25 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Undead Intel</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Undead Intel - zombie map guides, Easter egg walkthroughs, and survival help.">
+  <meta name="theme-color" content="#000000">
+  <title>Undead Intel</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/app.js" defer></script>
 </head>
-<body class="loaded">
-
+<body>
   <div class="zombie-hand" aria-hidden="true"></div>
-
   <canvas id="particles" aria-hidden="true"></canvas>
 
-  <header class="glass">
-    <h1 class="site-title">
-      <a href="index.html">Undead Intel</a>
-    </h1>
+  <header class="glass page-header">
+    <div class="header-left">
+      <h1 class="site-title">
+        <a href="index.html">Undead Intel</a>
+      </h1>
+    </div>
 
     <input
-      type="text"
+      type="search"
       id="search"
+      name="search"
       placeholder="Search guides..."
+      aria-label="Search guides"
       autocomplete="off"
       autocorrect="off"
       autocapitalize="off"
@@ -28,31 +33,37 @@
     >
   </header>
 
-  <nav class="glass">
+  <nav class="glass" aria-label="Main navigation">
     <a href="index.html">Home</a>
     <a href="maps.html">Maps</a>
   </nav>
 
-  <section class="hero">
-    <h2>MOST RECENT MAP</h2>
-    <p>The newest featured guide is now live.</p>
-  </section>
+  <main>
+    <section class="hero">
+      <h2>MOST RECENT MAP</h2>
+      <p>The newest featured guide is now live.</p>
+    </section>
 
-  <section id="guideList" class="grid single-featured">
-    <div class="card featured-card" data-name="paradox junction">
-      <a href="maps/paradox-junction.html">
-        <img src="images/paradox-junction-easter-egg-guide.jpg" alt="Paradox Junction Easter Egg Guide" class="map-image">
-      </a>
-      <h3>Paradox Junction</h3>
-      <p>Easter Egg Guide</p>
-      <a href="maps/paradox-junction.html">ENTER GUIDE</a>
-    </div>
-  </section>
+    <section id="guideList" class="grid single-featured" aria-label="Featured guides">
+      <article class="card featured-card" data-name="paradox junction easter egg guide">
+        <a href="maps/paradox-junction.html" aria-label="Open Paradox Junction Easter Egg Guide">
+          <img
+            src="images/paradox-junction-easter-egg-guide.jpg"
+            alt="Paradox Junction Easter Egg Guide"
+            class="map-image"
+          >
+        </a>
+
+        <h3>Paradox Junction</h3>
+        <p>Easter Egg Guide</p>
+
+        <a href="maps/paradox-junction.html">ENTER GUIDE</a>
+      </article>
+    </section>
+  </main>
 
   <footer>
     <p>© 2026 axmpages</p>
   </footer>
-
-  <script src="js/app.js"></script>
 </body>
 </html>
