@@ -1,86 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ashes of the Damned - Undead Intel</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../style.css" />
 </head>
-<body class="loaded">
+<body>
+  <canvas id="particles"></canvas>
 
   <div class="zombie-hand" aria-hidden="true">
-    <span class="hand-palm"></span>
-    <span class="finger finger-1"></span>
-    <span class="finger finger-2"></span>
-    <span class="finger finger-3"></span>
-    <span class="finger finger-4"></span>
-    <span class="thumb"></span>
-    <span class="blood blood-1"></span>
-    <span class="blood blood-2"></span>
-    <span class="blood blood-3"></span>
+    <div class="hand-palm"></div>
+    <div class="finger finger-1"></div>
+    <div class="finger finger-2"></div>
+    <div class="finger finger-3"></div>
+    <div class="finger finger-4"></div>
+    <div class="thumb"></div>
+    <div class="blood blood-1"></div>
+    <div class="blood blood-2"></div>
+    <div class="blood blood-3"></div>
   </div>
-
-  <canvas id="particles" aria-hidden="true"></canvas>
 
   <header class="glass page-header">
     <div class="header-left">
-      <h1 class="site-title">
-        <a href="../index.html">Undead Intel</a>
-      </h1>
+      <h1 class="site-title"><a href="../index.html">Undead Intel</a></h1>
       <div class="page-subtitle">Ashes of the Damned</div>
-    </div>
-
-    <div class="top-buttons">
-      <a class="back-link" href="../index.html">Home</a>
-      <a class="back-link" href="../maps.html">Back to Maps</a>
     </div>
   </header>
 
-  <section class="content">
-    <img src="../images/ashes-of-the-damned-easter-egg-guide.jpg" alt="Ashes of the Damned Easter Egg Guide" class="map-image">
+  <nav class="glass">
+    <a href="../index.html">Home</a>
+    <a href="../maps.html">Back to Maps</a>
+  </nav>
 
-    <h2>🧪 Easter Egg Tracker</h2>
+  <main class="content">
+    <img
+      class="map-image"
+      src="../images/ashes-of-the-damned-easter-egg-guide.jpg"
+      alt="Ashes of the Damned Easter Egg Guide"
+    />
 
-    <div id="progress-container">
+    <h2>Ashes of the Damned Easter Egg Tracker</h2>
+
+    <div id="progress-container" aria-hidden="true">
       <div id="progress-bar"></div>
     </div>
+    <div id="progress-text">0 / 6 complete</div>
 
     <ul id="steps">
-      <li><label><input type="checkbox"> Turn on power.</label></li>
-      <li><label><input type="checkbox"> Open the lower crypt.</label></li>
-      <li><label><input type="checkbox"> Collect skull fragments.</label></li>
-      <li><label><input type="checkbox"> Build the cursed key.</label></li>
-      <li><label><input type="checkbox"> Activate the fire pillars.</label></li>
-      <li><label><input type="checkbox"> Enter the final encounter.</label></li>
+      <li><div class="step-row"><input type="checkbox" id="step-1" /><label for="step-1">Turn on power.</label></div></li>
+      <li><div class="step-row"><input type="checkbox" id="step-2" /><label for="step-2">Open the lower crypt.</label></div></li>
+      <li><div class="step-row"><input type="checkbox" id="step-3" /><label for="step-3">Collect skull fragments.</label></div></li>
+      <li><div class="step-row"><input type="checkbox" id="step-4" /><label for="step-4">Build the cursed key.</label></div></li>
+      <li><div class="step-row"><input type="checkbox" id="step-5" /><label for="step-5">Activate the fire pillars.</label></div></li>
+      <li><div class="step-row"><input type="checkbox" id="step-6" /><label for="step-6">Enter the final encounter.</label></div></li>
     </ul>
 
-    <h2>🔫 Notes</h2>
-    <p>Add your full Ashes of the Damned guide steps here later.</p>
-  </section>
+    <div class="notes-box">
+      <h3>Notes</h3>
+      <ul>
+        <li>Replace these placeholder steps with your full Ashes of the Damned guide whenever you want.</li>
+        <li>The progress bar saves automatically in the browser.</li>
+      </ul>
+    </div>
+  </main>
 
-  <script>
-    const pageKey = "ashes_of_the_damned_";
-    const checkboxes = document.querySelectorAll("#steps input");
+  <footer>© 2026 axmpages</footer>
 
-    function updateProgress() {
-      const total = checkboxes.length;
-      const done = [...checkboxes].filter((checkbox) => checkbox.checked).length;
-      document.getElementById("progress-bar").style.width = ((done / total) * 100) + "%";
-    }
-
-    checkboxes.forEach((box, index) => {
-      const saved = localStorage.getItem(pageKey + index);
-      if (saved === "true") box.checked = true;
-
-      box.addEventListener("change", () => {
-        localStorage.setItem(pageKey + index, box.checked);
-        updateProgress();
-      });
-    });
-
-    updateProgress();
-  </script>
-
-  <script src="../js/app.js"></script>
+  <script src="../app.js" defer></script>
 </body>
 </html>
