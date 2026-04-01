@@ -3,9 +3,6 @@
 
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  /* =========================
-     SEARCH
-  ========================= */
   const searchInput = document.getElementById("search");
   const cards = Array.from(document.querySelectorAll(".card"));
   const fadeDuration = 220;
@@ -66,9 +63,6 @@
     filterCards();
   }
 
-  /* =========================
-     CHECKLIST PROGRESS
-  ========================= */
   const stepsContainer = document.getElementById("steps");
   const progressBar = document.getElementById("progress-bar");
   const progressText = document.getElementById("progress-text");
@@ -128,9 +122,6 @@
     });
   }
 
-  /* =========================
-     ZOMBIE HAND
-  ========================= */
   const hand = document.querySelector(".zombie-hand");
   const canUseCustomCursor =
     hand &&
@@ -183,9 +174,6 @@
     animateHand();
   }
 
-  /* =========================
-     PARTICLES
-  ========================= */
   const canvas = document.getElementById("particles");
 
   if (canvas && !reduceMotion) {
