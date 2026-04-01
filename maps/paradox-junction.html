@@ -1,66 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paradox Junction - Zombies Ultimate Guide</title>
-
-  <style>
-    html {
-      background: #02060c;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background-color: #02060c;
-      background-image:
-        radial-gradient(circle at 50% 120%, rgba(255, 115, 20, 0.30) 0%, transparent 28%),
-        radial-gradient(circle at top, #08111f 0%, #03060d 55%, #000000 100%);
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-    }
-  </style>
-
-  <link rel="stylesheet" href="../style.css?v=4" />
+  <meta charset="UTF-8">
+  <title>Paradox Junction - Undead Intel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-  <canvas id="particles"></canvas>
+<body class="loaded">
 
   <div class="zombie-hand" aria-hidden="true">
-    <div class="hand-palm"></div>
-    <div class="finger finger-1"></div>
-    <div class="finger finger-2"></div>
-    <div class="finger finger-3"></div>
-    <div class="finger finger-4"></div>
-    <div class="thumb"></div>
-    <div class="blood blood-1"></div>
-    <div class="blood blood-2"></div>
-    <div class="blood blood-3"></div>
+    <span class="hand-palm"></span>
+    <span class="finger finger-1"></span>
+    <span class="finger finger-2"></span>
+    <span class="finger finger-3"></span>
+    <span class="finger finger-4"></span>
+    <span class="thumb"></span>
+    <span class="blood blood-1"></span>
+    <span class="blood blood-2"></span>
+    <span class="blood blood-3"></span>
   </div>
+
+  <canvas id="particles" aria-hidden="true"></canvas>
 
   <header class="glass page-header">
     <div class="header-left">
-      <h1 class="site-title"><a href="../index.html">Zombies Ultimate Guide</a></h1>
+      <h1 class="site-title">
+        <a href="../index.html">Undead Intel</a>
+      </h1>
       <div class="page-subtitle">Paradox Junction</div>
+    </div>
+
+    <div class="top-buttons">
+      <a class="back-link" href="../index.html">Home</a>
+      <a class="back-link" href="../maps.html">Back to Maps</a>
     </div>
   </header>
 
-  <nav class="glass">
-    <a href="../index.html">Home</a>
-    <a href="../maps.html">Back to Maps</a>
-  </nav>
+  <section class="content">
+    <img src="../images/paradox-junction-easter-egg-guide.jpg" alt="Paradox Junction Easter Egg Guide" class="map-image">
 
-  <main class="content">
-    <img
-      class="map-image"
-      src="../images/paradox-junction-easter-egg-guide.jpg"
-      alt="Paradox Junction Easter Egg Guide"
-    />
-
-    <h2>Paradox Junction Easter Egg Tracker</h2>
+    <h2>🧪 Paradox Junction Easter Egg Tracker</h2>
 
     <div class="notes-box">
       <h3>Quick Notes</h3>
@@ -68,80 +47,122 @@
         <li>Explosive = Ray Gun / Semtex.</li>
         <li>N.E. = Need explosive.</li>
         <li>Clear dog round no later than round 5.</li>
+        <li>These steps were cleaned up from your handwritten notes.</li>
       </ul>
     </div>
 
-    <div id="progress-container" aria-hidden="true">
+    <div id="progress-container">
       <div id="progress-bar"></div>
     </div>
-    <div id="progress-text">0 / 60 complete</div>
 
     <ul id="steps">
-      <li><div class="step-row"><input type="checkbox" id="step-1" /><label for="step-1">Step 1 — Present: Find cyst with humming sound.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-2" /><label for="step-2">Step 2 — Present: Grab keys from back of yellow garage.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-3" /><label for="step-3">Step 3 — Present: Go upstairs in yellow house and grab the vial.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-4" /><label for="step-4">Step 4 — Present: Interact with sink in green house and fill vial with acid.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-5" /><label for="step-5">Step 5 — Present: Find mannequin with humming sound and take note of it.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-6" /><label for="step-6">Step 6 — Present: Clear dog round no later than round 5.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-7" /><label for="step-7">Step 7 — Present: Find humming wall location inside yellow garage, top stairs in green house, or by perk box.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-8" /><label for="step-8">Step 8 — Past: Move truck with keys.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-9" /><label for="step-9">Step 9 — Past: Shoot riffs to get Pack-A-Punch.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-10" /><label for="step-10">Step 10 — Past: Go to top of yellow house and interact with cabinet to get sealant.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-11" /><label for="step-11">Step 11 — Past: Shoot swing seat in back of yellow house and pick up seat.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-12" /><label for="step-12">Step 12 — Past: Put acid on mannequin head.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-13" /><label for="step-13">Step 13 — Past: Throw explosive at humming wall.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-14" /><label for="step-14">Step 14 — Present: Find mannequin and pick up part.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-15" /><label for="step-15">Step 15 — Present: Build crafting table in middle truck to get Blundergat.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-16" /><label for="step-16">Step 16 — Present: Place swing seat back on swing in back of yellow house.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-17" /><label for="step-17">Step 17 — Present: Find RC controller at back of map right of brown box, yellow garage bottom shelf, or green backyard behind fence.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-18" /><label for="step-18">Step 18 — Present: Jump ramp over fence if needed and explode barrel.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-19" /><label for="step-19">Step 19 — Present: Go to open garage by Pack-A-Punch, pick up head on safe, then pick up chalk.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-20" /><label for="step-20">Step 20 — Present: Kill fire tornado zombies with Blundergat, one each round, and kill connected zombies.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-21" /><label for="step-21">Step 21 — Present: Bring zombie to crafting table and do not let zombies connect. Total is 3 zombies.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-22" /><label for="step-22">Step 22 — Present: Check spawns at yellow backyard, green backyard, and by perk machine. Last one is mimic.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-23" /><label for="step-23">Step 23 — Past: Use crafting table melee and place Blundergat.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-24" /><label for="step-24">Step 24 — Present: Get upgraded Blundergat (Sundergat).</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-25" /><label for="step-25">Step 25 — Present: Go to swing in back of yellow house and place chalk.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-26" /><label for="step-26">Step 26 — Present: Go green left of Pack-A-Punch and hit with explosive.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-27" /><label for="step-27">Step 27 — Present: Goggles will drop. Make the wisp appear and retrieve them by killing zombies.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-28" /><label for="step-28">Step 28 — Present: Find headset at corner of fence by gum, upstairs green house in dark, or back yellow right corner by perk.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-29" /><label for="step-29">Step 29 — Past: Open toy box and place items.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-30" /><label for="step-30">Step 30 — Present: Pick up seeds in red box in yellow garage. Need tomahawk.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-31" /><label for="step-31">Step 31 — Past: Place seeds by Pack-A-Punch and kill with Sundergat until white screen.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-32" /><label for="step-32">Step 32 — Present: Use tomahawk to get 3 pieces of wood from tree by Pack-A-Punch.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-33" /><label for="step-33">Step 33 — Past: Place wood in chimney of yellow house. Need Molotov.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-34" /><label for="step-34">Step 34 — Past: Throw Molotov at firewood to start fire in chimney.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-35" /><label for="step-35">Step 35 — Present: Fire should be green. Step on X to start hopscotch. Glow should be blue.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-36" /><label for="step-36">Step 36 — Past: Pass hopscotch.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-37" /><label for="step-37">Step 37 — Past: Get kills with Sundergat to move music box to fireplace.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-38" /><label for="step-38">Step 38 — Past: Find ball and shoot it with Sundergat around backyard / top of yellow house rooftop area.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-39" /><label for="step-39">Step 39 — Past: Shoot ball to backyard of green house, then to X truck, then on top of crates by perk machine.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-40" /><label for="step-40">Step 40 — Past: Pass 4-square and move ball with melee to a different square.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-41" /><label for="step-41">Step 41 — Past: Get kills with Sundergat to move music box to toy box.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-42" /><label for="step-42">Step 42 — Present: Go to backyard of green house and find piano trinket. Need psychic grenade.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-43" /><label for="step-43">Step 43 — Present: Run to piano in green house if it gets hit.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-44" /><label for="step-44">Step 44 — Past: Instantly teleport to see zombie at piano in green house. It needs to explode.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-45" /><label for="step-45">Step 45 — Past: Piano should glow yellow.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-46" /><label for="step-46">Step 46 — Present: Collect 8 symbols based on flashes from 1 to 8.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-47" /><label for="step-47">Step 47 — Past: Interact with piano using 86756535.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-48" /><label for="step-48">Step 48 — Present: Find floating zombies outside perimeter and shoot 3. They should appear at X by truck.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-49" /><label for="step-49">Step 49 — Past: Pass Jax. Kill zombies in air before ball touches ground. Do not shoot the ball.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-50" /><label for="step-50">Step 50 — Past: Get kills with Sundergat to move music box.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-51" /><label for="step-51">Step 51 — Past: Set clock to 9:00 with red and white hand at 9. Shoot red hand right before teleporting.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-52" /><label for="step-52">Step 52 — Past: Orbs spawn in sky. Go to 3 locations with twins.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-53" /><label for="step-53">Step 53 — Past: Be ready for boss.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-54" /><label for="step-54">Step 54 — Boss: Go to each area and shoot zombies for cysts.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-55" /><label for="step-55">Step 55 — Boss: Defend each field in each area.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-56" /><label for="step-56">Step 56 — Boss: Fight boss and shoot bright spots.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-57" /><label for="step-57">Step 57 — Boss: Repeat Pack-A-Punch phase and kill zombies from orbs.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-58" /><label for="step-58">Step 58 — Boss: Final phase. Bring tortured zombie to black mass, then kill fire tornado zombie.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-59" /><label for="step-59">Step 59 — Boss: Keep repeating the cycle.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-60" /><label for="step-60">Step 60 — Boss: Charge and repeat. Hit glowing spots.</label></div></li>
+      <li><label><input type="checkbox"> Step 1 — Present: Find cyst with humming sound.</label></li>
+      <li><label><input type="checkbox"> Step 2 — Present: Grab keys from back of yellow garage.</label></li>
+      <li><label><input type="checkbox"> Step 3 — Present: Go upstairs in yellow house and grab the vial.</label></li>
+      <li><label><input type="checkbox"> Step 4 — Present: Interact with sink in green house and fill vial with acid.</label></li>
+      <li><label><input type="checkbox"> Step 5 — Present: Find mannequin with humming sound and take note of it.</label></li>
+      <li><label><input type="checkbox"> Step 6 — Present: Clear dog round no later than round 5.</label></li>
+      <li><label><input type="checkbox"> Step 7 — Present: Find humming wall location inside yellow garage, top stairs in green house, or by perk box.</label></li>
+
+      <li><label><input type="checkbox"> Step 8 — Past: Move truck with keys.</label></li>
+      <li><label><input type="checkbox"> Step 9 — Past: Shoot riffs to get Pack-A-Punch.</label></li>
+      <li><label><input type="checkbox"> Step 10 — Past: Go to top of yellow house and interact with cabinet to get sealant.</label></li>
+      <li><label><input type="checkbox"> Step 11 — Past: Shoot swing seat in back of yellow house and pick up seat.</label></li>
+      <li><label><input type="checkbox"> Step 12 — Past: Put acid on mannequin head.</label></li>
+      <li><label><input type="checkbox"> Step 13 — Past: Throw explosive at humming wall.</label></li>
+
+      <li><label><input type="checkbox"> Step 14 — Present: Find mannequin and pick up part.</label></li>
+      <li><label><input type="checkbox"> Step 15 — Present: Build crafting table in middle truck to get Blundergat.</label></li>
+      <li><label><input type="checkbox"> Step 16 — Present: Place swing seat back on swing in back of yellow house.</label></li>
+      <li><label><input type="checkbox"> Step 17 — Present: Find RC controller at back of map right of brown box, yellow garage bottom shelf, or green backyard behind fence.</label></li>
+      <li><label><input type="checkbox"> Step 18 — Present: Jump ramp over fence if needed and explode barrel.</label></li>
+      <li><label><input type="checkbox"> Step 19 — Present: Go to open garage by Pack-A-Punch, pick up head on safe, then pick up chalk.</label></li>
+      <li><label><input type="checkbox"> Step 20 — Present: Kill fire tornado zombies with Blundergat, one each round, and kill connected zombies.</label></li>
+      <li><label><input type="checkbox"> Step 21 — Present: Bring zombie to crafting table and do not let zombies connect. Total is 3 zombies.</label></li>
+      <li><label><input type="checkbox"> Step 22 — Present: Check spawns at yellow backyard, green backyard, and by perk machine. Last one is mimic.</label></li>
+
+      <li><label><input type="checkbox"> Step 23 — Past: Use crafting table melee and place Blundergat.</label></li>
+
+      <li><label><input type="checkbox"> Step 24 — Present: Get upgraded Blundergat (Sundergat).</label></li>
+      <li><label><input type="checkbox"> Step 25 — Present: Go to swing in back of yellow house and place chalk.</label></li>
+      <li><label><input type="checkbox"> Step 26 — Present: Go green left of Pack-A-Punch and hit with explosive.</label></li>
+      <li><label><input type="checkbox"> Step 27 — Present: Goggles will drop. Make the wisp appear and retrieve them by killing zombies.</label></li>
+      <li><label><input type="checkbox"> Step 28 — Present: Find headset at corner of fence by gum, upstairs green house in dark, or back yellow right corner by perk.</label></li>
+
+      <li><label><input type="checkbox"> Step 29 — Past: Open toy box and place items.</label></li>
+
+      <li><label><input type="checkbox"> Step 30 — Present: Pick up seeds in red box in yellow garage. Need tomahawk.</label></li>
+
+      <li><label><input type="checkbox"> Step 31 — Past: Place seeds by Pack-A-Punch and kill with Sundergat until white screen.</label></li>
+
+      <li><label><input type="checkbox"> Step 32 — Present: Use tomahawk to get 3 pieces of wood from tree by Pack-A-Punch.</label></li>
+
+      <li><label><input type="checkbox"> Step 33 — Past: Place wood in chimney of yellow house. Need Molotov.</label></li>
+      <li><label><input type="checkbox"> Step 34 — Past: Throw Molotov at firewood to start fire in chimney.</label></li>
+
+      <li><label><input type="checkbox"> Step 35 — Present: Fire should be green. Step on X to start hopscotch. Glow should be blue.</label></li>
+
+      <li><label><input type="checkbox"> Step 36 — Past: Pass hopscotch.</label></li>
+      <li><label><input type="checkbox"> Step 37 — Past: Get kills with Sundergat to move music box to fireplace.</label></li>
+      <li><label><input type="checkbox"> Step 38 — Past: Find ball and shoot it with Sundergat around backyard / top of yellow house rooftop area.</label></li>
+      <li><label><input type="checkbox"> Step 39 — Past: Shoot ball to backyard of green house, then to X truck, then on top of crates by perk machine.</label></li>
+      <li><label><input type="checkbox"> Step 40 — Past: Pass 4-square and move ball with melee to a different square.</label></li>
+      <li><label><input type="checkbox"> Step 41 — Past: Get kills with Sundergat to move music box to toy box.</label></li>
+
+      <li><label><input type="checkbox"> Step 42 — Present: Go to backyard of green house and find piano trinket. Need psychic grenade.</label></li>
+      <li><label><input type="checkbox"> Step 43 — Present: Run to piano in green house if it gets hit.</label></li>
+
+      <li><label><input type="checkbox"> Step 44 — Past: Instantly teleport to see zombie at piano in green house. It needs to explode.</label></li>
+      <li><label><input type="checkbox"> Step 45 — Past: Piano should glow yellow.</label></li>
+
+      <li><label><input type="checkbox"> Step 46 — Present: Collect 8 symbols based on flashes from 1 to 8.</label></li>
+
+      <li><label><input type="checkbox"> Step 47 — Past: Interact with piano using 86756535.</label></li>
+
+      <li><label><input type="checkbox"> Step 48 — Present: Find floating zombies outside perimeter and shoot 3. They should appear at X by truck.</label></li>
+
+      <li><label><input type="checkbox"> Step 49 — Past: Pass Jax. Kill zombies in air before ball touches ground. Do not shoot the ball.</label></li>
+      <li><label><input type="checkbox"> Step 50 — Past: Get kills with Sundergat to move music box.</label></li>
+      <li><label><input type="checkbox"> Step 51 — Past: Set clock to 9:00 with red and white hand at 9. Shoot red hand right before teleporting.</label></li>
+      <li><label><input type="checkbox"> Step 52 — Past: Orbs spawn in sky. Go to 3 locations with twins.</label></li>
+      <li><label><input type="checkbox"> Step 53 — Past: Be ready for boss.</label></li>
+
+      <li><label><input type="checkbox"> Step 54 — Boss: Go to each area and shoot zombies for cysts.</label></li>
+      <li><label><input type="checkbox"> Step 55 — Boss: Defend each field in each area.</label></li>
+      <li><label><input type="checkbox"> Step 56 — Boss: Fight boss and shoot bright spots.</label></li>
+      <li><label><input type="checkbox"> Step 57 — Boss: Repeat Pack-A-Punch phase and kill zombies from orbs.</label></li>
+      <li><label><input type="checkbox"> Step 58 — Boss: Final phase. Bring tortured zombie to black mass, then kill fire tornado zombie.</label></li>
+      <li><label><input type="checkbox"> Step 59 — Boss: Keep repeating the cycle.</label></li>
+      <li><label><input type="checkbox"> Step 60 — Boss: Charge and repeat. Hit glowing spots.</label></li>
     </ul>
-  </main>
 
-  <footer>© 2026 Zombies Ultimate Guide</footer>
+    <h2>🔫 Notes</h2>
+    <p>This page uses your handwritten Paradox Junction steps as the tracker checklist.</p>
+  </section>
 
-  <script src="../app.js?v=4" defer></script>
+  <script>
+    const pageKey = "paradox_junction_";
+    const checkboxes = document.querySelectorAll("#steps input");
+
+    function updateProgress() {
+      const total = checkboxes.length;
+      const done = [...checkboxes].filter((checkbox) => checkbox.checked).length;
+      document.getElementById("progress-bar").style.width = ((done / total) * 100) + "%";
+    }
+
+    checkboxes.forEach((box, index) => {
+      const saved = localStorage.getItem(pageKey + index);
+      if (saved === "true") box.checked = true;
+
+      box.addEventListener("change", () => {
+        localStorage.setItem(pageKey + index, box.checked);
+        updateProgress();
+      });
+    });
+
+    updateProgress();
+  </script>
+
+  <script src="../js/app.js"></script>
 </body>
 </html>
