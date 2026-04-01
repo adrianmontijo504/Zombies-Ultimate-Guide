@@ -1,339 +1,129 @@
-(() => {
-  "use strict";
+const searchInput = document.getElementById("search");
 
-  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if (searchInput) {
+  searchInput.addEventListener("keyup", function () {
+    const input = this.value.toLowerCase();
+    const cards = document.querySelectorAll(".card");
 
-  const searchInput = document.getElementById("search");
-  const cards = Array.from(document.querySelectorAll(".card"));
-  const fadeDuration = 220;
-  const fadeTimers = new WeakMap();
-
-  function getCardSearchText(card) {
-    const dataName = card.dataset.name || card.getAttribute("data-name") || "";
-    const title = card.querySelector("h3")?.textContent || "";
-    const description = card.querySelector("p")?.textContent || "";
-    const imageAlt = card.querySelector("img")?.alt || "";
-    return `${dataName} ${title} ${description} ${imageAlt}`.toLowerCase().trim();
-  }
-
-  const searchableCards = cards.map((card) => ({
-    element: card,
-    text: getCardSearchText(card)
-  }));
-
-  function showCard(card) {
-    clearTimeout(fadeTimers.get(card));
-    card.hidden = false;
-
-    requestAnimationFrame(() => {
-      card.classList.remove("is-hidden");
-      card.classList.add("is-visible");
+    cards.forEach((card) => {
+      const name = (card.getAttribute("data-name") || "").toLowerCase();
+      card.style.display = name.includes(input) ? "block" : "none";
     });
-  }
+  });
+}
 
-  function hideCard(card) {
-    clearTimeout(fadeTimers.get(card));
-    card.classList.remove("is-visible");
-    card.classList.add("is-hidden");
-
-    const timer = setTimeout(() => {
-      if (card.classList.contains("is-hidden")) {
-        card.hidden = true;
-      }
-    }, fadeDuration);
-
-    fadeTimers.set(card, timer);
-  }
-
-  function filterCards() {
-    const query = (searchInput?.value || "").trim().toLowerCase();
-
-    searchableCards.forEach(({ element, text }) => {
-      const match = query === "" || text.includes(query);
-      if (match) {
-        showCard(element);
-      } else {
-        hideCard(element);
-      }
-    });
-  }
-
-  if (searchInput && searchableCards.length) {
-    searchInput.addEventListener("input", filterCards);
-    filterCards();
-  }
-
-  const stepsContainer = document.getElementById("steps");
-  const progressBar = document.getElementById("progress-bar");
-  const progressText = document.getElementById("progress-text");
-
-  if (stepsContainer) {
-    const checkboxes = Array.from(
-      stepsContainer.querySelectorAll('input[type="checkbox"]')
-    );
-
-    const storageKey = `zombies-guide-progress:${window.location.pathname}`;
-
-    function saveProgress() {
-      try {
-        const values = checkboxes.map((checkbox) => checkbox.checked);
-        localStorage.setItem(storageKey, JSON.stringify(values));
-      } catch (error) {
-        console.error("Could not save progress:", error);
-      }
-    }
-
-    function loadProgress() {
-      try {
-        const saved = localStorage.getItem(storageKey);
-        if (!saved) return;
-
-        const values = JSON.parse(saved);
-        checkboxes.forEach((checkbox, index) => {
-          checkbox.checked = Boolean(values[index]);
-        });
-      } catch (error) {
-        console.error("Could not load progress:", error);
-      }
-    }
-
-    function updateProgress() {
-      const total = checkboxes.length;
-      const complete = checkboxes.filter((checkbox) => checkbox.checked).length;
-      const percent = total === 0 ? 0 : (complete / total) * 100;
-
-      if (progressBar) {
-        progressBar.style.width = `${percent}%`;
-      }
-
-      if (progressText) {
-        progressText.textContent = `${complete} / ${total} complete`;
-      }
-    }
-
-    loadProgress();
-    updateProgress();
-
-    checkboxes.forEach((checkbox) => {
-      checkbox.addEventListener("change", () => {
-        saveProgress();
-        updateProgress();
-      });
-    });
-  }
-
+document.addEventListener("mousemove", (e) => {
   const hand = document.querySelector(".zombie-hand");
-  const canUseCustomCursor =
-    hand &&
-    window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
-    !reduceMotion;
+  if (hand) {
+    hand.style.left = `${e.clientX}px`;
+    hand.style.top = `${e.clientY}px`;
+  }
+});
 
-  if (canUseCustomCursor) {
-    let mouseX = window.innerWidth * 0.5;
-    let mouseY = window.innerHeight * 0.5;
-    let currentX = mouseX;
-    let currentY = mouseY;
-    let handVisible = false;
+const canvas = document.getElementById("particles");
 
-    hand.style.opacity = "0";
+if (canvas) {
+  const ctx = canvas.getContext("2d");
 
-    function animateHand() {
-      currentX += (mouseX - currentX) * 0.18;
-      currentY += (mouseY - currentY) * 0.18;
-
-      hand.style.left = `${currentX}px`;
-      hand.style.top = `${currentY}px`;
-
-      requestAnimationFrame(animateHand);
-    }
-
-    window.addEventListener(
-      "mousemove",
-      (event) => {
-        mouseX = event.clientX;
-        mouseY = event.clientY;
-
-        if (!handVisible) {
-          handVisible = true;
-          hand.style.opacity = "1";
-        }
-      },
-      { passive: true }
-    );
-
-    window.addEventListener("mouseleave", () => {
-      handVisible = false;
-      hand.style.opacity = "0";
-    });
-
-    window.addEventListener("mouseenter", () => {
-      handVisible = true;
-      hand.style.opacity = "1";
-    });
-
-    animateHand();
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
   }
 
-  const canvas = document.getElementById("particles");
+  resizeCanvas();
+  window.addEventListener("resize", resizeCanvas);
 
-  if (canvas && !reduceMotion) {
-    const ctx = canvas.getContext("2d");
+  const isMobile = window.innerWidth <= 760;
+  const emberCount = isMobile ? 70 : 110;
+  const embers = [];
 
-    if (!ctx) return;
-
-    let width = 0;
-    let height = 0;
-    let dpr = 1;
-    let animationId = null;
-    let running = true;
-    let particles = [];
-
-    const COLORS = [
-      [255, 200, 110],
-      [255, 145, 55],
-      [255, 105, 35],
-      [255, 225, 170],
-      [165, 165, 165],
-      [115, 115, 115]
+  function emberColor() {
+    const colors = [
+      { fill: "255,190,95", glow: "255,170,70" },
+      { fill: "255,140,55", glow: "255,115,35" },
+      { fill: "255,215,150", glow: "255,180,90" },
+      { fill: "255,105,35", glow: "255,80,20" },
+      { fill: "185,185,185", glow: "255,150,60" }
     ];
+    return colors[Math.floor(Math.random() * colors.length)];
+  }
 
-    function setCanvasSize() {
-      width = window.innerWidth;
-      height = window.innerHeight;
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+  function createEmber(fromBottom = false) {
+    const warm = emberColor();
+    const size = Math.random() * 3.2 + 1.2;
 
-      canvas.width = Math.floor(width * dpr);
-      canvas.height = Math.floor(height * dpr);
-      canvas.style.width = `${width}px`;
-      canvas.style.height = `${height}px`;
+    return {
+      x: Math.random() * canvas.width,
+      y: fromBottom ? canvas.height + Math.random() * 120 : Math.random() * canvas.height,
+      baseSize: size,
+      width: size * (Math.random() * 1.7 + 0.8),
+      height: size * (Math.random() * 1.2 + 0.8),
+      speedY: Math.random() * 0.9 + 0.25,
+      speedX: (Math.random() - 0.5) * 0.55,
+      sway: Math.random() * Math.PI * 2,
+      swaySpeed: Math.random() * 0.03 + 0.008,
+      alpha: Math.random() * 0.45 + 0.28,
+      flicker: Math.random() * 0.04 + 0.01,
+      rotation: Math.random() * Math.PI,
+      rotationSpeed: (Math.random() - 0.5) * 0.01,
+      fill: warm.fill,
+      glow: warm.glow
+    };
+  }
 
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    }
+  for (let i = 0; i < emberCount; i += 1) {
+    embers.push(createEmber(false));
+  }
 
-    function particleCount() {
-      return Math.max(55, Math.min(125, Math.round((width * height) / 9500)));
-    }
+  function drawEmber(ember) {
+    ctx.save();
+    ctx.translate(ember.x, ember.y);
+    ctx.rotate(ember.rotation);
 
-    function randomColor() {
-      return COLORS[Math.floor(Math.random() * COLORS.length)];
-    }
+    const alpha = Math.max(0, Math.min(1, ember.alpha));
+    ctx.fillStyle = `rgba(${ember.fill}, ${alpha})`;
+    ctx.shadowBlur = ember.baseSize * 8;
+    ctx.shadowColor = `rgba(${ember.glow}, ${Math.min(1, alpha + 0.18)})`;
 
-    function makeParticle(fromTop = false) {
-      const color = randomColor();
+    ctx.beginPath();
+    ctx.ellipse(0, 0, ember.width, ember.height, 0, 0, Math.PI * 2);
+    ctx.fill();
 
-      return {
-        x: Math.random() * width,
-        y: fromTop ? -30 : Math.random() * height,
-        size: Math.random() * 2.8 + 0.8,
-        speedY: Math.random() * 1.4 + 0.35,
-        speedX: (Math.random() - 0.5) * 0.55,
-        sway: Math.random() * Math.PI * 2,
-        swaySpeed: Math.random() * 0.03 + 0.008,
-        opacity: Math.random() * 0.45 + 0.2,
-        lifeFade: Math.random() * 0.001 + 0.0007,
-        glow: Math.random() > 0.45,
-        stretch: Math.random() * 1.8 + 1,
-        color
-      };
-    }
+    ctx.fillStyle = `rgba(255, 240, 210, ${alpha * 0.32})`;
+    ctx.beginPath();
+    ctx.ellipse(-ember.width * 0.15, -ember.height * 0.12, ember.width * 0.35, ember.height * 0.28, 0, 0, Math.PI * 2);
+    ctx.fill();
 
-    function buildParticles() {
-      particles = [];
-      const count = particleCount();
+    ctx.restore();
+  }
 
-      for (let i = 0; i < count; i += 1) {
-        particles.push(makeParticle(false));
-      }
-    }
+  function animateEmbers() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    function rgba(color, alpha) {
-      return `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${alpha})`;
-    }
+    for (let i = 0; i < embers.length; i += 1) {
+      const ember = embers[i];
 
-    function drawParticle(particle) {
-      const fill = rgba(particle.color, particle.opacity);
-
-      ctx.save();
-      ctx.translate(particle.x, particle.y);
-      ctx.rotate(Math.sin(particle.sway) * 0.25);
-
-      if (particle.glow) {
-        ctx.shadowBlur = 12;
-        ctx.shadowColor = fill;
-      }
-
-      ctx.fillStyle = fill;
-      ctx.beginPath();
-      ctx.ellipse(0, 0, particle.size, particle.size * particle.stretch, 0, 0, Math.PI * 2);
-      ctx.fill();
-
-      ctx.restore();
-    }
-
-    function updateParticle(particle, index) {
-      particle.sway += particle.swaySpeed;
-      particle.x += Math.sin(particle.sway) * 0.35 + particle.speedX;
-      particle.y += particle.speedY;
-      particle.opacity -= particle.lifeFade;
+      ember.sway += ember.swaySpeed;
+      ember.rotation += ember.rotationSpeed;
+      ember.x += Math.sin(ember.sway) * 0.35 + ember.speedX;
+      ember.y -= ember.speedY;
+      ember.alpha += (Math.random() - 0.5) * ember.flicker;
 
       if (
-        particle.y > height + 30 ||
-        particle.x < -30 ||
-        particle.x > width + 30 ||
-        particle.opacity <= 0.04
+        ember.y < -40 ||
+        ember.x < -60 ||
+        ember.x > canvas.width + 60
       ) {
-        particles[index] = makeParticle(true);
-      }
-    }
-
-    function animate() {
-      if (!running) return;
-
-      ctx.clearRect(0, 0, width, height);
-
-      for (let i = 0; i < particles.length; i += 1) {
-        updateParticle(particles[i], i);
-        drawParticle(particles[i]);
+        embers[i] = createEmber(true);
+        continue;
       }
 
-      animationId = requestAnimationFrame(animate);
+      drawEmber(ember);
     }
 
-    function start() {
-      if (running && animationId) return;
-      running = true;
-      animate();
-    }
-
-    function stop() {
-      running = false;
-
-      if (animationId) {
-        cancelAnimationFrame(animationId);
-        animationId = null;
-      }
-    }
-
-    setCanvasSize();
-    buildParticles();
-    start();
-
-    let resizeTimeout;
-
-    window.addEventListener("resize", () => {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        setCanvasSize();
-        buildParticles();
-      }, 100);
-    });
-
-    document.addEventListener("visibilitychange", () => {
-      if (document.hidden) {
-        stop();
-      } else {
-        start();
-      }
-    });
+    ctx.shadowBlur = 0;
+    requestAnimationFrame(animateEmbers);
   }
-})();
+
+  animateEmbers();
+}
