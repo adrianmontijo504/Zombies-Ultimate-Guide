@@ -84,7 +84,8 @@ body::after {
   z-index: -2;
   pointer-events: none;
   mix-blend-mode: screen;
-  opacity: 0.95;
+  opacity: 1;
+  filter: blur(0.2px);
 }
 
 /* hide cursor on touch devices */
