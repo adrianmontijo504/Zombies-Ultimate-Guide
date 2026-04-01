@@ -74,7 +74,7 @@ body::after {
   }
 }
 
-/* embers canvas */
+/* lighter embers canvas */
 #particles {
   position: fixed;
   top: 0;
@@ -84,8 +84,7 @@ body::after {
   z-index: -2;
   pointer-events: none;
   mix-blend-mode: screen;
-  opacity: 1;
-  filter: blur(0.2px);
+  opacity: 0.82;
 }
 
 /* hide cursor on touch devices */
