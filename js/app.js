@@ -23,7 +23,7 @@ document.addEventListener("mousemove", (e) => {
 const canvas = document.getElementById("particles");
 
 if (canvas) {
-  const ctx = canvas.getContext("2d");
+  const ctx = canvas.getContext("2d", { alpha: true });
 
   function resizeCanvas() {
     canvas.width = window.innerWidth;
@@ -34,41 +34,38 @@ if (canvas) {
   window.addEventListener("resize", resizeCanvas);
 
   const isMobile = window.innerWidth <= 760;
-  const emberCount = isMobile ? 120 : 180;
+  const emberCount = isMobile ? 45 : 70;
   const embers = [];
 
   function emberColor() {
     const colors = [
-      { fill: "255,210,120", glow: "255,190,90" },
-      { fill: "255,170,70", glow: "255,145,50" },
-      { fill: "255,125,45", glow: "255,95,25" },
-      { fill: "255,95,25", glow: "255,70,15" },
-      { fill: "255,230,170", glow: "255,200,120" }
+      { fill: "255,190,95", glow: "255,165,70" },
+      { fill: "255,135,45", glow: "255,110,35" },
+      { fill: "255,220,160", glow: "255,190,110" },
+      { fill: "255,95,25", glow: "255,75,18" }
     ];
     return colors[Math.floor(Math.random() * colors.length)];
   }
 
   function createEmber(fromBottom = false) {
     const warm = emberColor();
-    const size = Math.random() * 4.8 + 1.8;
+    const size = Math.random() * 2.4 + 1.2;
 
     return {
       x: Math.random() * canvas.width,
-      y: fromBottom ? canvas.height + Math.random() * 160 : Math.random() * canvas.height,
-      baseSize: size,
-      width: size * (Math.random() * 2.3 + 0.9),
-      height: size * (Math.random() * 1.5 + 0.8),
-      speedY: Math.random() * 1.5 + 0.45,
-      speedX: (Math.random() - 0.5) * 0.9,
+      y: fromBottom ? canvas.height + Math.random() * 80 : Math.random() * canvas.height,
+      width: size * (Math.random() * 1.5 + 0.7),
+      height: size * (Math.random() * 1.1 + 0.7),
+      speedY: Math.random() * 0.85 + 0.3,
+      speedX: (Math.random() - 0.5) * 0.45,
       sway: Math.random() * Math.PI * 2,
-      swaySpeed: Math.random() * 0.05 + 0.012,
-      alpha: Math.random() * 0.5 + 0.35,
-      flicker: Math.random() * 0.07 + 0.02,
+      swaySpeed: Math.random() * 0.025 + 0.008,
+      alpha: Math.random() * 0.35 + 0.28,
+      flicker: Math.random() * 0.025 + 0.008,
       rotation: Math.random() * Math.PI,
-      rotationSpeed: (Math.random() - 0.5) * 0.02,
+      rotationSpeed: (Math.random() - 0.5) * 0.008,
       fill: warm.fill,
-      glow: warm.glow,
-      trail: Math.random() > 0.45
+      glow: warm.glow
     };
   }
 
@@ -81,50 +78,13 @@ if (canvas) {
     ctx.translate(ember.x, ember.y);
     ctx.rotate(ember.rotation);
 
-    const alpha = Math.max(0, Math.min(1, ember.alpha));
-
-    if (ember.trail) {
-      const trailGradient = ctx.createLinearGradient(0, ember.height * 3.2, 0, 0);
-      trailGradient.addColorStop(0, `rgba(${ember.glow}, 0)`);
-      trailGradient.addColorStop(0.35, `rgba(${ember.glow}, ${alpha * 0.18})`);
-      trailGradient.addColorStop(1, `rgba(${ember.glow}, ${alpha * 0.42})`);
-
-      ctx.fillStyle = trailGradient;
-      ctx.shadowBlur = ember.baseSize * 10;
-      ctx.shadowColor = `rgba(${ember.glow}, ${Math.min(1, alpha + 0.2)})`;
-
-      ctx.beginPath();
-      ctx.ellipse(
-        0,
-        ember.height * 1.45,
-        ember.width * 0.45,
-        ember.height * 2.8,
-        0,
-        0,
-        Math.PI * 2
-      );
-      ctx.fill();
-    }
-
+    const alpha = Math.max(0.08, Math.min(1, ember.alpha));
     ctx.fillStyle = `rgba(${ember.fill}, ${alpha})`;
-    ctx.shadowBlur = ember.baseSize * 11;
-    ctx.shadowColor = `rgba(${ember.glow}, ${Math.min(1, alpha + 0.22)})`;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = `rgba(${ember.glow}, ${Math.min(0.9, alpha + 0.15)})`;
 
     ctx.beginPath();
     ctx.ellipse(0, 0, ember.width, ember.height, 0, 0, Math.PI * 2);
-    ctx.fill();
-
-    ctx.fillStyle = `rgba(255, 245, 225, ${alpha * 0.42})`;
-    ctx.beginPath();
-    ctx.ellipse(
-      -ember.width * 0.12,
-      -ember.height * 0.12,
-      ember.width * 0.38,
-      ember.height * 0.3,
-      0,
-      0,
-      Math.PI * 2
-    );
     ctx.fill();
 
     ctx.restore();
@@ -138,14 +98,14 @@ if (canvas) {
 
       ember.sway += ember.swaySpeed;
       ember.rotation += ember.rotationSpeed;
-      ember.x += Math.sin(ember.sway) * 0.55 + ember.speedX;
+      ember.x += Math.sin(ember.sway) * 0.25 + ember.speedX;
       ember.y -= ember.speedY;
       ember.alpha += (Math.random() - 0.5) * ember.flicker;
 
       if (
-        ember.y < -60 ||
-        ember.x < -80 ||
-        ember.x > canvas.width + 80
+        ember.y < -30 ||
+        ember.x < -30 ||
+        ember.x > canvas.width + 30
       ) {
         embers[i] = createEmber(true);
         continue;
