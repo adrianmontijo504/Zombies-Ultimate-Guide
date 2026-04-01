@@ -1,10 +1,6 @@
 (() => {
   "use strict";
 
-  document.addEventListener("DOMContentLoaded", () => {
-    document.body.classList.add("loaded");
-  });
-
   const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   /* =========================
@@ -85,21 +81,25 @@
     const storageKey = `zombies-guide-progress:${window.location.pathname}`;
 
     function saveProgress() {
-      const values = checkboxes.map((checkbox) => checkbox.checked);
-      localStorage.setItem(storageKey, JSON.stringify(values));
+      try {
+        const values = checkboxes.map((checkbox) => checkbox.checked);
+        localStorage.setItem(storageKey, JSON.stringify(values));
+      } catch (error) {
+        console.error("Could not save progress:", error);
+      }
     }
 
     function loadProgress() {
-      const saved = localStorage.getItem(storageKey);
-      if (!saved) return;
-
       try {
+        const saved = localStorage.getItem(storageKey);
+        if (!saved) return;
+
         const values = JSON.parse(saved);
         checkboxes.forEach((checkbox, index) => {
           checkbox.checked = Boolean(values[index]);
         });
       } catch (error) {
-        console.error("Could not load saved progress:", error);
+        console.error("Could not load progress:", error);
       }
     }
 
