@@ -67,8 +67,7 @@ if (canvas) {
       rotation: Math.random() * Math.PI,
       rotationSpeed: (Math.random() - 0.5) * 0.01,
       fill: warm.fill,
-      glow: warm.glow,
-      trail: Math.random() > 0.45
+      glow: warm.glow
     };
   }
 
@@ -82,45 +81,21 @@ if (canvas) {
     ctx.rotate(ember.rotation);
 
     const alpha = Math.max(0, Math.min(1, ember.alpha));
-
-    if (ember.trail) {
-      const trailGradient = ctx.createLinearGradient(0, ember.height * 3.2, 0, 0);
-      trailGradient.addColorStop(0, `rgba(${ember.glow}, 0)`);
-      trailGradient.addColorStop(0.35, `rgba(${ember.glow}, ${alpha * 0.18})`);
-      trailGradient.addColorStop(1, `rgba(${ember.glow}, ${alpha * 0.42})`);
-
-      ctx.fillStyle = trailGradient;
-      ctx.shadowBlur = ember.baseSize * 10;
-      ctx.shadowColor = `rgba(${ember.glow}, ${Math.min(1, alpha + 0.2)})`;
-
-      ctx.beginPath();
-      ctx.ellipse(
-        0,
-        ember.height * 1.45,
-        ember.width * 0.45,
-        ember.height * 2.8,
-        0,
-        0,
-        Math.PI * 2
-      );
-      ctx.fill();
-    }
-
     ctx.fillStyle = `rgba(${ember.fill}, ${alpha})`;
-    ctx.shadowBlur = ember.baseSize * 11;
-    ctx.shadowColor = `rgba(${ember.glow}, ${Math.min(1, alpha + 0.22)})`;
+    ctx.shadowBlur = ember.baseSize * 8;
+    ctx.shadowColor = `rgba(${ember.glow}, ${Math.min(1, alpha + 0.18)})`;
 
     ctx.beginPath();
     ctx.ellipse(0, 0, ember.width, ember.height, 0, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.fillStyle = `rgba(255, 245, 225, ${alpha * 0.42})`;
+    ctx.fillStyle = `rgba(255, 240, 210, ${alpha * 0.32})`;
     ctx.beginPath();
     ctx.ellipse(
-      -ember.width * 0.12,
+      -ember.width * 0.15,
       -ember.height * 0.12,
-      ember.width * 0.38,
-      ember.height * 0.3,
+      ember.width * 0.35,
+      ember.height * 0.28,
       0,
       0,
       Math.PI * 2
