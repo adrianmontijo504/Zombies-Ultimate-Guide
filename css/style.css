@@ -87,12 +87,11 @@ body::after {
   opacity: 0.95;
 }
 
-/* hide cursor on touch devices */
+/* custom cursor */
 .zombie-hand {
   display: none;
 }
 
-/* desktop cursor only */
 @media (hover: hover) and (pointer: fine) {
   body,
   a,
@@ -122,16 +121,16 @@ body::after {
     position: fixed;
     left: 0;
     top: 0;
-    width: 78px;
-    height: 78px;
+    width: 64px;
+    height: 64px;
     z-index: 99999;
     pointer-events: none !important;
     background: url("../images/zombie-cursor.png") no-repeat center center;
     background-size: contain;
-    transform: translate(-58px, -28px);
-    filter:
-      drop-shadow(0 0 8px rgba(0, 0, 0, 0.45))
-      drop-shadow(0 0 10px rgba(90, 0, 0, 0.25));
+    transform: translate(-12px, -10px);
+    filter: none !important;
+    animation: none !important;
+    transition: none !important;
   }
 }
 
