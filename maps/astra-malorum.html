@@ -1,92 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Astra Malorum - Zombies Ultimate Guide</title>
-
-  <style>
-    html {
-      background: #02060c;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      background-color: #02060c;
-      background-image:
-        radial-gradient(circle at 50% 120%, rgba(255, 115, 20, 0.30) 0%, transparent 28%),
-        radial-gradient(circle at top, #08111f 0%, #03060d 55%, #000000 100%);
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      color: #ffffff;
-      font-family: Arial, sans-serif;
-    }
-  </style>
-
-  <link rel="stylesheet" href="../style.css?v=4" />
+  <meta charset="UTF-8">
+  <title>Astra Malorum - Undead Intel</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/style.css">
 </head>
-<body>
-  <canvas id="particles"></canvas>
+<body class="loaded">
 
   <div class="zombie-hand" aria-hidden="true">
-    <div class="hand-palm"></div>
-    <div class="finger finger-1"></div>
-    <div class="finger finger-2"></div>
-    <div class="finger finger-3"></div>
-    <div class="finger finger-4"></div>
-    <div class="thumb"></div>
-    <div class="blood blood-1"></div>
-    <div class="blood blood-2"></div>
-    <div class="blood blood-3"></div>
+    <span class="hand-palm"></span>
+    <span class="finger finger-1"></span>
+    <span class="finger finger-2"></span>
+    <span class="finger finger-3"></span>
+    <span class="finger finger-4"></span>
+    <span class="thumb"></span>
+    <span class="blood blood-1"></span>
+    <span class="blood blood-2"></span>
+    <span class="blood blood-3"></span>
   </div>
+
+  <canvas id="particles" aria-hidden="true"></canvas>
 
   <header class="glass page-header">
     <div class="header-left">
-      <h1 class="site-title"><a href="../index.html">Zombies Ultimate Guide</a></h1>
+      <h1 class="site-title">
+        <a href="../index.html">Undead Intel</a>
+      </h1>
       <div class="page-subtitle">Astra Malorum</div>
+    </div>
+
+    <div class="top-buttons">
+      <a class="back-link" href="../index.html">Home</a>
+      <a class="back-link" href="../maps.html">Back to Maps</a>
     </div>
   </header>
 
-  <nav class="glass">
-    <a href="../index.html">Home</a>
-    <a href="../maps.html">Back to Maps</a>
-  </nav>
+  <section class="content">
+    <img src="../images/astra-malorum-easter-egg-guide.jpg" alt="Astra Malorum Easter Egg Guide" class="map-image">
 
-  <main class="content">
-    <img
-      class="map-image"
-      src="../images/astra-malorum-easter-egg-guide.jpg"
-      alt="Astra Malorum Easter Egg Guide"
-    />
+    <h2>🧪 Easter Egg Tracker</h2>
 
-    <h2>Astra Malorum Easter Egg Tracker</h2>
-
-    <div id="progress-container" aria-hidden="true">
+    <div id="progress-container">
       <div id="progress-bar"></div>
     </div>
-    <div id="progress-text">0 / 6 complete</div>
 
     <ul id="steps">
-      <li><div class="step-row"><input type="checkbox" id="step-1" /><label for="step-1">Turn on power.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-2" /><label for="step-2">Unlock the ritual room.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-3" /><label for="step-3">Collect the relic pieces.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-4" /><label for="step-4">Build the relic.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-5" /><label for="step-5">Charge the altar.</label></div></li>
-      <li><div class="step-row"><input type="checkbox" id="step-6" /><label for="step-6">Start the boss fight.</label></div></li>
+      <li><label><input type="checkbox"> Turn on power.</label></li>
+      <li><label><input type="checkbox"> Unlock ritual room.</label></li>
+      <li><label><input type="checkbox"> Collect relic pieces.</label></li>
+      <li><label><input type="checkbox"> Build the relic.</label></li>
+      <li><label><input type="checkbox"> Charge the altar.</label></li>
+      <li><label><input type="checkbox"> Start the boss fight.</label></li>
     </ul>
 
-    <div class="notes-box">
-      <h3>Notes</h3>
-      <ul>
-        <li>Replace these placeholder steps with your full Astra Malorum guide later.</li>
-        <li>Your progress saves automatically in the browser.</li>
-      </ul>
-    </div>
-  </main>
+    <h2>🔫 Notes</h2>
+    <p>Add your full Astra Malorum guide steps here later.</p>
+  </section>
 
-  <footer>© 2026 Zombies Ultimate Guide</footer>
+  <script>
+    const pageKey = "astra_malorum_";
+    const checkboxes = document.querySelectorAll("#steps input");
 
-  <script src="../app.js?v=4" defer></script>
+    function updateProgress() {
+      const total = checkboxes.length;
+      const done = [...checkboxes].filter((checkbox) => checkbox.checked).length;
+      document.getElementById("progress-bar").style.width = ((done / total) * 100) + "%";
+    }
+
+    checkboxes.forEach((box, index) => {
+      const saved = localStorage.getItem(pageKey + index);
+      if (saved === "true") box.checked = true;
+
+      box.addEventListener("change", () => {
+        localStorage.setItem(pageKey + index, box.checked);
+        updateProgress();
+      });
+    });
+
+    updateProgress();
+  </script>
+
+  <script src="../js/app.js"></script>
 </body>
 </html>
