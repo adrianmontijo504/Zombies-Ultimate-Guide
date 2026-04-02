@@ -144,10 +144,7 @@ function renderGuidePage() {
 
   const metaDescription = document.querySelector('meta[name="description"]');
   if (metaDescription) {
-    metaDescription.setAttribute(
-      "content",
-      `${guide.title} Easter Egg guide and tracker on Undead Intel.`
-    );
+    metaDescription.setAttribute("content", `${guide.title} Easter Egg guide and tracker on Undead Intel.`);
   }
 
   pageSubtitle.textContent = guide.title;
@@ -242,9 +239,7 @@ function setupZombieCursor() {
   const cursor = document.querySelector(".zombie-cursor");
   if (!cursor) return;
 
-  const supportsCustomCursor =
-    window.matchMedia("(hover: hover) and (pointer: fine)").matches;
-
+  const supportsCustomCursor = window.matchMedia("(hover: hover) and (pointer: fine)").matches;
   if (!supportsCustomCursor) return;
 
   let mouseX = 0;
