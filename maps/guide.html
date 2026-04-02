@@ -1,85 +1,118 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Zombie guide and tracker on Undead Intel.">
-  <meta name="theme-color" content="#000000">
-  <title>Guide - Undead Intel</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <script src="../js/maps-data.js" defer></script>
-  <script src="../js/app.js" defer></script>
-</head>
-<body data-page="guide" data-root-prefix="../">
-  <a class="skip-link" href="#main-content">Skip to content</a>
-
-  <div class="zombie-cursor" aria-hidden="true"></div>
-  <canvas id="particles" aria-hidden="true"></canvas>
-
-  <header class="glass page-header">
-    <div class="header-left">
-      <h1 class="site-title">
-        <a href="../index.html" class="site-brand">
-          <img
-            src="../images/undead-intel-logo.png"
-            alt="Undead Intel logo"
-            class="site-logo"
-          >
-          <span>Undead Intel</span>
-        </a>
-      </h1>
-      <div class="page-subtitle" id="guidePageSubtitle">Loading Guide...</div>
-    </div>
-
-    <div class="top-buttons">
-      <a class="back-link" href="../index.html">Home</a>
-      <a class="back-link" href="../maps.html">Back to Maps</a>
-    </div>
-  </header>
-
-  <nav class="glass" aria-label="Main navigation">
-    <a href="../index.html">Home</a>
-    <a href="../maps.html" aria-current="page">Maps</a>
-  </nav>
-
-  <main id="main-content">
-    <section class="content" id="guideContent" data-tracker-key="">
-      <img
-        id="guideImage"
-        src=""
-        alt=""
-        class="map-image"
-        hidden
-      >
-
-      <h2 id="trackerHeading">🧪 Easter Egg Tracker</h2>
-
-      <div class="notes-box" id="quickNotesBox" hidden>
-        <h3>Quick Notes</h3>
-        <ul id="quickNotesList"></ul>
-      </div>
-
-      <div class="tracker-toolbar">
-        <p class="progress-text" data-progress-text>0 of 0 complete</p>
-        <button type="button" class="tracker-reset" data-reset-tracker>RESET PROGRESS</button>
-      </div>
-
-      <div id="progress-container" aria-label="Progress tracker">
-        <div id="progress-bar" aria-hidden="true"></div>
-      </div>
-
-      <ul id="steps" aria-label="Guide steps"></ul>
-
-      <div class="notes-box">
-        <h3>🔫 Notes</h3>
-        <p id="notesText"></p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>© <span id="currentYear"></span> axmpages</p>
-    <span class="footer-note">Your checklist progress saves automatically on this device.</span>
-  </footer>
-</body>
-</html>
+window.MAP_GUIDES = [
+  {
+    slug: "astra-malorum",
+    trackerKey: "astra_malorum",
+    title: "Astra Malorum",
+    cardLabel: "Easter Egg Guide",
+    image: "astra-malorum-easter-egg-guide.jpg",
+    featured: false,
+    searchTerms: "black ops zombies easter egg ritual relic altar boss fight",
+    notes: "Add your full Astra Malorum guide steps here later.",
+    quickNotes: [],
+    steps: [
+      "Turn on power.",
+      "Unlock ritual room.",
+      "Collect relic pieces.",
+      "Build the relic.",
+      "Charge the altar.",
+      "Start the boss fight."
+    ]
+  },
+  {
+    slug: "ashes-of-the-damned",
+    trackerKey: "ashes_of_the_damned",
+    title: "Ashes of the Damned",
+    cardLabel: "Easter Egg Guide",
+    image: "ashes-of-the-damned-easter-egg-guide.jpg",
+    featured: false,
+    searchTerms: "black ops zombies easter egg crypt skull cursed key fire pillars final encounter",
+    notes: "Add your full Ashes of the Damned guide steps here later.",
+    quickNotes: [],
+    steps: [
+      "Turn on power.",
+      "Open the lower crypt.",
+      "Collect skull fragments.",
+      "Build the cursed key.",
+      "Activate the fire pillars.",
+      "Enter the final encounter."
+    ]
+  },
+  {
+    slug: "paradox-junction",
+    trackerKey: "paradox_junction",
+    title: "Paradox Junction",
+    cardLabel: "Easter Egg Guide",
+    image: "paradox-junction-easter-egg-guide.jpg",
+    featured: true,
+    searchTerms: "black ops zombies newest featured blundergat sundergat pack a punch boss guide",
+    notes: "This page uses your handwritten Paradox Junction steps as the tracker checklist.",
+    quickNotes: [
+      "Explosive = Ray Gun / Semtex.",
+      "N.E. = Need explosive.",
+      "Clear dog round no later than round 5.",
+      "These steps were cleaned up from your handwritten notes."
+    ],
+    steps: [
+      "Step 1 — Present: Find cyst with humming sound.",
+      "Step 2 — Present: Grab keys from back of yellow garage.",
+      "Step 3 — Present: Go upstairs in yellow house and grab the vial.",
+      "Step 4 — Present: Interact with sink in green house and fill vial with acid.",
+      "Step 5 — Present: Find mannequin with humming sound and take note of it.",
+      "Step 6 — Present: Clear dog round no later than round 5.",
+      "Step 7 — Present: Find humming wall location inside yellow garage, top stairs in green house, or by perk box.",
+      "Step 8 — Past: Move truck with keys.",
+      "Step 9 — Past: Shoot riffs to get Pack-A-Punch.",
+      "Step 10 — Past: Go to top of yellow house and interact with cabinet to get sealant.",
+      "Step 11 — Past: Shoot swing seat in back of yellow house and pick up seat.",
+      "Step 12 — Past: Put acid on mannequin head.",
+      "Step 13 — Past: Throw explosive at humming wall.",
+      "Step 14 — Present: Find mannequin and pick up part.",
+      "Step 15 — Present: Build crafting table in middle truck to get Blundergat.",
+      "Step 16 — Present: Place swing seat back on swing in back of yellow house.",
+      "Step 17 — Present: Find RC controller at back of map right of brown box, yellow garage bottom shelf, or green backyard behind fence.",
+      "Step 18 — Present: Jump ramp over fence if needed and explode barrel.",
+      "Step 19 — Present: Go to open garage by Pack-A-Punch, pick up head on safe, then pick up chalk.",
+      "Step 20 — Present: Kill fire tornado zombies with Blundergat, one each round, and kill connected zombies.",
+      "Step 21 — Present: Bring zombie to crafting table and do not let zombies connect. Total is 3 zombies.",
+      "Step 22 — Present: Check spawns at yellow backyard, green backyard, and by perk machine. Last one is mimic.",
+      "Step 23 — Past: Use crafting table melee and place Blundergat.",
+      "Step 24 — Present: Get upgraded Blundergat (Sundergat).",
+      "Step 25 — Present: Go to swing in back of yellow house and place chalk.",
+      "Step 26 — Present: Go green left of Pack-A-Punch and hit with explosive.",
+      "Step 27 — Present: Goggles will drop. Make the wisp appear and retrieve them by killing zombies.",
+      "Step 28 — Present: Find headset at corner of fence by gum, upstairs green house in dark, or back yellow right corner by perk.",
+      "Step 29 — Past: Open toy box and place items.",
+      "Step 30 — Present: Pick up seeds in red box in yellow garage. Need tomahawk.",
+      "Step 31 — Past: Place seeds by Pack-A-Punch and kill with Sundergat until white screen.",
+      "Step 32 — Present: Use tomahawk to get 3 pieces of wood from tree by Pack-A-Punch.",
+      "Step 33 — Past: Place wood in chimney of yellow house. Need Molotov.",
+      "Step 34 — Past: Throw Molotov at firewood to start fire in chimney.",
+      "Step 35 — Present: Fire should be green. Step on X to start hopscotch. Glow should be blue.",
+      "Step 36 — Past: Pass hopscotch.",
+      "Step 37 — Past: Get kills with Sundergat to move music box to fireplace.",
+      "Step 38 — Past: Find ball and shoot it with Sundergat around backyard / top of yellow house rooftop area.",
+      "Step 39 — Past: Shoot ball to backyard of green house, then to X truck, then on top of crates by perk machine.",
+      "Step 40 — Past: Pass 4-square and move ball with melee to a different square.",
+      "Step 41 — Past: Get kills with Sundergat to move music box to toy box.",
+      "Step 42 — Present: Go to backyard of green house and find piano trinket. Need psychic grenade.",
+      "Step 43 — Present: Run to piano in green house if it gets hit.",
+      "Step 44 — Past: Instantly teleport to see zombie at piano in green house. It needs to explode.",
+      "Step 45 — Past: Piano should glow yellow.",
+      "Step 46 — Present: Collect 8 symbols based on flashes from 1 to 8.",
+      "Step 47 — Past: Interact with piano using 86756535.",
+      "Step 48 — Present: Find floating zombies outside perimeter and shoot 3. They should appear at X by truck.",
+      "Step 49 — Past: Pass Jax. Kill zombies in air before ball touches ground. Do not shoot the ball.",
+      "Step 50 — Past: Get kills with Sundergat to move music box.",
+      "Step 51 — Past: Set clock to 9:00 with red and white hand at 9. Shoot red hand right before teleporting.",
+      "Step 52 — Past: Orbs spawn in sky. Go to 3 locations with twins.",
+      "Step 53 — Past: Be ready for boss.",
+      "Step 54 — Boss: Go to each area and shoot zombies for cysts.",
+      "Step 55 — Boss: Defend each field in each area.",
+      "Step 56 — Boss: Fight boss and shoot bright spots.",
+      "Step 57 — Boss: Repeat Pack-A-Punch phase and kill zombies from orbs.",
+      "Step 58 — Boss: Final phase. Bring tortured zombie to black mass, then kill fire tornado zombie.",
+      "Step 59 — Boss: Keep repeating the cycle.",
+      "Step 60 — Boss: Charge and repeat. Hit glowing spots."
+    ]
+  }
+];
