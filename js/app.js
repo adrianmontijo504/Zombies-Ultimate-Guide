@@ -613,7 +613,6 @@ function setupRequestBuilder() {
   const titleField = document.getElementById("requestTitle");
   const nameField = document.getElementById("requestName");
   const detailsField = document.getElementById("requestDetails");
-  const copyButton = document.getElementById("copyRequestButton");
   const emailLink = document.getElementById("emailRequestLink");
   const status = document.getElementById("requestStatus");
   const params = new URLSearchParams(window.location.search);
@@ -660,12 +659,19 @@ function setupRequestBuilder() {
 
     if (!contactEmail) {
       emailLink.hidden = true;
+      if (status) {
+        status.textContent = "Add a support email in js/site-config.js to enable requests.";
+      }
       return;
     }
 
     const request = buildRequest();
     emailLink.href = `mailto:${contactEmail}?subject=${encodeURIComponent(request.subject)}&body=${encodeURIComponent(request.body)}`;
     emailLink.hidden = false;
+
+    if (status) {
+      status.textContent = "Tap Send Request to open your email app with everything filled out.";
+    }
   }
 
   const watchedFields = [typeField, mapField, titleField, nameField, detailsField];
@@ -675,49 +681,16 @@ function setupRequestBuilder() {
     field.addEventListener("change", updateEmailLink);
   });
 
-  updateEmailLink();
-
-  if (copyButton) {
-    copyButton.addEventListener("click", async () => {
-      const request = buildRequest();
-
-      try {
-        await copyTextToClipboard(request.body);
-
-        if (status) {
-          status.textContent = "Copied. You can paste this into email, notes, or your request tracker.";
-        }
-
-        trackEvent("copy_request", {
-          request_type: (typeField?.value || "").trim(),
-          map_name: (mapField?.value || "").trim()
-        });
-      } catch {
-        if (status) {
-          status.textContent = "Copy failed on this browser. Select the text manually and copy it.";
-        }
-      }
-
-      updateEmailLink();
+  if (emailLink) {
+    emailLink.addEventListener("click", () => {
+      trackEvent("send_request_click", {
+        request_type: (typeField?.value || "").trim(),
+        map_name: (mapField?.value || "").trim()
+      });
     });
   }
-}
 
-async function copyTextToClipboard(text) {
-  if (navigator.clipboard && window.isSecureContext) {
-    await navigator.clipboard.writeText(text);
-    return;
-  }
-
-  const textArea = document.createElement("textarea");
-  textArea.value = text;
-  textArea.style.position = "fixed";
-  textArea.style.opacity = "0";
-  document.body.appendChild(textArea);
-  textArea.focus();
-  textArea.select();
-  document.execCommand("copy");
-  document.body.removeChild(textArea);
+  updateEmailLink();
 }
 
 function setCurrentYear() {
