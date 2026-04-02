@@ -2,15 +2,99 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=guide.html?map=astra-malorum">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Redirecting...</title>
-  <script>
-    window.location.replace("guide.html?map=astra-malorum");
-  </script>
+  <title>Astra Malorum - Undead Intel</title>
+  <meta name="description" content="Astra Malorum Easter Egg guide, checklist, and saved progress tracker on Undead Intel.">
+  <meta name="theme-color" content="#000000">
+
+  <meta property="og:title" content="Astra Malorum - Undead Intel">
+  <meta property="og:description" content="Astra Malorum Easter Egg guide, checklist, and saved progress tracker.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://adrianmontijo504.github.io/Zombies-Ultimate-Guide/maps/astra-malorum.html">
+  <meta property="og:image" content="https://adrianmontijo504.github.io/Zombies-Ultimate-Guide/images/astra-malorum-easter-egg-guide.jpg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Astra Malorum - Undead Intel">
+  <meta name="twitter:description" content="Astra Malorum Easter Egg guide, checklist, and saved progress tracker.">
+  <meta name="twitter:image" content="https://adrianmontijo504.github.io/Zombies-Ultimate-Guide/images/astra-malorum-easter-egg-guide.jpg">
+
+  <link rel="canonical" href="https://adrianmontijo504.github.io/Zombies-Ultimate-Guide/maps/astra-malorum.html">
+  <link rel="icon" type="image/png" href="../images/undead-intel-logo.png">
+  <link rel="apple-touch-icon" href="../images/undead-intel-logo.png">
+  <link rel="manifest" href="../site.webmanifest">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/site-config.js" defer></script>
+  <script src="../js/maps-data.js" defer></script>
+  <script src="../js/app.js" defer></script>
 </head>
-<body>
-  <p>Redirecting to the Astra Malorum guide...</p>
-  <p><a href="guide.html?map=astra-malorum">Open guide</a></p>
+<body data-page="guide" data-root-prefix="../" data-guide-slug="astra-malorum">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="zombie-cursor" aria-hidden="true"></div>
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <header class="glass page-header">
+    <div class="header-left">
+      <h1 class="site-title">
+        <a href="../index.html" class="site-brand">
+          <img src="../images/undead-intel-logo.png" alt="Undead Intel logo" class="site-logo">
+          <span>Undead Intel</span>
+        </a>
+      </h1>
+      <div class="page-subtitle" id="guidePageSubtitle">Astra Malorum</div>
+    </div>
+
+    <div class="top-buttons">
+      <a class="back-link" href="../index.html">Home</a>
+      <a class="back-link" href="../maps.html">Back to Maps</a>
+      <a class="back-link" id="guideCorrectionLink" href="../requests.html?type=correction&map=Astra%20Malorum">Submit Correction</a>
+    </div>
+  </header>
+
+  <nav class="glass" aria-label="Main navigation">
+    <a href="../index.html">Home</a>
+    <a href="../maps.html" aria-current="page">Maps</a>
+    <a href="../about.html">About</a>
+  </nav>
+
+  <main id="main-content">
+    <section class="content" id="guideContent" data-tracker-key="">
+      <img id="guideImage" src="" alt="" class="map-image" hidden>
+
+      <h2 id="trackerHeading">🧪 Easter Egg Tracker</h2>
+
+      <div class="notes-box" id="quickNotesBox" hidden>
+        <h3>Quick Notes</h3>
+        <ul id="quickNotesList"></ul>
+      </div>
+
+      <div class="tracker-toolbar">
+        <p class="progress-text" data-progress-text>0 of 0 complete</p>
+        <button type="button" class="tracker-reset" data-reset-tracker>RESET PROGRESS</button>
+      </div>
+
+      <div id="progress-container" aria-label="Progress tracker">
+        <div id="progress-bar" aria-hidden="true"></div>
+      </div>
+
+      <ul id="steps" aria-label="Guide steps"></ul>
+
+      <div class="notes-box">
+        <h3>🔫 Notes</h3>
+        <p id="notesText"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="currentYear"></span> axmpages</p>
+    <nav class="footer-links" aria-label="Footer links">
+      <a href="../about.html">About</a>
+      <a href="../requests.html">Request a Guide</a>
+      <a href="../changelog.html">Changelog</a>
+    </nav>
+    <span class="footer-note">Your checklist progress saves automatically on this device.</span>
+  </footer>
 </body>
 </html>
