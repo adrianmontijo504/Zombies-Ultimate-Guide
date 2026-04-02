@@ -3,34 +3,48 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Browse all zombie map guides on Undead Intel, including Easter egg walkthroughs and map help.">
+  <meta name="description" content="Browse all zombie map guides on Undead Intel, including Easter egg walkthroughs and trackers.">
   <meta name="theme-color" content="#000000">
   <title>Maps - Undead Intel</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/maps-data.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
-<body>
-  <div class="zombie-hand" aria-hidden="true"></div>
+<body data-page="maps" data-root-prefix="">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="zombie-cursor" aria-hidden="true"></div>
   <canvas id="particles" aria-hidden="true"></canvas>
 
   <header class="glass page-header">
     <div class="header-left">
       <h1 class="site-title">
-        <a href="index.html">Undead Intel</a>
+        <a href="index.html" class="site-brand">
+          <img
+            src="images/undead-intel-logo.png"
+            alt="Undead Intel logo"
+            class="site-logo"
+          >
+          <span>Undead Intel</span>
+        </a>
       </h1>
+      <div class="page-subtitle">All Zombies Maps</div>
     </div>
 
-    <input
-      type="search"
-      id="search"
-      name="search"
-      placeholder="Search maps..."
-      aria-label="Search maps"
-      autocomplete="off"
-      autocorrect="off"
-      autocapitalize="off"
-      spellcheck="false"
-    >
+    <div class="search-wrap">
+      <label class="sr-only" for="search">Search maps</label>
+      <input
+        type="search"
+        id="search"
+        name="search"
+        placeholder="Search maps..."
+        aria-label="Search maps"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+      >
+    </div>
   </header>
 
   <nav class="glass" aria-label="Main navigation">
@@ -38,56 +52,18 @@
     <a href="maps.html" aria-current="page">Maps</a>
   </nav>
 
-  <main>
+  <main id="main-content">
     <section class="hero hero-small">
       <h2>ALL ZOMBIES MAPS</h2>
-      <p>Select a map below to open its full guide.</p>
+      <p>Select a map below to open its full guide and save your Easter egg progress.</p>
     </section>
 
-    <section id="guideList" class="grid" aria-label="Zombie maps">
-      <article class="card" data-name="astra malorum easter egg guide">
-        <a href="maps/astra-malorum.html" aria-label="Open Astra Malorum Easter Egg Guide">
-          <img
-            src="images/astra-malorum-easter-egg-guide.jpg"
-            alt="Astra Malorum Easter Egg Guide"
-            class="map-image"
-          >
-        </a>
-        <h3>Astra Malorum</h3>
-        <p>Easter Egg Guide</p>
-        <a href="maps/astra-malorum.html">OPEN GUIDE</a>
-      </article>
-
-      <article class="card" data-name="ashes of the damned easter egg guide">
-        <a href="maps/ashes-of-the-damned.html" aria-label="Open Ashes of the Damned Easter Egg Guide">
-          <img
-            src="images/ashes-of-the-damned-easter-egg-guide.jpg"
-            alt="Ashes of the Damned Easter Egg Guide"
-            class="map-image"
-          >
-        </a>
-        <h3>Ashes of the Damned</h3>
-        <p>Easter Egg Guide</p>
-        <a href="maps/ashes-of-the-damned.html">OPEN GUIDE</a>
-      </article>
-
-      <article class="card" data-name="paradox junction easter egg guide">
-        <a href="maps/paradox-junction.html" aria-label="Open Paradox Junction Easter Egg Guide">
-          <img
-            src="images/paradox-junction-easter-egg-guide.jpg"
-            alt="Paradox Junction Easter Egg Guide"
-            class="map-image"
-          >
-        </a>
-        <h3>Paradox Junction</h3>
-        <p>Easter Egg Guide</p>
-        <a href="maps/paradox-junction.html">OPEN GUIDE</a>
-      </article>
-    </section>
+    <section id="guideList" class="grid" aria-label="Zombie maps"></section>
   </main>
 
   <footer>
-    <p>© 2026 axmpages</p>
+    <p>© <span id="currentYear"></span> axmpages</p>
+    <span class="footer-note">Search maps fast and keep each tracker saved separately.</span>
   </footer>
 </body>
 </html>
