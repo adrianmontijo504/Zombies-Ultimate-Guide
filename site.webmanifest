@@ -1,1 +1,17 @@
-
+{
+  "name": "Undead Intel",
+  "short_name": "Undead Intel",
+  "description": "Zombies Easter Egg Guides",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#050607",
+  "theme_color": "#000000",
+  "icons": [
+    {
+      "src": "images/undead-intel-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
