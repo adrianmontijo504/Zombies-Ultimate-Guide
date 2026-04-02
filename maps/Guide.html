@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Zombie guide and tracker on Undead Intel.">
+  <meta name="theme-color" content="#000000">
+  <title>Guide - Undead Intel</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/maps-data.js" defer></script>
+  <script src="../js/app.js" defer></script>
+</head>
+<body data-page="guide" data-root-prefix="../">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="zombie-cursor" aria-hidden="true"></div>
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <header class="glass page-header">
+    <div class="header-left">
+      <h1 class="site-title">
+        <a href="../index.html" class="site-brand">
+          <img
+            src="../images/undead-intel-logo.png"
+            alt="Undead Intel logo"
+            class="site-logo"
+          >
+          <span>Undead Intel</span>
+        </a>
+      </h1>
+      <div class="page-subtitle" id="guidePageSubtitle">Loading Guide...</div>
+    </div>
+
+    <div class="top-buttons">
+      <a class="back-link" href="../index.html">Home</a>
+      <a class="back-link" href="../maps.html">Back to Maps</a>
+    </div>
+  </header>
+
+  <nav class="glass" aria-label="Main navigation">
+    <a href="../index.html">Home</a>
+    <a href="../maps.html" aria-current="page">Maps</a>
+  </nav>
+
+  <main id="main-content">
+    <section class="content" id="guideContent" data-tracker-key="">
+      <img
+        id="guideImage"
+        src=""
+        alt=""
+        class="map-image"
+        hidden
+      >
+
+      <h2 id="trackerHeading">🧪 Easter Egg Tracker</h2>
+
+      <div class="notes-box" id="quickNotesBox" hidden>
+        <h3>Quick Notes</h3>
+        <ul id="quickNotesList"></ul>
+      </div>
+
+      <div class="tracker-toolbar">
+        <p class="progress-text" data-progress-text>0 of 0 complete</p>
+        <button type="button" class="tracker-reset" data-reset-tracker>RESET PROGRESS</button>
+      </div>
+
+      <div id="progress-container" aria-label="Progress tracker">
+        <div id="progress-bar" aria-hidden="true"></div>
+      </div>
+
+      <ul id="steps" aria-label="Guide steps"></ul>
+
+      <div class="notes-box">
+        <h3>🔫 Notes</h3>
+        <p id="notesText"></p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© <span id="currentYear"></span> axmpages</p>
+    <span class="footer-note">Your checklist progress saves automatically on this device.</span>
+  </footer>
+</body>
+</html>
