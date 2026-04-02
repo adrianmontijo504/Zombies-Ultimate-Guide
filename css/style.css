@@ -337,9 +337,11 @@ header {
   min-width: min(280px, 100%);
 }
 
-header input {
-  width: 260px;
-  max-width: 42vw;
+header input,
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
   padding: 12px 14px;
   border-radius: 14px;
   border: 1px solid rgba(255, 255, 255, 0.08);
@@ -350,11 +352,21 @@ header input {
   -webkit-backdrop-filter: blur(8px);
 }
 
-header input::placeholder {
+header input {
+  width: 260px;
+  max-width: 42vw;
+}
+
+header input::placeholder,
+.field input::placeholder,
+.field textarea::placeholder {
   color: rgba(255, 255, 255, 0.55);
 }
 
-header input:focus {
+header input:focus,
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
   border-color: rgba(255, 166, 63, 0.7);
   box-shadow: 0 0 0 3px rgba(255, 138, 42, 0.12);
 }
@@ -423,7 +435,8 @@ nav a[aria-current="page"] {
   font-weight: 600;
 }
 
-.hero-actions {
+.hero-actions,
+.content-actions {
   display: flex;
   justify-content: center;
   gap: 12px;
@@ -484,6 +497,7 @@ nav a[aria-current="page"] {
   border: 1px solid rgba(255, 170, 70, 0.05);
   text-decoration: none;
   box-shadow: none;
+  aspect-ratio: 16 / 9;
 }
 
 .card h3 {
@@ -650,6 +664,40 @@ nav a[aria-current="page"] {
   margin: 8px 0;
 }
 
+.field-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.field label {
+  color: #fff2d8;
+  font-weight: 700;
+}
+
+.field textarea {
+  min-height: 180px;
+  resize: vertical;
+}
+
+.helper-text,
+.form-status {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+}
+
+.form-status {
+  min-height: 1.4em;
+  color: #ffe2a9;
+  font-weight: 700;
+}
+
 .tracker-toolbar {
   display: flex;
   justify-content: space-between;
@@ -728,7 +776,9 @@ nav a[aria-current="page"] {
 
 a:focus-visible,
 button:focus-visible,
-input:focus-visible {
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
   outline: 3px solid rgba(255, 200, 100, 0.45);
   outline-offset: 3px;
 }
@@ -741,9 +791,27 @@ footer {
   text-shadow: 0 0 10px rgba(255, 95, 20, 0.10);
 }
 
+.footer-links {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: var(--accent-soft);
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.footer-links a:hover {
+  color: #ffe2a9;
+}
+
 .footer-note {
   display: block;
-  margin-top: 6px;
+  margin-top: 8px;
   color: var(--text-muted);
   font-weight: 600;
   font-size: 0.92rem;
@@ -797,11 +865,14 @@ footer {
     padding: 54px 16px 28px;
   }
 
-  .hero-actions {
+  .hero-actions,
+  .content-actions {
     justify-content: stretch;
   }
 
-  .hero-actions a {
+  .hero-actions a,
+  .content-actions a,
+  .content-actions button {
     flex: 1 1 220px;
   }
 
@@ -855,6 +926,10 @@ footer {
 
   .search-empty {
     width: calc(100% - 32px);
+  }
+
+  .field-grid {
+    grid-template-columns: 1fr;
   }
 
   body[data-page="guide"] main::before {
