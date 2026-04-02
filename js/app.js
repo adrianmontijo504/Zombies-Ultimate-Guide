@@ -1,13 +1,57 @@
 document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.add("loaded");
 
+  setupAnalytics();
   renderDynamicContent();
   setupSearch();
   setupZombieCursor();
   setupEmbers();
   setupTracker();
+  setupRequestBuilder();
   setCurrentYear();
+  trackPageView();
 });
+
+function getSiteConfig() {
+  return window.SITE_CONFIG || {};
+}
+
+function setupAnalytics() {
+  const measurementId = (getSiteConfig().gaMeasurementId || "").trim();
+  if (!measurementId) return;
+
+  if (!window.dataLayer) {
+    window.dataLayer = [];
+  }
+
+  if (!window.gtag) {
+    window.gtag = function gtag() {
+      window.dataLayer.push(arguments);
+    };
+  }
+
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(measurementId)}`;
+  document.head.appendChild(script);
+
+  window.gtag("js", new Date());
+  window.gtag("config", measurementId);
+}
+
+function trackEvent(eventName, params = {}) {
+  if (typeof window.gtag === "function") {
+    window.gtag("event", eventName, params);
+  }
+}
+
+function trackPageView() {
+  trackEvent("page_view", {
+    page_title: document.title,
+    page_location: window.location.href,
+    page_path: window.location.pathname
+  });
+}
 
 function renderDynamicContent() {
   const page = document.body.dataset.page || "";
@@ -26,7 +70,12 @@ function assetPath(path) {
 }
 
 function getGuideUrl(slug) {
-  return `${getRootPrefix()}maps/guide.html?map=${encodeURIComponent(slug)}`;
+  return `${getRootPrefix()}maps/${encodeURIComponent(slug)}.html`;
+}
+
+function getCorrectionUrl(mapTitle = "") {
+  const base = `${getRootPrefix()}requests.html`;
+  return `${base}?type=correction&map=${encodeURIComponent(mapTitle)}`;
 }
 
 function getGuides() {
@@ -52,6 +101,8 @@ function getCardMarkup(guide, isFeatured = false) {
   const guideLabel = guide.cardLabel || "Guide";
   const altText = `${guide.title} ${guideLabel}`;
   const searchName = `${guide.title} ${guideLabel} ${guide.searchTerms || ""}`.trim();
+  const loading = isFeatured ? "eager" : "lazy";
+  const fetchPriority = isFeatured ? "high" : "auto";
 
   return `
     <article class="card${extraClasses}" data-name="${escapeHtml(searchName)}">
@@ -60,6 +111,11 @@ function getCardMarkup(guide, isFeatured = false) {
           src="${escapeHtml(assetPath(`images/${guide.image}`))}"
           alt="${escapeHtml(altText)}"
           class="map-image"
+          loading="${loading}"
+          decoding="async"
+          fetchpriority="${fetchPriority}"
+          width="1600"
+          height="900"
         >
       </a>
       <h3>${escapeHtml(guide.title)}</h3>
@@ -109,7 +165,7 @@ function renderMapsPage() {
 
 function renderGuidePage() {
   const params = new URLSearchParams(window.location.search);
-  const slug = params.get("map");
+  const slug = document.body.dataset.guideSlug || params.get("map");
   const guides = getGuides();
   const guide = guides.find((item) => item.slug === slug);
 
@@ -121,6 +177,7 @@ function renderGuidePage() {
   const quickNotesList = document.getElementById("quickNotesList");
   const notesText = document.getElementById("notesText");
   const stepsList = document.getElementById("steps");
+  const correctionLink = document.getElementById("guideCorrectionLink");
 
   if (!content || !pageSubtitle || !guideImage || !trackerHeading || !notesText || !stepsList) {
     return;
@@ -134,18 +191,16 @@ function renderGuidePage() {
       <div class="notes-box">
         <h2>Guide Not Found</h2>
         <p>The map you tried to open does not exist in your data file.</p>
-        <p><a class="primary-link" href="../maps.html">Go Back to Maps</a></p>
+        <div class="content-actions">
+          <a class="primary-link" href="${escapeHtml(getRootPrefix())}maps.html">GO BACK TO MAPS</a>
+          <a class="back-link" href="${escapeHtml(getRootPrefix())}requests.html?type=request">REQUEST THIS GUIDE</a>
+        </div>
       </div>
     `;
     return;
   }
 
   document.title = `${guide.title} - Undead Intel`;
-
-  const metaDescription = document.querySelector('meta[name="description"]');
-  if (metaDescription) {
-    metaDescription.setAttribute("content", `${guide.title} Easter Egg guide and tracker on Undead Intel.`);
-  }
 
   pageSubtitle.textContent = guide.title;
   trackerHeading.textContent = `🧪 ${guide.title} Easter Egg Tracker`;
@@ -154,7 +209,13 @@ function renderGuidePage() {
 
   guideImage.src = assetPath(`images/${guide.image}`);
   guideImage.alt = `${guide.title} ${guide.cardLabel || "Guide"}`;
+  guideImage.loading = "eager";
+  guideImage.decoding = "async";
   guideImage.hidden = false;
+
+  if (correctionLink) {
+    correctionLink.href = getCorrectionUrl(guide.title);
+  }
 
   stepsList.textContent = "";
 
@@ -186,6 +247,11 @@ function renderGuidePage() {
       quickNotesBox.hidden = true;
     }
   }
+
+  trackEvent("open_guide", {
+    guide_slug: guide.slug,
+    guide_title: guide.title
+  });
 }
 
 function setupSearch() {
@@ -209,6 +275,8 @@ function setupSearch() {
     guideList.insertAdjacentElement("afterend", noResults);
   }
 
+  let lastSearchValue = "";
+
   function filterCards() {
     const input = searchInput.value.trim().toLowerCase();
     let visibleCount = 0;
@@ -217,7 +285,6 @@ function setupSearch() {
       const dataName = (card.getAttribute("data-name") || "").toLowerCase();
       const heading = (card.querySelector("h3")?.textContent || "").toLowerCase();
       const text = (card.querySelector("p")?.textContent || "").toLowerCase();
-
       const searchableText = `${dataName} ${heading} ${text}`.trim();
       const isMatch = input === "" || searchableText.includes(input);
 
@@ -229,6 +296,18 @@ function setupSearch() {
     });
 
     noResults.hidden = visibleCount > 0;
+
+    if (input && input !== lastSearchValue) {
+      trackEvent("search_guides", {
+        query_length: input.length,
+        visible_results: visibleCount
+      });
+      lastSearchValue = input;
+    }
+
+    if (!input) {
+      lastSearchValue = "";
+    }
   }
 
   searchInput.addEventListener("input", filterCards);
@@ -523,6 +602,122 @@ function setupTracker() {
   }
 
   updateProgress();
+}
+
+function setupRequestBuilder() {
+  const form = document.getElementById("requestBuilder");
+  if (!form) return;
+
+  const typeField = document.getElementById("requestType");
+  const mapField = document.getElementById("requestMap");
+  const titleField = document.getElementById("requestTitle");
+  const nameField = document.getElementById("requestName");
+  const detailsField = document.getElementById("requestDetails");
+  const copyButton = document.getElementById("copyRequestButton");
+  const emailLink = document.getElementById("emailRequestLink");
+  const status = document.getElementById("requestStatus");
+  const params = new URLSearchParams(window.location.search);
+  const contactEmail = (getSiteConfig().contactEmail || "").trim();
+
+  if (typeField && params.get("type")) {
+    typeField.value = params.get("type");
+  }
+
+  if (mapField && params.get("map")) {
+    mapField.value = params.get("map");
+  }
+
+  if (titleField && !titleField.value && params.get("type") === "correction" && params.get("map")) {
+    titleField.value = `Correction for ${params.get("map")}`;
+  }
+
+  function buildRequest() {
+    const type = (typeField?.value || "request").trim();
+    const map = (mapField?.value || "").trim();
+    const title = (titleField?.value || "").trim();
+    const name = (nameField?.value || "").trim();
+    const details = (detailsField?.value || "").trim();
+
+    const subject = title || `${type.charAt(0).toUpperCase()}${type.slice(1)} submission`;
+    const bodyLines = [
+      `Type: ${type}`,
+      `Map/Page: ${map || "Not specified"}`,
+      `Title: ${subject}`,
+      `Name: ${name || "Anonymous"}`,
+      "",
+      "Details:",
+      details || "No details added yet."
+    ];
+
+    return {
+      subject,
+      body: bodyLines.join("\n")
+    };
+  }
+
+  function updateEmailLink() {
+    if (!emailLink) return;
+
+    if (!contactEmail) {
+      emailLink.hidden = true;
+      return;
+    }
+
+    const request = buildRequest();
+    emailLink.href = `mailto:${contactEmail}?subject=${encodeURIComponent(request.subject)}&body=${encodeURIComponent(request.body)}`;
+    emailLink.hidden = false;
+  }
+
+  const watchedFields = [typeField, mapField, titleField, nameField, detailsField];
+  watchedFields.forEach((field) => {
+    if (!field) return;
+    field.addEventListener("input", updateEmailLink);
+    field.addEventListener("change", updateEmailLink);
+  });
+
+  updateEmailLink();
+
+  if (copyButton) {
+    copyButton.addEventListener("click", async () => {
+      const request = buildRequest();
+
+      try {
+        await copyTextToClipboard(request.body);
+
+        if (status) {
+          status.textContent = "Copied. You can paste this into email, notes, or your request tracker.";
+        }
+
+        trackEvent("copy_request", {
+          request_type: (typeField?.value || "").trim(),
+          map_name: (mapField?.value || "").trim()
+        });
+      } catch {
+        if (status) {
+          status.textContent = "Copy failed on this browser. Select the text manually and copy it.";
+        }
+      }
+
+      updateEmailLink();
+    });
+  }
+}
+
+async function copyTextToClipboard(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const textArea = document.createElement("textarea");
+  textArea.value = text;
+  textArea.style.position = "fixed";
+  textArea.style.opacity = "0";
+  document.body.appendChild(textArea);
+  textArea.focus();
+  textArea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textArea);
 }
 
 function setCurrentYear() {
