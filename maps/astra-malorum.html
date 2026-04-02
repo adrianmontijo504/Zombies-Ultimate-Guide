@@ -2,108 +2,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="refresh" content="0; url=guide.html?map=astra-malorum">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Astra Malorum Easter Egg guide and tracker on Undead Intel.">
-  <meta name="theme-color" content="#000000">
-  <title>Astra Malorum - Undead Intel</title>
-  <link rel="stylesheet" href="../css/style.css">
-  <script src="../js/app.js" defer></script>
+  <title>Redirecting...</title>
+  <script>
+    window.location.replace("guide.html?map=astra-malorum");
+  </script>
 </head>
 <body>
-  <div class="zombie-hand" aria-hidden="true"></div>
-  <canvas id="particles" aria-hidden="true"></canvas>
-
-  <header class="glass page-header">
-    <div class="header-left">
-      <h1 class="site-title">
-        <a href="../index.html">Undead Intel</a>
-      </h1>
-      <div class="page-subtitle">Astra Malorum</div>
-    </div>
-
-    <div class="top-buttons">
-      <a class="back-link" href="../index.html">Home</a>
-      <a class="back-link" href="../maps.html">Back to Maps</a>
-    </div>
-  </header>
-
-  <main>
-    <section class="content">
-      <img
-        src="../images/astra-malorum-easter-egg-guide.jpg"
-        alt="Astra Malorum Easter Egg Guide"
-        class="map-image"
-      >
-
-      <h2>🧪 Easter Egg Tracker</h2>
-
-      <div id="progress-container" aria-label="Progress tracker">
-        <div id="progress-bar" aria-hidden="true"></div>
-      </div>
-
-      <ul id="steps" aria-label="Astra Malorum Easter Egg steps">
-        <li><label><input type="checkbox"> Turn on power.</label></li>
-        <li><label><input type="checkbox"> Unlock ritual room.</label></li>
-        <li><label><input type="checkbox"> Collect relic pieces.</label></li>
-        <li><label><input type="checkbox"> Build the relic.</label></li>
-        <li><label><input type="checkbox"> Charge the altar.</label></li>
-        <li><label><input type="checkbox"> Start the boss fight.</label></li>
-      </ul>
-
-      <div class="notes-box">
-        <h3>🔫 Notes</h3>
-        <p>Add your full Astra Malorum guide steps here later.</p>
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2026 axmpages</p>
-  </footer>
-
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const pageKey = "astra_malorum_";
-      const progressBar = document.getElementById("progress-bar");
-      const checkboxes = document.querySelectorAll("#steps input[type='checkbox']");
-
-      if (!progressBar || checkboxes.length === 0) return;
-
-      function getSavedValue(key) {
-        try {
-          return localStorage.getItem(key);
-        } catch (error) {
-          return null;
-        }
-      }
-
-      function setSavedValue(key, value) {
-        try {
-          localStorage.setItem(key, value);
-        } catch (error) {
-          /* localStorage unavailable */
-        }
-      }
-
-      function updateProgress() {
-        const total = checkboxes.length;
-        const done = Array.from(checkboxes).filter((checkbox) => checkbox.checked).length;
-        const percent = total > 0 ? (done / total) * 100 : 0;
-        progressBar.style.width = `${percent}%`;
-      }
-
-      checkboxes.forEach((box, index) => {
-        const saved = getSavedValue(pageKey + index);
-        box.checked = saved === "true";
-
-        box.addEventListener("change", () => {
-          setSavedValue(pageKey + index, String(box.checked));
-          updateProgress();
-        });
-      });
-
-      updateProgress();
-    });
-  </script>
+  <p>Redirecting to the Astra Malorum guide...</p>
+  <p><a href="guide.html?map=astra-malorum">Open guide</a></p>
 </body>
 </html>
