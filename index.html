@@ -7,63 +7,68 @@
   <meta name="theme-color" content="#000000">
   <title>Undead Intel</title>
   <link rel="stylesheet" href="css/style.css">
+  <script src="js/maps-data.js" defer></script>
   <script src="js/app.js" defer></script>
 </head>
-<body>
-  <div class="zombie-hand" aria-hidden="true"></div>
+<body data-page="home" data-root-prefix="">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+
+  <div class="zombie-cursor" aria-hidden="true"></div>
   <canvas id="particles" aria-hidden="true"></canvas>
 
   <header class="glass page-header">
     <div class="header-left">
       <h1 class="site-title">
-        <a href="index.html">Undead Intel</a>
+        <a href="index.html" class="site-brand">
+          <img
+            src="images/undead-intel-logo.png"
+            alt="Undead Intel logo"
+            class="site-logo"
+          >
+          <span>Undead Intel</span>
+        </a>
       </h1>
+      <div class="page-subtitle">Zombies Easter Egg Guides</div>
     </div>
 
-    <input
-      type="search"
-      id="search"
-      name="search"
-      placeholder="Search guides..."
-      aria-label="Search guides"
-      autocomplete="off"
-      autocorrect="off"
-      autocapitalize="off"
-      spellcheck="false"
-    >
+    <div class="search-wrap">
+      <label class="sr-only" for="search">Search guides</label>
+      <input
+        type="search"
+        id="search"
+        name="search"
+        placeholder="Search guides..."
+        aria-label="Search guides"
+        autocomplete="off"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+      >
+    </div>
   </header>
 
   <nav class="glass" aria-label="Main navigation">
-    <a href="index.html">Home</a>
+    <a href="index.html" aria-current="page">Home</a>
     <a href="maps.html">Maps</a>
   </nav>
 
-  <main>
+  <main id="main-content">
     <section class="hero">
       <h2>MOST RECENT MAP</h2>
-      <p>The newest featured guide is now live.</p>
+      <p>The newest featured guide is live: <strong id="featuredGuideTitleText">Loading...</strong>.</p>
+
+      <div class="hero-actions">
+        <a class="primary-link" id="latestGuideCta" href="maps/guide.html">OPEN LATEST GUIDE</a>
+        <a class="primary-link" href="maps.html">BROWSE ALL MAPS</a>
+      </div>
     </section>
 
-    <section id="guideList" class="grid single-featured" aria-label="Featured guides">
-      <article class="card featured-card" data-name="paradox junction easter egg guide">
-        <a href="maps/paradox-junction.html" aria-label="Open Paradox Junction Easter Egg Guide">
-          <img
-            src="images/paradox-junction-easter-egg-guide.jpg"
-            alt="Paradox Junction Easter Egg Guide"
-            class="map-image"
-          >
-        </a>
-
-        <h3>Paradox Junction</h3>
-        <p>Easter Egg Guide</p>
-
-        <a href="maps/paradox-junction.html">ENTER GUIDE</a>
-      </article>
-    </section>
+    <section id="guideList" class="grid single-featured" aria-label="Featured guides"></section>
   </main>
 
   <footer>
-    <p>© 2026 axmpages</p>
+    <p>© <span id="currentYear"></span> axmpages</p>
+    <span class="footer-note">Undead Intel keeps your map trackers saved on your device.</span>
   </footer>
 </body>
 </html>
