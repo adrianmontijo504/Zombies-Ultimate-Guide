@@ -6,7 +6,13 @@
   <meta name="description" content="Zombie guide and tracker on Undead Intel.">
   <meta name="theme-color" content="#000000">
   <title>Guide - Undead Intel</title>
+
+  <link rel="icon" type="image/png" href="../images/undead-intel-logo.png">
+  <link rel="apple-touch-icon" href="../images/undead-intel-logo.png">
+  <link rel="manifest" href="../site.webmanifest">
+
   <link rel="stylesheet" href="../css/style.css">
+  <script src="../js/site-config.js" defer></script>
   <script src="../js/maps-data.js" defer></script>
   <script src="../js/app.js" defer></script>
 </head>
@@ -20,11 +26,7 @@
     <div class="header-left">
       <h1 class="site-title">
         <a href="../index.html" class="site-brand">
-          <img
-            src="../images/undead-intel-logo.png"
-            alt="Undead Intel logo"
-            class="site-logo"
-          >
+          <img src="../images/undead-intel-logo.png" alt="Undead Intel logo" class="site-logo">
           <span>Undead Intel</span>
         </a>
       </h1>
@@ -34,23 +36,19 @@
     <div class="top-buttons">
       <a class="back-link" href="../index.html">Home</a>
       <a class="back-link" href="../maps.html">Back to Maps</a>
+      <a class="back-link" id="guideCorrectionLink" href="../requests.html?type=correction">Submit Correction</a>
     </div>
   </header>
 
   <nav class="glass" aria-label="Main navigation">
     <a href="../index.html">Home</a>
     <a href="../maps.html" aria-current="page">Maps</a>
+    <a href="../about.html">About</a>
   </nav>
 
   <main id="main-content">
     <section class="content" id="guideContent" data-tracker-key="">
-      <img
-        id="guideImage"
-        src=""
-        alt=""
-        class="map-image"
-        hidden
-      >
+      <img id="guideImage" src="" alt="" class="map-image" hidden>
 
       <h2 id="trackerHeading">🧪 Easter Egg Tracker</h2>
 
@@ -79,6 +77,11 @@
 
   <footer>
     <p>© <span id="currentYear"></span> axmpages</p>
+    <nav class="footer-links" aria-label="Footer links">
+      <a href="../about.html">About</a>
+      <a href="../requests.html">Request a Guide</a>
+      <a href="../changelog.html">Changelog</a>
+    </nav>
     <span class="footer-note">Your checklist progress saves automatically on this device.</span>
   </footer>
 </body>
