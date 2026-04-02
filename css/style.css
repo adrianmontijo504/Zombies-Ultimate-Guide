@@ -5,17 +5,12 @@
 }
 
 :root {
-  --bg-top: #08111f;
-  --bg-mid: #03060d;
-  --bg-bottom: #000000;
   --text-main: #ffffff;
   --text-soft: rgba(255, 255, 255, 0.84);
   --text-muted: rgba(255, 255, 255, 0.68);
   --accent: #ff8a2a;
   --accent-soft: #ffb347;
   --accent-light: #ffcc66;
-  --card-border: rgba(255, 170, 70, 0.08);
-  --surface-border: rgba(255, 255, 255, 0.05);
 }
 
 html,
@@ -53,90 +48,6 @@ body {
 
 body.loaded {
   opacity: 1;
-}
-
-main {
-  display: block;
-  position: relative;
-  z-index: 0;
-}
-
-main::before {
-  content: "";
-  position: absolute;
-  top: 8px;
-  bottom: 8px;
-  left: 50%;
-  width: min(1080px, calc(100% - 20px));
-  transform: translateX(-50%);
-  border-radius: 28px;
-  pointer-events: none;
-  z-index: -1;
-  background:
-    radial-gradient(circle at 50% 10%, rgba(255, 150, 60, 0.10) 0%, transparent 18%),
-    radial-gradient(circle at 50% 50%, rgba(255, 95, 20, 0.10) 0%, transparent 28%),
-    radial-gradient(circle at 18% 55%, rgba(255, 125, 35, 0.10) 0%, transparent 18%),
-    radial-gradient(circle at 82% 56%, rgba(255, 125, 35, 0.10) 0%, transparent 18%),
-    radial-gradient(circle at 50% 92%, rgba(255, 88, 18, 0.16) 0%, transparent 20%),
-    linear-gradient(180deg, rgba(24, 12, 9, 0.94) 0%, rgba(17, 10, 9, 0.96) 100%);
-  box-shadow:
-    0 0 0 1px rgba(255, 140, 55, 0.08) inset,
-    0 0 40px rgba(255, 98, 22, 0.12),
-    0 24px 70px rgba(0, 0, 0, 0.45);
-}
-
-main::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: min(1160px, calc(100% - 4px));
-  transform: translateX(-50%);
-  pointer-events: none;
-  z-index: -2;
-  background:
-    radial-gradient(circle at 50% 12%, rgba(255, 120, 28, 0.10) 0%, transparent 20%),
-    radial-gradient(circle at 50% 88%, rgba(255, 84, 18, 0.10) 0%, transparent 18%);
-  filter: blur(26px);
-  opacity: 0.9;
-}
-
-img {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-.skip-link {
-  position: absolute;
-  left: 16px;
-  top: -60px;
-  z-index: 100000;
-  padding: 12px 16px;
-  border-radius: 12px;
-  background: #111827;
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 700;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  transition: top 0.2s ease;
-}
-
-.skip-link:focus {
-  top: 16px;
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip-path: inset(50%);
-  white-space: nowrap;
-  border: 0;
 }
 
 body::before {
@@ -190,6 +101,98 @@ body::after {
     opacity: 1;
     transform: translateY(-4px);
   }
+}
+
+main {
+  display: block;
+  position: relative;
+  z-index: 0;
+}
+
+body[data-page="guide"] main::before {
+  content: "";
+  position: absolute;
+  top: 8px;
+  bottom: 8px;
+  left: 50%;
+  width: min(1080px, calc(100% - 20px));
+  transform: translateX(-50%);
+  border-radius: 28px;
+  pointer-events: none;
+  z-index: -1;
+  background:
+    radial-gradient(circle at 50% 10%, rgba(255, 150, 60, 0.10) 0%, transparent 18%),
+    radial-gradient(circle at 50% 50%, rgba(255, 95, 20, 0.10) 0%, transparent 28%),
+    radial-gradient(circle at 18% 55%, rgba(255, 125, 35, 0.10) 0%, transparent 18%),
+    radial-gradient(circle at 82% 56%, rgba(255, 125, 35, 0.10) 0%, transparent 18%),
+    radial-gradient(circle at 50% 92%, rgba(255, 88, 18, 0.16) 0%, transparent 20%),
+    linear-gradient(180deg, rgba(24, 12, 9, 0.94) 0%, rgba(17, 10, 9, 0.96) 100%);
+  box-shadow:
+    0 0 0 1px rgba(255, 140, 55, 0.08) inset,
+    0 0 40px rgba(255, 98, 22, 0.12),
+    0 24px 70px rgba(0, 0, 0, 0.45);
+}
+
+body[data-page="guide"] main::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: min(1160px, calc(100% - 4px));
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: -2;
+  background:
+    radial-gradient(circle at 50% 12%, rgba(255, 120, 28, 0.10) 0%, transparent 20%),
+    radial-gradient(circle at 50% 88%, rgba(255, 84, 18, 0.10) 0%, transparent 18%);
+  filter: blur(26px);
+  opacity: 0.9;
+}
+
+body[data-page="home"] main::before,
+body[data-page="home"] main::after,
+body[data-page="maps"] main::before,
+body[data-page="maps"] main::after {
+  content: none;
+  display: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+.skip-link {
+  position: absolute;
+  left: 16px;
+  top: -60px;
+  z-index: 100000;
+  padding: 12px 16px;
+  border-radius: 12px;
+  background: #111827;
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: 700;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+  top: 16px;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 
 #particles {
@@ -319,9 +322,13 @@ header {
 }
 
 .page-subtitle {
-  color: rgba(255, 255, 255, 0.82);
-  font-weight: 700;
-  letter-spacing: 0.04em;
+  color: #fff2d8;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  text-shadow:
+    0 0 10px rgba(255, 160, 50, 0.55),
+    0 0 22px rgba(255, 90, 20, 0.22);
 }
 
 .search-wrap {
@@ -850,12 +857,12 @@ footer {
     width: calc(100% - 32px);
   }
 
-  main::before {
+  body[data-page="guide"] main::before {
     width: calc(100% - 10px);
     border-radius: 22px;
   }
 
-  main::after {
+  body[data-page="guide"] main::after {
     width: calc(100% - 2px);
   }
 }
