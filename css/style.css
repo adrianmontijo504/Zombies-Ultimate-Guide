@@ -770,6 +770,50 @@ nav a[aria-current="page"] {
   text-align: center;
 }
 
+.request-send-button {
+  min-width: 240px;
+  min-height: 54px;
+  padding: 14px 26px;
+  font-size: 1.02rem;
+  letter-spacing: 0.05em;
+  color: #1a0a00;
+  background: linear-gradient(180deg, #ffcf6b 0%, #ff9d2f 55%, #ff7a1a 100%);
+  border: 1px solid rgba(255, 196, 92, 0.95);
+  box-shadow:
+    0 0 0 1px rgba(255, 245, 210, 0.18) inset,
+    0 0 18px rgba(255, 140, 42, 0.34),
+    0 10px 24px rgba(0, 0, 0, 0.24);
+  text-transform: uppercase;
+}
+
+.request-send-button:hover,
+.request-send-button:focus-visible {
+  color: #120700;
+  background: linear-gradient(180deg, #ffd97f 0%, #ffae42 55%, #ff8420 100%);
+  border-color: rgba(255, 214, 120, 1);
+  box-shadow:
+    0 0 0 1px rgba(255, 248, 225, 0.24) inset,
+    0 0 26px rgba(255, 150, 48, 0.48),
+    0 14px 28px rgba(0, 0, 0, 0.28);
+  transform: translateY(-2px) scale(1.02);
+}
+
+.request-send-button:active {
+  transform: translateY(0) scale(0.99);
+}
+
+#requestBuilder .content-actions {
+  margin-top: 26px;
+}
+
+#requestStatus {
+  text-align: center;
+  margin-top: 14px;
+  color: #ffe2a9;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 140, 42, 0.18);
+}
+
 [hidden] {
   display: none !important;
 }
@@ -930,6 +974,11 @@ footer {
 
   .field-grid {
     grid-template-columns: 1fr;
+  }
+
+  .request-send-button {
+    width: 100%;
+    min-width: 0;
   }
 
   body[data-page="guide"] main::before {
