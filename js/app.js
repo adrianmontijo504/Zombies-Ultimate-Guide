@@ -12,17 +12,9 @@ document.addEventListener("DOMContentLoaded", () => {
 function renderDynamicContent() {
   const page = document.body.dataset.page || "";
 
-  if (page === "home") {
-    renderHomePage();
-  }
-
-  if (page === "maps") {
-    renderMapsPage();
-  }
-
-  if (page === "guide") {
-    renderGuidePage();
-  }
+  if (page === "home") renderHomePage();
+  if (page === "maps") renderMapsPage();
+  if (page === "guide") renderGuidePage();
 }
 
 function getRootPrefix() {
@@ -258,17 +250,11 @@ function setupZombieCursor() {
   let mouseX = 0;
   let mouseY = 0;
   let rafId = null;
-  let isVisible = false;
 
   function renderCursor() {
     cursor.style.left = `${mouseX}px`;
     cursor.style.top = `${mouseY}px`;
-
-    if (!isVisible) {
-      cursor.style.opacity = "1";
-      isVisible = true;
-    }
-
+    cursor.style.opacity = "1";
     rafId = null;
   }
 
@@ -283,14 +269,10 @@ function setupZombieCursor() {
 
   document.addEventListener("mouseleave", () => {
     cursor.style.opacity = "0";
-    isVisible = false;
   });
 
   document.addEventListener("mouseenter", () => {
-    if (!isVisible) {
-      cursor.style.opacity = "1";
-      isVisible = true;
-    }
+    cursor.style.opacity = "1";
   });
 }
 
@@ -484,7 +466,7 @@ function setupTracker() {
   function getSavedValue(key) {
     try {
       return localStorage.getItem(key);
-    } catch (error) {
+    } catch {
       return null;
     }
   }
@@ -492,7 +474,7 @@ function setupTracker() {
   function setSavedValue(key, value) {
     try {
       localStorage.setItem(key, value);
-    } catch (error) {
+    } catch {
       /* localStorage unavailable */
     }
   }
@@ -500,7 +482,7 @@ function setupTracker() {
   function removeSavedValue(key) {
     try {
       localStorage.removeItem(key);
-    } catch (error) {
+    } catch {
       /* localStorage unavailable */
     }
   }
