@@ -230,8 +230,9 @@ function renderGuidePage() {
   const notesText = document.getElementById("notesText");
   const stepsList = document.getElementById("steps");
   const correctionLink = document.getElementById("guideCorrectionLink");
-  const guideLastUpdatedText = document.getElementById("guideLastUpdatedText");
   const bossJumpLink = document.getElementById("bossJumpLink");
+  const guideMenu = document.getElementById("guideMenu");
+  const guideLastUpdatedNodes = document.querySelectorAll("[data-guide-last-updated]");
 
   if (!content || !pageSubtitle || !guideImage || !trackerHeading || !notesText || !stepsList) {
     return;
@@ -261,9 +262,9 @@ function renderGuidePage() {
   notesText.textContent = guide.notes || "";
   content.dataset.trackerKey = guide.trackerKey || guide.slug.replaceAll("-", "_");
 
-  if (guideLastUpdatedText) {
-    guideLastUpdatedText.textContent = guide.lastUpdated || "Recently updated";
-  }
+  guideLastUpdatedNodes.forEach((node) => {
+    node.textContent = guide.lastUpdated || "Recently updated";
+  });
 
   guideImage.src = assetPath(`images/${guide.image}`);
   guideImage.alt = `${guide.title} ${guide.cardLabel || "Guide"}`;
@@ -390,6 +391,15 @@ function renderGuidePage() {
     } else {
       quickNotesBox.hidden = true;
     }
+  }
+
+  if (guideMenu) {
+    const menuLinks = guideMenu.querySelectorAll(".guide-menu-link");
+    menuLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        guideMenu.open = false;
+      });
+    });
   }
 
   trackEvent("open_guide", {
