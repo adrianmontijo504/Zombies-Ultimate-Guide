@@ -122,6 +122,20 @@ function splitStepDetails(details) {
       };
     }
 
+    if (/^Possible spawn locations\s*,/i.test(innerText)) {
+      const listText = innerText.replace(/^Possible spawn locations\s*,/i, "").trim();
+      const items = listText
+        .split(/\s*,\s*/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+
+      return {
+        type: "locations",
+        label: "Possible spawn locations",
+        items
+      };
+    }
+
     return {
       type: "note",
       text: cleanNote
@@ -216,6 +230,8 @@ function renderGuidePage() {
   const notesText = document.getElementById("notesText");
   const stepsList = document.getElementById("steps");
   const correctionLink = document.getElementById("guideCorrectionLink");
+  const guideLastUpdatedText = document.getElementById("guideLastUpdatedText");
+  const bossJumpLink = document.getElementById("bossJumpLink");
 
   if (!content || !pageSubtitle || !guideImage || !trackerHeading || !notesText || !stepsList) {
     return;
@@ -245,6 +261,10 @@ function renderGuidePage() {
   notesText.textContent = guide.notes || "";
   content.dataset.trackerKey = guide.trackerKey || guide.slug.replaceAll("-", "_");
 
+  if (guideLastUpdatedText) {
+    guideLastUpdatedText.textContent = guide.lastUpdated || "Recently updated";
+  }
+
   guideImage.src = assetPath(`images/${guide.image}`);
   guideImage.alt = `${guide.title} ${guide.cardLabel || "Guide"}`;
   guideImage.loading = "eager";
@@ -255,7 +275,14 @@ function renderGuidePage() {
     correctionLink.href = getCorrectionUrl(guide.title);
   }
 
+  const hasBossSteps = guide.steps.some((step) => /^Step\s+\d+\s*—\s*Boss:/i.test(step));
+
+  if (bossJumpLink) {
+    bossJumpLink.hidden = !hasBossSteps;
+  }
+
   stepsList.textContent = "";
+  let bossAnchorAssigned = false;
 
   guide.steps.forEach((step) => {
     const li = document.createElement("li");
@@ -265,12 +292,21 @@ function renderGuidePage() {
 
     input.type = "checkbox";
     contentBlock.className = "step-content";
+    li.className = "step-item";
 
     const match = step.match(/^(Step\s+\d+)\s*—\s*([^:]+):\s*(.*)$/);
 
     if (match) {
       const [, stepNumber, phase, details] = match;
       const { mainText, notes } = splitStepDetails(details);
+      const phaseSlug = phase.trim().toLowerCase().replace(/\s+/g, "-");
+
+      li.classList.add(`step-group-${phaseSlug}`);
+
+      if (phaseSlug === "boss" && !bossAnchorAssigned) {
+        li.id = "boss-steps";
+        bossAnchorAssigned = true;
+      }
 
       const meta = document.createElement("div");
       meta.className = "step-meta";
@@ -279,7 +315,6 @@ function renderGuidePage() {
       numberBadge.className = "step-number";
       numberBadge.textContent = stepNumber;
 
-      const phaseSlug = phase.trim().toLowerCase().replace(/\s+/g, "-");
       const phaseBadge = document.createElement("span");
       phaseBadge.className = `step-phase step-phase-${phaseSlug}`;
       phaseBadge.textContent = phase.trim();
