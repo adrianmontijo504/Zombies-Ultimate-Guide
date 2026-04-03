@@ -62,6 +62,21 @@
     <section class="content" id="guideContent" data-tracker-key="">
       <img id="guideImage" src="" alt="" class="map-image" hidden>
 
+      <div class="guide-meta-bar">
+        <div class="guide-meta-pill">
+          <strong>Last Updated:</strong>
+          <span id="guideLastUpdatedText">Loading...</span>
+        </div>
+
+        <nav class="guide-jump-links" aria-label="Guide quick links">
+          <a class="guide-jump-link" href="#trackerHeading">Tracker</a>
+          <a class="guide-jump-link" href="#quickNotesBox">Quick Notes</a>
+          <a class="guide-jump-link" href="#notesSection">Notes</a>
+          <a class="guide-jump-link" id="bossJumpLink" href="#boss-steps">Boss</a>
+          <a class="guide-jump-link" href="../requests.html">Support</a>
+        </nav>
+      </div>
+
       <h2 id="trackerHeading">🧪 Easter Egg Tracker</h2>
 
       <div class="notes-box" id="quickNotesBox" hidden>
@@ -80,21 +95,28 @@
 
       <ul id="steps" aria-label="Guide steps"></ul>
 
-      <div class="notes-box">
+      <div class="notes-box" id="notesSection">
         <h3>🔫 Notes</h3>
         <p id="notesText"></p>
       </div>
     </section>
   </main>
 
-  <footer>
+  <footer class="site-footer">
+    <div class="footer-brand">
+      <h3>Undead Intel</h3>
+      <p>Fast zombie Easter Egg guides, saved progress, and cleaner map tracking built for real runs.</p>
+    </div>
+
     <p>© <span id="currentYear"></span> axmpages</p>
+
     <nav class="footer-links" aria-label="Footer links">
       <a href="../about.html">About</a>
       <a href="../requests.html">Support</a>
       <a href="../changelog.html">Updates</a>
     </nav>
-    <span class="footer-note">Your checklist progress saves automatically on this device.</span>
+
+    <span class="footer-note">Your checklist progress saves automatically on this device so each run is easier to track.</span>
   </footer>
 </body>
 </html>
