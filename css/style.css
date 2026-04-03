@@ -698,6 +698,22 @@ nav a[aria-current="page"] {
   flex-wrap: wrap;
 }
 
+.guide-top-actions {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 12px;
+  width: min(560px, 100%);
+}
+
+.guide-top-actions .back-link {
+  width: 100%;
+  min-width: 0;
+}
+
+.guide-top-actions .guide-action-wide {
+  grid-column: 1 / -1;
+}
+
 .content {
   width: min(1000px, calc(100% - 48px));
   margin: 0 auto;
@@ -869,42 +885,110 @@ nav a[aria-current="page"] {
   margin: 0 0 22px;
 }
 
-.guide-meta-pill {
+.guide-menu-wrap {
+  margin: 0 0 22px;
+}
+
+.guide-menu {
+  border-radius: 22px;
+  background: linear-gradient(180deg, rgba(28, 16, 11, 0.34), rgba(14, 10, 9, 0.42));
+  border: 1px solid rgba(255, 170, 70, 0.08);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.012) inset,
+    0 4px 10px rgba(0, 0, 0, 0.10);
+  overflow: hidden;
+}
+
+.guide-menu summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.guide-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.guide-menu-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 16px 18px;
+  color: #fff2d8;
+  font-weight: 800;
+  font-size: 1rem;
+  letter-spacing: 0.02em;
+}
+
+.guide-menu-toggle-left {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  width: fit-content;
-  max-width: 100%;
-  padding: 10px 14px;
+  gap: 12px;
+}
+
+.guide-menu-icon {
+  position: relative;
+  width: 24px;
+  height: 16px;
+  display: inline-block;
+}
+
+.guide-menu-icon::before,
+.guide-menu-icon::after,
+.guide-menu-icon span {
+  content: "";
+  position: absolute;
+  left: 0;
+  width: 24px;
+  height: 2px;
   border-radius: 999px;
-  background: rgba(255, 170, 70, 0.10);
-  border: 1px solid rgba(255, 170, 70, 0.18);
-  color: #ffe2a9;
-  font-size: 0.92rem;
-  font-weight: 700;
+  background: #ffcf82;
+  box-shadow: 0 0 10px rgba(255, 140, 42, 0.18);
 }
 
-.guide-meta-pill strong {
-  color: #fff2d8;
+.guide-menu-icon::before {
+  top: 0;
 }
 
-.guide-jump-links {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+.guide-menu-icon span {
+  top: 7px;
 }
 
-.guide-jump-link {
+.guide-menu-icon::after {
+  bottom: 0;
+}
+
+.guide-menu-caret {
+  color: #ffcf82;
+  font-size: 0.95rem;
+  transition: transform 0.2s ease;
+}
+
+.guide-menu[open] .guide-menu-caret {
+  transform: rotate(180deg);
+}
+
+.guide-menu-panel {
+  padding: 0 18px 18px;
+}
+
+.guide-menu-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.guide-menu-link {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 42px;
-  padding: 10px 14px;
+  min-height: 50px;
+  padding: 12px 14px;
   border-radius: 999px;
   text-decoration: none;
   color: #ffe2a9;
-  font-weight: 700;
-  font-size: 0.92rem;
+  font-weight: 800;
+  font-size: 0.96rem;
   background: rgba(255, 255, 255, 0.03);
   border: 1px solid rgba(255, 170, 70, 0.14);
   transition:
@@ -914,12 +998,16 @@ nav a[aria-current="page"] {
     background 0.2s ease;
 }
 
-.guide-jump-link:hover,
-.guide-jump-link:focus-visible {
+.guide-menu-link:hover,
+.guide-menu-link:focus-visible {
   transform: translateY(-1px);
   background: rgba(255, 170, 70, 0.10);
   border-color: rgba(255, 170, 70, 0.24);
   box-shadow: 0 0 14px rgba(255, 120, 30, 0.08);
+}
+
+.guide-menu-link-wide {
+  grid-column: 1 / -1;
 }
 
 #steps {
@@ -1221,6 +1309,14 @@ footer {
   font-size: 0.92rem;
 }
 
+.guide-footer-updated {
+  color: #ffe2a9;
+}
+
+.guide-footer-updated strong {
+  color: #fff2d8;
+}
+
 @media (max-width: 1200px) {
   .grid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -1337,6 +1433,11 @@ footer {
     border-radius: 16px;
   }
 
+  .guide-top-actions {
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+
   .content {
     width: calc(100% - 32px);
     padding: 24px 0 48px;
@@ -1365,19 +1466,14 @@ footer {
     min-width: 0;
   }
 
-  .guide-meta-pill {
-    width: 100%;
-    border-radius: 16px;
+  .guide-menu-links {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
   }
 
-  .guide-jump-links {
-    gap: 8px;
-  }
-
-  .guide-jump-link {
-    flex: 1 1 140px;
-    min-height: 40px;
-    font-size: 0.88rem;
+  .guide-menu-link {
+    min-height: 48px;
+    font-size: 0.92rem;
   }
 
   .step-meta {
