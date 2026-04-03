@@ -35,7 +35,7 @@ window.MAP_GUIDES = [
     image: "paradox-junction-easter-egg-guide.jpg",
     featured: true,
     searchTerms: "black ops zombies newest featured blundergat sundergat pack a punch boss guide",
-    notes: "For Boss: Fireplace: Trinity Ave., Toy Box: Green house backyard, Piano: Yellow house background.",
+    notes: "For Boss: Fireplace: Trinity Ave., Toy Box: Green house backyard, Piano: Yellow house background. (Updated 4/2/2026).",
     quickNotes: [
       "Recommended Explosive = Ray Gun / Semtex.",
       "Take note of humming Cyst, Mannequin, & wall no later than round 5.",
