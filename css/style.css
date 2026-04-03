@@ -277,6 +277,11 @@ header {
   align-items: flex-start;
 }
 
+body[data-page="guide"] .page-header {
+  gap: 10px;
+  padding-bottom: 14px;
+}
+
 .header-left {
   display: flex;
   flex-direction: column;
@@ -717,7 +722,11 @@ nav a[aria-current="page"] {
 .content {
   width: min(1000px, calc(100% - 48px));
   margin: 0 auto;
-  padding: 28px 0 60px;
+  padding: 24px 0 60px;
+}
+
+body[data-page="guide"] .content {
+  padding-top: 18px;
 }
 
 .content h2 {
@@ -886,17 +895,22 @@ nav a[aria-current="page"] {
 }
 
 .guide-menu-wrap {
-  margin: 0 0 22px;
+  position: sticky;
+  top: calc(env(safe-area-inset-top) + 10px);
+  z-index: 40;
+  margin: 0 0 18px;
 }
 
 .guide-menu {
   border-radius: 22px;
-  background: linear-gradient(180deg, rgba(28, 16, 11, 0.34), rgba(14, 10, 9, 0.42));
+  background: linear-gradient(180deg, rgba(28, 16, 11, 0.88), rgba(14, 10, 9, 0.92));
   border: 1px solid rgba(255, 170, 70, 0.08);
   box-shadow:
     0 0 0 1px rgba(255, 255, 255, 0.012) inset,
-    0 4px 10px rgba(0, 0, 0, 0.10);
+    0 10px 20px rgba(0, 0, 0, 0.18);
   overflow: hidden;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
 }
 
 .guide-menu summary {
@@ -1027,6 +1041,12 @@ nav a[aria-current="page"] {
     0 4px 10px rgba(0, 0, 0, 0.10);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease,
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
 }
 
 #steps li:hover {
@@ -1057,6 +1077,7 @@ nav a[aria-current="page"] {
   flex-direction: column;
   gap: 10px;
   width: 100%;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
 .step-meta {
@@ -1120,6 +1141,38 @@ nav a[aria-current="page"] {
   font-weight: 700;
 }
 
+.step-requirements {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.step-requirement-chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.step-requirement-need {
+  background: rgba(255, 92, 92, 0.12);
+  border: 1px solid rgba(255, 92, 92, 0.26);
+  color: #ffc3c3;
+}
+
+.step-requirement-get {
+  background: rgba(255, 190, 90, 0.14);
+  border: 1px solid rgba(255, 190, 90, 0.26);
+  color: #ffe2a9;
+}
+
 .step-notes {
   display: flex;
   flex-direction: column;
@@ -1178,6 +1231,28 @@ nav a[aria-current="page"] {
     0 0 0 1px rgba(255, 255, 255, 0.014) inset,
     0 6px 14px rgba(0, 0, 0, 0.12),
     0 0 16px rgba(255, 70, 70, 0.08);
+}
+
+#steps li:has(input:checked) {
+  opacity: 0.72;
+  transform: scale(0.992);
+  border-color: rgba(255, 170, 70, 0.08);
+  background: linear-gradient(180deg, rgba(24, 15, 11, 0.30), rgba(12, 10, 9, 0.36));
+}
+
+#steps input:checked + .step-content {
+  opacity: 0.72;
+  transform: scale(0.992);
+}
+
+#steps input:checked + .step-content .step-body {
+  color: rgba(255, 255, 255, 0.72);
+}
+
+#steps input:checked + .step-content .step-number,
+#steps input:checked + .step-content .step-phase,
+#steps input:checked + .step-content .step-requirement-chip {
+  filter: saturate(0.84);
 }
 
 .search-empty {
@@ -1260,8 +1335,23 @@ footer {
   max-width: 760px;
 }
 
+.footer-brand-top {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 6px;
+}
+
+.footer-brand-mark {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  filter: drop-shadow(0 0 8px rgba(255, 120, 30, 0.18));
+}
+
 .footer-brand h3 {
-  margin: 0 0 6px;
+  margin: 0;
   color: #fff2d8;
   font-size: 1.2rem;
   text-shadow:
@@ -1339,6 +1429,11 @@ footer {
 
   .page-header {
     align-items: stretch;
+  }
+
+  body[data-page="guide"] .page-header {
+    gap: 8px;
+    padding-bottom: 12px;
   }
 
   .search-wrap,
@@ -1440,12 +1535,12 @@ footer {
 
   .content {
     width: calc(100% - 32px);
-    padding: 24px 0 48px;
+    padding: 20px 0 48px;
   }
 
   .content > .map-image {
     border-radius: 16px;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
   .top-buttons,
@@ -1464,6 +1559,10 @@ footer {
   .request-send-button {
     width: 100%;
     min-width: 0;
+  }
+
+  .guide-menu-wrap {
+    top: calc(env(safe-area-inset-top) + 8px);
   }
 
   .guide-menu-links {
@@ -1490,6 +1589,12 @@ footer {
     font-size: 0.96rem;
   }
 
+  .step-requirement-chip {
+    font-size: 0.78rem;
+    min-height: 32px;
+    padding: 6px 10px;
+  }
+
   .step-note,
   .step-location-list li {
     font-size: 0.88rem;
@@ -1497,6 +1602,11 @@ footer {
 
   .step-location-title {
     font-size: 0.84rem;
+  }
+
+  .footer-brand-mark {
+    width: 24px;
+    height: 24px;
   }
 
   body[data-page="guide"] main::before {
