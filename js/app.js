@@ -96,6 +96,44 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
+function splitStepDetails(details) {
+  const noteMatches = details.match(/\([^()]+\)/g) || [];
+  const mainText = details
+    .replace(/\s*\([^()]+\)/g, "")
+    .replace(/\s{2,}/g, " ")
+    .replace(/\s+([.,!?])/g, "$1")
+    .trim();
+
+  const notes = noteMatches.map((note) => {
+    const cleanNote = note.trim();
+    const innerText = cleanNote.replace(/^\(/, "").replace(/\)$/, "").trim();
+
+    if (/^Possible locations\s*,/i.test(innerText)) {
+      const listText = innerText.replace(/^Possible locations\s*,/i, "").trim();
+      const items = listText
+        .split(/\s*,\s*/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+
+      return {
+        type: "locations",
+        label: "Possible locations",
+        items
+      };
+    }
+
+    return {
+      type: "note",
+      text: cleanNote
+    };
+  });
+
+  return {
+    mainText,
+    notes
+  };
+}
+
 function getCardMarkup(guide, isFeatured = false) {
   const extraClasses = isFeatured ? " featured-card" : "";
   const guideLabel = guide.cardLabel || "Guide";
@@ -193,7 +231,7 @@ function renderGuidePage() {
         <p>The map you tried to open does not exist in your data file.</p>
         <div class="content-actions">
           <a class="primary-link" href="${escapeHtml(getRootPrefix())}maps.html">GO BACK TO MAPS</a>
-          <a class="back-link" href="${escapeHtml(getRootPrefix())}requests.html?type=request">REQUEST THIS GUIDE</a>
+          <a class="back-link" href="${escapeHtml(getRootPrefix())}requests.html?type=request">SUPPORT</a>
         </div>
       </div>
     `;
@@ -223,11 +261,82 @@ function renderGuidePage() {
     const li = document.createElement("li");
     const label = document.createElement("label");
     const input = document.createElement("input");
-    const textNode = document.createTextNode(` ${step}`);
+    const contentBlock = document.createElement("div");
 
     input.type = "checkbox";
+    contentBlock.className = "step-content";
+
+    const match = step.match(/^(Step\s+\d+)\s*—\s*([^:]+):\s*(.*)$/);
+
+    if (match) {
+      const [, stepNumber, phase, details] = match;
+      const { mainText, notes } = splitStepDetails(details);
+
+      const meta = document.createElement("div");
+      meta.className = "step-meta";
+
+      const numberBadge = document.createElement("span");
+      numberBadge.className = "step-number";
+      numberBadge.textContent = stepNumber;
+
+      const phaseSlug = phase.trim().toLowerCase().replace(/\s+/g, "-");
+      const phaseBadge = document.createElement("span");
+      phaseBadge.className = `step-phase step-phase-${phaseSlug}`;
+      phaseBadge.textContent = phase.trim();
+
+      const body = document.createElement("div");
+      body.className = "step-body";
+      body.textContent = mainText || details;
+
+      meta.appendChild(numberBadge);
+      meta.appendChild(phaseBadge);
+      contentBlock.appendChild(meta);
+      contentBlock.appendChild(body);
+
+      if (notes.length > 0) {
+        const notesWrap = document.createElement("div");
+        notesWrap.className = "step-notes";
+
+        notes.forEach((noteData) => {
+          if (noteData.type === "locations") {
+            const locationBox = document.createElement("div");
+            locationBox.className = "step-note step-location-box";
+
+            const locationTitle = document.createElement("div");
+            locationTitle.className = "step-location-title";
+            locationTitle.textContent = noteData.label;
+
+            const locationList = document.createElement("ul");
+            locationList.className = "step-location-list";
+
+            noteData.items.forEach((item) => {
+              const itemLi = document.createElement("li");
+              itemLi.textContent = item;
+              locationList.appendChild(itemLi);
+            });
+
+            locationBox.appendChild(locationTitle);
+            locationBox.appendChild(locationList);
+            notesWrap.appendChild(locationBox);
+          } else {
+            const note = document.createElement("div");
+            note.className = "step-note";
+            note.textContent = noteData.text;
+            notesWrap.appendChild(note);
+          }
+        });
+
+        contentBlock.appendChild(notesWrap);
+      }
+    } else {
+      const body = document.createElement("div");
+      body.className = "step-body";
+      body.textContent = step;
+      contentBlock.appendChild(body);
+    }
+
     label.appendChild(input);
-    label.appendChild(textNode);
+    label.appendChild(contentBlock);
     li.appendChild(label);
     stepsList.appendChild(li);
   });
