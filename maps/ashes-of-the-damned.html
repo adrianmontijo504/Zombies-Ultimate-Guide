@@ -45,10 +45,10 @@
       <div class="page-subtitle" id="guidePageSubtitle">Ashes of the Damned</div>
     </div>
 
-    <div class="top-buttons">
+    <div class="guide-top-actions">
       <a class="back-link" href="../index.html">Home</a>
       <a class="back-link" href="../maps.html">Back to Maps</a>
-      <a class="back-link" id="guideCorrectionLink" href="../requests.html?type=correction&map=Ashes%20of%20the%20Damned">Submit Correction</a>
+      <a class="back-link guide-action-wide" id="guideCorrectionLink" href="../requests.html?type=correction&amp;map=Ashes%20of%20the%20Damned">Submit Correction</a>
     </div>
   </header>
 
@@ -62,22 +62,29 @@
     <section class="content" id="guideContent" data-tracker-key="">
       <img id="guideImage" src="" alt="" class="map-image" hidden>
 
-      <div class="guide-meta-bar">
-        <div class="guide-meta-pill">
-          <strong>Last Updated:</strong>
-          <span id="guideLastUpdatedText">Loading...</span>
-        </div>
+      <div class="guide-menu-wrap">
+        <details class="guide-menu" id="guideMenu">
+          <summary class="guide-menu-toggle">
+            <span class="guide-menu-toggle-left">
+              <span class="guide-menu-icon" aria-hidden="true"><span></span></span>
+              <span>Guide Menu</span>
+            </span>
+            <span class="guide-menu-caret" aria-hidden="true">▼</span>
+          </summary>
 
-        <nav class="guide-jump-links" aria-label="Guide quick links">
-          <a class="guide-jump-link" href="#trackerHeading">Tracker</a>
-          <a class="guide-jump-link" href="#quickNotesBox">Quick Notes</a>
-          <a class="guide-jump-link" href="#notesSection">Notes</a>
-          <a class="guide-jump-link" id="bossJumpLink" href="#boss-steps">Boss</a>
-          <a class="guide-jump-link" href="../requests.html">Support</a>
-        </nav>
+          <div class="guide-menu-panel">
+            <nav class="guide-menu-links" aria-label="Guide quick links">
+              <a class="guide-menu-link" href="#trackerHeading">Tracker</a>
+              <a class="guide-menu-link" href="#quickNotesBox">Quick Notes</a>
+              <a class="guide-menu-link" href="#notesSection">Notes</a>
+              <a class="guide-menu-link" id="bossJumpLink" href="#boss-steps">Boss</a>
+              <a class="guide-menu-link guide-menu-link-wide" href="../requests.html">Support</a>
+            </nav>
+          </div>
+        </details>
       </div>
 
-      <h2 id="trackerHeading">🧪 Easter Egg Tracker</h2>
+      <h2 id="trackerHeading">🧪 Ashes of the Damned Easter Egg Tracker</h2>
 
       <div class="notes-box" id="quickNotesBox" hidden>
         <h3>Quick Notes</h3>
@@ -116,6 +123,10 @@
       <a href="../changelog.html">Updates</a>
     </nav>
 
+    <span class="footer-note guide-footer-updated">
+      <strong>Last Updated:</strong>
+      <span data-guide-last-updated>Loading...</span>
+    </span>
     <span class="footer-note">Your checklist progress saves automatically on this device so each run is easier to track.</span>
   </footer>
 </body>
