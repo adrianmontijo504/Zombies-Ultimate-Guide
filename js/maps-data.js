@@ -7,15 +7,10 @@ window.MAP_GUIDES = [
     image: "astra-malorum-easter-egg-guide.jpg",
     featured: false,
     searchTerms: "black ops zombies easter egg ritual relic altar boss fight",
-    notes: "Add your full Astra Malorum guide steps here later.",
-    quickNotes: [],
+    notes: "Coming Soon!.",
+    quickNotes: ["Coming Soon!."],
     steps: [
-      "Turn on power.",
-      "Unlock ritual room.",
-      "Collect relic pieces.",
-      "Build the relic.",
-      "Charge the altar.",
-      "Start the boss fight."
+      "Steps Coming Soon!."
     ]
   },
   {
@@ -26,15 +21,10 @@ window.MAP_GUIDES = [
     image: "ashes-of-the-damned-easter-egg-guide.jpg",
     featured: false,
     searchTerms: "black ops zombies easter egg crypt skull cursed key fire pillars final encounter",
-    notes: "Add your full Ashes of the Damned guide steps here later.",
-    quickNotes: [],
+    notes: "Coming Soon!.",
+    quickNotes: ["Coming Soon!."],
     steps: [
-      "Turn on power.",
-      "Open the lower crypt.",
-      "Collect skull fragments.",
-      "Build the cursed key.",
-      "Activate the fire pillars.",
-      "Enter the final encounter."
+      "Steps coming soon!.",
     ]
   },
   {
