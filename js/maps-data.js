@@ -5,6 +5,7 @@ window.MAP_GUIDES = [
     title: "Astra Malorum",
     cardLabel: "Easter Egg Guide",
     image: "astra-malorum-easter-egg-guide.jpg",
+    lastUpdated: "April 2026",
     featured: false,
     searchTerms: "black ops zombies easter egg ritual relic altar boss fight",
     notes: "Coming Soon!.",
@@ -19,12 +20,13 @@ window.MAP_GUIDES = [
     title: "Ashes of the Damned",
     cardLabel: "Easter Egg Guide",
     image: "ashes-of-the-damned-easter-egg-guide.jpg",
+    lastUpdated: "April 2026",
     featured: false,
     searchTerms: "black ops zombies easter egg crypt skull cursed key fire pillars final encounter",
     notes: "Coming Soon!.",
     quickNotes: ["Coming Soon!."],
     steps: [
-      "Steps Coming Soon!.",
+      "Steps Coming Soon!."
     ]
   },
   {
@@ -33,6 +35,7 @@ window.MAP_GUIDES = [
     title: "Paradox Junction",
     cardLabel: "Easter Egg Guide",
     image: "paradox-junction-easter-egg-guide.jpg",
+    lastUpdated: "April 2026",
     featured: true,
     searchTerms: "black ops zombies newest featured blundergat sundergat pack a punch boss guide",
     notes: "For Boss: Fireplace: Trinity Ave., Toy Box: Green house backyard, Piano: Yellow house background. (Updated 4/2/2026).",
