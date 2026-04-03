@@ -49,8 +49,7 @@ window.MAP_GUIDES = [
     quickNotes: [
       "Explosive = Ray Gun / Semtex.",
       "N.E. = Need explosive.",
-      "Take note of humming Cyst, Mannequin, & wall no later than round 5.",
-      "These steps were cleaned up from your handwritten notes."
+      "Take note of humming Cyst, Mannequin, & wall no later than round 5."
     ],
     steps: [
       "Step 1 — Present: Find cyst with humming sound.",
