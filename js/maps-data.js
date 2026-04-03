@@ -49,7 +49,7 @@ window.MAP_GUIDES = [
     quickNotes: [
       "Explosive = Ray Gun / Semtex.",
       "N.E. = Need explosive.",
-      "Clear dog round no later than round 5.",
+      "Take note of humming Cyst, Mannequin, & wall no later than round 5.",
       "These steps were cleaned up from your handwritten notes."
     ],
     steps: [
