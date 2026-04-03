@@ -44,9 +44,24 @@
       <div class="page-subtitle">About</div>
     </div>
 
-    <div class="top-buttons">
-      <a class="back-link" href="maps.html">Browse Maps</a>
-      <a class="back-link" href="requests.html">Support</a>
+    <div class="header-menu-wrap">
+      <details class="header-menu">
+        <summary class="header-menu-toggle">
+          <span class="header-menu-toggle-left">
+            <span class="header-menu-icon" aria-hidden="true"><span></span></span>
+            <span>Page Menu</span>
+          </span>
+          <span class="header-menu-caret" aria-hidden="true">▼</span>
+        </summary>
+
+        <div class="header-menu-panel">
+          <nav class="header-menu-links" aria-label="About page quick links">
+            <a class="header-menu-link" href="maps.html">Browse Maps</a>
+            <a class="header-menu-link" href="requests.html">Support</a>
+            <a class="header-menu-link" href="changelog.html">Updates</a>
+          </nav>
+        </div>
+      </details>
     </div>
   </header>
 
@@ -74,18 +89,6 @@
       </div>
 
       <div class="notes-box">
-        <h3>What is live now</h3>
-        <ul>
-          <li>Dedicated guide pages for each map.</li>
-          <li>Saved tracker progress for each guide.</li>
-          <li>Support page for requests and corrections.</li>
-          <li>Updates page for site improvements and changes.</li>
-          <li>Cleaner step formatting for long Easter Egg runs.</li>
-          <li>Search, share preview, and analytics-ready setup.</li>
-        </ul>
-      </div>
-
-      <div class="notes-box">
         <h3>Why it exists</h3>
         <p>Undead Intel is built to make guides faster to read, easier to use, and less frustrating to follow when you are actually in a run instead of reading a wall of text.</p>
       </div>
@@ -99,7 +102,10 @@
 
   <footer class="site-footer">
     <div class="footer-brand">
-      <h3>Undead Intel</h3>
+      <div class="footer-brand-top">
+        <img src="images/undead-intel-logo.png" alt="Undead Intel logo" class="footer-brand-mark">
+        <h3>Undead Intel</h3>
+      </div>
       <p>Fast zombie Easter Egg guides, saved progress, and cleaner map tracking built for real runs.</p>
     </div>
 
