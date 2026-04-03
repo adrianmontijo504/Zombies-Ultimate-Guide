@@ -24,7 +24,7 @@ window.MAP_GUIDES = [
     notes: "Coming Soon!.",
     quickNotes: ["Coming Soon!."],
     steps: [
-      "Steps coming soon!.",
+      "Steps Coming Soon!.",
     ]
   },
   {
