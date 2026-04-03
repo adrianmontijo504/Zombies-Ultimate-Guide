@@ -136,6 +136,13 @@ function splitStepDetails(details) {
       };
     }
 
+    if (/^(Need|Get)\s+/i.test(innerText)) {
+      return {
+        type: "requirement",
+        text: innerText
+      };
+    }
+
     return {
       type: "note",
       text: cleanNote
@@ -329,11 +336,30 @@ function renderGuidePage() {
       contentBlock.appendChild(meta);
       contentBlock.appendChild(body);
 
-      if (notes.length > 0) {
+      const requirementNotes = notes.filter((note) => note.type === "requirement");
+      const otherNotes = notes.filter((note) => note.type !== "requirement");
+
+      if (requirementNotes.length > 0) {
+        const requirementsWrap = document.createElement("div");
+        requirementsWrap.className = "step-requirements";
+
+        requirementNotes.forEach((noteData) => {
+          const chip = document.createElement("span");
+          chip.className = `step-requirement-chip ${
+            /^Need\b/i.test(noteData.text) ? "step-requirement-need" : "step-requirement-get"
+          }`;
+          chip.textContent = noteData.text;
+          requirementsWrap.appendChild(chip);
+        });
+
+        contentBlock.appendChild(requirementsWrap);
+      }
+
+      if (otherNotes.length > 0) {
         const notesWrap = document.createElement("div");
         notesWrap.className = "step-notes";
 
-        notes.forEach((noteData) => {
+        otherNotes.forEach((noteData) => {
           if (noteData.type === "locations") {
             const locationBox = document.createElement("div");
             locationBox.className = "step-note step-location-box";
