@@ -38,9 +38,9 @@ window.MAP_GUIDES = [
     lastUpdated: "April 2026",
     featured: true,
     searchTerms: "black ops zombies newest featured blundergat sundergat pack a punch boss guide",
-    notes: "For Boss: Fireplace: Trinity Ave., Toy Box: Green house backyard, Piano: Yellow house background. (Updated 4/2/2026).",
+    notes: "For Boss: Fireplace: Trinity Ave., Toy Box: Green house backyard, Piano: Yellow house background.",
     quickNotes: [
-      "Always save 1 zombie before ending the round to save rounds.",
+      "Always save 1 zombie before ending the round to complete steps easier.",
       "Recommended Explosive = Ray Gun / Semtex.",
       "Take note of humming Cyst, Mannequin, & wall no later than round 5.",
       "Humming sounds have a chance to spawn on the other side of the truck.",
