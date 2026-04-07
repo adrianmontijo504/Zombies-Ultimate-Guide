@@ -14,7 +14,7 @@ window.MAP_GUIDES = [
       "Step 1 — Find 2 Telescope components. (1st - Luminarium)(2nd - Machina Astralis).",
       "Step 2 — Go to Observatory Dome and interact with Telescope to install Components.",
       "Step 3 — Defend Telescope for 45 seconds to unlock Pack-A-Punch.",
-      "Step 4 — Kill O.S.C.A.R. in Observatory Dome Trap. (Shoot 5 smoking valves in quick succession) (Lure O.S.C.A.R to center of the room)(interact with telescope,find and align with the sun)(If failed, restart at start of next round).",
+      "Step 4 — Kill O.S.C.A.R. in Observatory Dome Trap. (Shoot 5 smoking valves in quick succession) (Lure O.S.C.A.R to center of the room)(interact with telescope)(Find and align with the sun)(If failed, restart at start of next round).",
       "Step 5 — Collect Car Battery. (Need a Pack-A-Punched weapon)(Shoot hood of Ol' Tessie).",
       "Step 6 — Collect 3 Absolute Zero Fragments. (Need Cryo Freeze Ammo from The Arsenal for 500 salvage)(Find and shoot glowing purple crystals).",
       "Step 7 — Collect Aberrant Wiring. (Need a Pack-A-Punched weapon)(Find and shoot blinking lightpost).",
