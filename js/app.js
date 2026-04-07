@@ -212,6 +212,7 @@ function getCardMarkup(guide, isFeatured = false) {
   const loading = isFeatured ? "eager" : "lazy";
   const fetchPriority = isFeatured ? "high" : "auto";
   const badges = getGuideBadges(guide, isFeatured);
+
   const badgeMarkup = badges.length > 0
     ? `
       <div class="card-badges" aria-label="Guide badges">
@@ -219,6 +220,7 @@ function getCardMarkup(guide, isFeatured = false) {
       </div>
     `
     : "";
+
   const lastUpdatedMarkup = guide.lastUpdated
     ? `<div class="card-updated">Last Updated: ${escapeHtml(guide.lastUpdated)}</div>`
     : "";
@@ -357,6 +359,7 @@ function renderGuidePage() {
   }
 
   const hasBossSteps = guideHasBossSteps(guide);
+
   if (bossJumpLink) {
     bossJumpLink.hidden = !hasBossSteps;
   }
@@ -439,10 +442,11 @@ function renderGuidePage() {
   let lastPhaseSlug = "";
 
   guide.steps.forEach((step) => {
-    const match = step.match(/^(Step\s+\d+)\s*—\s*([^:]+):\s*(.*)$/);
+    const phasedMatch = step.match(/^(Step\s+\d+)\s*—\s*([^:]+):\s*(.*)$/);
+    const basicMatch = step.match(/^(Step\s+\d+)\s*—\s*(.*)$/);
 
-    if (match) {
-      const phaseSlug = match[2].trim().toLowerCase().replace(/\s+/g, "-");
+    if (phasedMatch) {
+      const phaseSlug = phasedMatch[2].trim().toLowerCase().replace(/\s+/g, "-");
 
       if (phaseSlug !== lastPhaseSlug) {
         const divider = document.createElement("li");
@@ -454,7 +458,7 @@ function renderGuidePage() {
         }
 
         divider.innerHTML = `
-          <div class="step-section-divider-label">${escapeHtml(match[2].trim())} Phase</div>
+          <div class="step-section-divider-label">${escapeHtml(phasedMatch[2].trim())} Phase</div>
         `;
         stepsList.appendChild(divider);
         lastPhaseSlug = phaseSlug;
@@ -470,8 +474,8 @@ function renderGuidePage() {
     contentBlock.className = "step-content";
     li.className = "step-item";
 
-    if (match) {
-      const [, stepNumber, phase, details] = match;
+    if (phasedMatch) {
+      const [, stepNumber, phase, details] = phasedMatch;
       const { mainText, notes } = splitStepDetails(details);
       const phaseSlug = phase.trim().toLowerCase().replace(/\s+/g, "-");
 
@@ -487,6 +491,86 @@ function renderGuidePage() {
       const phaseBadge = document.createElement("span");
       phaseBadge.className = `step-phase step-phase-${phaseSlug}`;
       phaseBadge.textContent = phase.trim();
+
+      const body = document.createElement("div");
+      body.className = "step-body";
+      body.textContent = mainText || details;
+
+      meta.appendChild(numberBadge);
+      meta.appendChild(phaseBadge);
+      contentBlock.appendChild(meta);
+      contentBlock.appendChild(body);
+
+      const requirementNotes = notes.filter((note) => note.type === "requirement");
+      const otherNotes = notes.filter((note) => note.type !== "requirement");
+
+      if (requirementNotes.length > 0) {
+        const requirementsWrap = document.createElement("div");
+        requirementsWrap.className = "step-requirements";
+
+        requirementNotes.forEach((noteData) => {
+          const chip = document.createElement("span");
+          chip.className = `step-requirement-chip ${
+            /^Need\b/i.test(noteData.text) ? "step-requirement-need" : "step-requirement-get"
+          }`;
+          chip.textContent = noteData.text;
+          requirementsWrap.appendChild(chip);
+        });
+
+        contentBlock.appendChild(requirementsWrap);
+      }
+
+      if (otherNotes.length > 0) {
+        const notesWrap = document.createElement("div");
+        notesWrap.className = "step-notes";
+
+        otherNotes.forEach((noteData) => {
+          if (noteData.type === "locations") {
+            const locationBox = document.createElement("div");
+            locationBox.className = "step-note step-location-box";
+
+            const locationTitle = document.createElement("div");
+            locationTitle.className = "step-location-title";
+            locationTitle.textContent = noteData.label;
+
+            const locationList = document.createElement("ul");
+            locationList.className = "step-location-list";
+
+            noteData.items.forEach((item) => {
+              const itemLi = document.createElement("li");
+              itemLi.textContent = item;
+              locationList.appendChild(itemLi);
+            });
+
+            locationBox.appendChild(locationTitle);
+            locationBox.appendChild(locationList);
+            notesWrap.appendChild(locationBox);
+          } else {
+            const note = document.createElement("div");
+            note.className = "step-note";
+            note.textContent = noteData.text;
+            notesWrap.appendChild(note);
+          }
+        });
+
+        contentBlock.appendChild(notesWrap);
+      }
+    } else if (basicMatch) {
+      const [, stepNumber, details] = basicMatch;
+      const { mainText, notes } = splitStepDetails(details);
+
+      li.classList.add("step-group-guide");
+
+      const meta = document.createElement("div");
+      meta.className = "step-meta";
+
+      const numberBadge = document.createElement("span");
+      numberBadge.className = "step-number";
+      numberBadge.textContent = stepNumber;
+
+      const phaseBadge = document.createElement("span");
+      phaseBadge.className = "step-phase step-phase-guide";
+      phaseBadge.textContent = "Guide";
 
       const body = document.createElement("div");
       body.className = "step-body";
