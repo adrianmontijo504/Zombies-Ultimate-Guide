@@ -96,6 +96,54 @@ function escapeHtml(value) {
     .replaceAll("'", "&#39;");
 }
 
+function guideHasBossSteps(guide) {
+  return Array.isArray(guide?.steps) && guide.steps.some((step) => /^Step\s+\d+\s*—\s*Boss:/i.test(step));
+}
+
+function isComingSoonGuide(guide) {
+  const notes = guide?.notes || "";
+  const quickNotes = Array.isArray(guide?.quickNotes) ? guide.quickNotes : [];
+  const steps = Array.isArray(guide?.steps) ? guide.steps : [];
+  const firstStep = steps[0] || "";
+
+  return (
+    /coming soon/i.test(notes) ||
+    quickNotes.some((note) => /coming soon/i.test(note)) ||
+    /coming soon/i.test(firstStep)
+  );
+}
+
+function getGuideBadges(guide, isFeatured = false) {
+  const badges = [];
+
+  if (isFeatured || guide.featured) {
+    badges.push("Featured");
+  }
+
+  if (isComingSoonGuide(guide)) {
+    badges.push("Coming Soon");
+    return badges;
+  }
+
+  badges.push("Main Quest");
+
+  if (guideHasBossSteps(guide)) {
+    badges.push("Boss Fight");
+  }
+
+  if ((guide.steps?.length || 0) >= 25) {
+    badges.push("Long Quest");
+  }
+
+  return badges;
+}
+
+function formatSearchCount(count) {
+  if (count === 0) return "No maps found";
+  if (count === 1) return "1 map found";
+  return `${count} maps found`;
+}
+
 function splitStepDetails(details) {
   const noteMatches = details.match(/\([^()]+\)/g) || [];
   const mainText = details
@@ -162,6 +210,18 @@ function getCardMarkup(guide, isFeatured = false) {
   const searchName = `${guide.title} ${guideLabel} ${guide.searchTerms || ""}`.trim();
   const loading = isFeatured ? "eager" : "lazy";
   const fetchPriority = isFeatured ? "high" : "auto";
+  const badges = getGuideBadges(guide, isFeatured);
+  const badgeMarkup = badges.length > 0
+    ? `
+      <div class="card-badges" aria-label="Guide badges">
+        ${badges.map((badge) => `<span class="card-badge">${escapeHtml(badge)}</span>`).join("")}
+      </div>
+    `
+    : "";
+
+  const lastUpdatedMarkup = guide.lastUpdated
+    ? `<div class="card-updated">Last Updated: ${escapeHtml(guide.lastUpdated)}</div>`
+    : "";
 
   return `
     <article class="card${extraClasses}" data-name="${escapeHtml(searchName)}">
@@ -177,8 +237,10 @@ function getCardMarkup(guide, isFeatured = false) {
           height="900"
         >
       </a>
+      ${badgeMarkup}
       <h3>${escapeHtml(guide.title)}</h3>
       <p>${escapeHtml(guideLabel)}</p>
+      ${lastUpdatedMarkup}
       <a href="${escapeHtml(getGuideUrl(guide.slug))}">${isFeatured ? "ENTER GUIDE" : "OPEN GUIDE"}</a>
     </article>
   `;
@@ -208,6 +270,16 @@ function renderMapsPage() {
   const guides = getGuides();
 
   if (!guideList) return;
+
+  let countNode = document.getElementById("searchResultsCount");
+  if (!countNode) {
+    countNode = document.createElement("p");
+    countNode.id = "searchResultsCount";
+    countNode.className = "search-results-count";
+    guideList.insertAdjacentElement("beforebegin", countNode);
+  }
+
+  countNode.textContent = formatSearchCount(guides.length);
 
   if (guides.length === 0) {
     guideList.innerHTML = `
@@ -240,6 +312,7 @@ function renderGuidePage() {
   const bossJumpLink = document.getElementById("bossJumpLink");
   const guideMenu = document.getElementById("guideMenu");
   const guideLastUpdatedNodes = document.querySelectorAll("[data-guide-last-updated]");
+  const toolbar = content?.querySelector(".tracker-toolbar");
 
   if (!content || !pageSubtitle || !guideImage || !trackerHeading || !notesText || !stepsList) {
     return;
@@ -283,16 +356,112 @@ function renderGuidePage() {
     correctionLink.href = getCorrectionUrl(guide.title);
   }
 
-  const hasBossSteps = guide.steps.some((step) => /^Step\s+\d+\s*—\s*Boss:/i.test(step));
+  const hasBossSteps = guideHasBossSteps(guide);
 
   if (bossJumpLink) {
     bossJumpLink.hidden = !hasBossSteps;
   }
 
+  let comingSoonPanel = document.getElementById("comingSoonPanel");
+  if (isComingSoonGuide(guide)) {
+    if (!comingSoonPanel) {
+      comingSoonPanel = document.createElement("div");
+      comingSoonPanel.id = "comingSoonPanel";
+      comingSoonPanel.className = "notes-box coming-soon-panel";
+      comingSoonPanel.innerHTML = `
+        <h3>Guide Coming Soon</h3>
+        <p>This map page is live and ready. Steps can be expanded as the guide gets updated.</p>
+        <div class="content-actions">
+          <a class="primary-link" href="${escapeHtml(getRootPrefix())}requests.html?type=request&map=${encodeURIComponent(guide.title)}">REQUEST UPDATES</a>
+          <a class="back-link" href="${escapeHtml(getRootPrefix())}maps.html">BACK TO MAPS</a>
+        </div>
+      `;
+      trackerHeading.insertAdjacentElement("beforebegin", comingSoonPanel);
+    }
+  } else if (comingSoonPanel) {
+    comingSoonPanel.remove();
+  }
+
+  if (toolbar) {
+    let trackerActions = document.getElementById("trackerActionGroup");
+    if (!trackerActions) {
+      trackerActions = document.createElement("div");
+      trackerActions.id = "trackerActionGroup";
+      trackerActions.className = "tracker-action-group";
+
+      const nextButton = document.createElement("button");
+      nextButton.type = "button";
+      nextButton.className = "secondary-button tracker-next-step";
+      nextButton.id = "nextUncheckedButton";
+      nextButton.setAttribute("data-next-unchecked", "true");
+      nextButton.textContent = "NEXT UNCHECKED STEP";
+
+      const copyButton = document.createElement("button");
+      copyButton.type = "button";
+      copyButton.className = "secondary-button tracker-copy-link";
+      copyButton.id = "copyGuideLinkButton";
+      copyButton.textContent = "COPY GUIDE LINK";
+
+      trackerActions.appendChild(nextButton);
+      trackerActions.appendChild(copyButton);
+
+      const resetButton = toolbar.querySelector("[data-reset-tracker]");
+      if (resetButton) {
+        toolbar.insertBefore(trackerActions, resetButton);
+      } else {
+        toolbar.appendChild(trackerActions);
+      }
+    }
+
+    const copyButton = document.getElementById("copyGuideLinkButton");
+    if (copyButton && !copyButton.dataset.bound) {
+      copyButton.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          copyButton.textContent = "LINK COPIED";
+          setTimeout(() => {
+            copyButton.textContent = "COPY GUIDE LINK";
+          }, 1800);
+        } catch {
+          copyButton.textContent = "COPY FAILED";
+          setTimeout(() => {
+            copyButton.textContent = "COPY GUIDE LINK";
+          }, 1800);
+        }
+      });
+
+      copyButton.dataset.bound = "true";
+    }
+  }
+
   stepsList.textContent = "";
   let bossAnchorAssigned = false;
+  let lastPhaseSlug = "";
 
   guide.steps.forEach((step) => {
+    const match = step.match(/^(Step\s+\d+)\s*—\s*([^:]+):\s*(.*)$/);
+
+    if (match) {
+      const [, , phase] = match;
+      const phaseSlug = phase.trim().toLowerCase().replace(/\s+/g, "-");
+
+      if (phaseSlug !== lastPhaseSlug) {
+        const divider = document.createElement("li");
+        divider.className = `step-section-divider step-section-${phaseSlug}`;
+
+        if (phaseSlug === "boss" && !bossAnchorAssigned) {
+          divider.id = "boss-steps";
+          bossAnchorAssigned = true;
+        }
+
+        divider.innerHTML = `
+          <div class="step-section-divider-label">${escapeHtml(phase.trim())} Phase</div>
+        `;
+        stepsList.appendChild(divider);
+        lastPhaseSlug = phaseSlug;
+      }
+    }
+
     const li = document.createElement("li");
     const label = document.createElement("label");
     const input = document.createElement("input");
@@ -302,19 +471,12 @@ function renderGuidePage() {
     contentBlock.className = "step-content";
     li.className = "step-item";
 
-    const match = step.match(/^(Step\s+\d+)\s*—\s*([^:]+):\s*(.*)$/);
-
     if (match) {
       const [, stepNumber, phase, details] = match;
       const { mainText, notes } = splitStepDetails(details);
       const phaseSlug = phase.trim().toLowerCase().replace(/\s+/g, "-");
 
       li.classList.add(`step-group-${phaseSlug}`);
-
-      if (phaseSlug === "boss" && !bossAnchorAssigned) {
-        li.id = "boss-steps";
-        bossAnchorAssigned = true;
-      }
 
       const meta = document.createElement("div");
       meta.className = "step-meta";
@@ -438,6 +600,7 @@ function setupSearch() {
   const searchInput = document.getElementById("search");
   const guideList = document.getElementById("guideList");
   const cards = Array.from(document.querySelectorAll(".card"));
+  const resultsCount = document.getElementById("searchResultsCount");
 
   if (!searchInput || !guideList || cards.length === 0) return;
 
@@ -476,6 +639,10 @@ function setupSearch() {
     });
 
     noResults.hidden = visibleCount > 0;
+
+    if (resultsCount) {
+      resultsCount.textContent = formatSearchCount(visibleCount);
+    }
 
     if (input && input !== lastSearchValue) {
       trackEvent("search_guides", {
@@ -709,6 +876,7 @@ function setupTracker() {
   const progressBar = trackerRoot.querySelector("#progress-bar");
   const progressText = trackerRoot.querySelector("[data-progress-text]");
   const resetButton = trackerRoot.querySelector("[data-reset-tracker]");
+  const nextUncheckedButton = trackerRoot.querySelector("[data-next-unchecked]");
   const checkboxes = Array.from(
     trackerRoot.querySelectorAll("#steps input[type='checkbox']")
   );
@@ -741,10 +909,26 @@ function setupTracker() {
     }
   }
 
+  function scrollToNextUnchecked() {
+    const nextCheckbox = checkboxes.find((checkbox) => !checkbox.checked);
+    if (!nextCheckbox) return;
+
+    const target = nextCheckbox.closest("li");
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "center"
+      });
+    }
+
+    nextCheckbox.focus({ preventScroll: true });
+  }
+
   function updateProgress() {
     const total = checkboxes.length;
     const done = checkboxes.filter((checkbox) => checkbox.checked).length;
     const percent = total > 0 ? Math.round((done / total) * 100) : 0;
+    const isComplete = total > 0 && done === total;
 
     progressBar.style.width = `${percent}%`;
     progressContainer.setAttribute("role", "progressbar");
@@ -752,8 +936,17 @@ function setupTracker() {
     progressContainer.setAttribute("aria-valuemax", "100");
     progressContainer.setAttribute("aria-valuenow", String(percent));
 
+    trackerRoot.classList.toggle("guide-complete", isComplete);
+
     if (progressText) {
-      progressText.textContent = `${done} of ${total} complete`;
+      progressText.textContent = isComplete
+        ? `Guide Complete • ${done} of ${total} complete`
+        : `${done} of ${total} complete`;
+    }
+
+    if (nextUncheckedButton) {
+      nextUncheckedButton.disabled = isComplete;
+      nextUncheckedButton.textContent = isComplete ? "ALL STEPS COMPLETE" : "NEXT UNCHECKED STEP";
     }
   }
 
@@ -766,6 +959,13 @@ function setupTracker() {
       updateProgress();
     });
   });
+
+  if (nextUncheckedButton && !nextUncheckedButton.dataset.bound) {
+    nextUncheckedButton.addEventListener("click", () => {
+      scrollToNextUnchecked();
+    });
+    nextUncheckedButton.dataset.bound = "true";
+  }
 
   if (resetButton) {
     resetButton.addEventListener("click", () => {
