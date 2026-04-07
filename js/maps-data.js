@@ -11,10 +11,10 @@ window.MAP_GUIDES = [
     notes: "Coming Soon!.",
     quickNotes: ["Coming Soon!."],
     steps: [
-      "Step 1 — Find 2 Telescope (Harmonic Oculus) components. (1st - Luminarium, 2nd - Machina Astralis).",
-      "Step 2 — Go to Onservatory Dome and interact with Telescope to install Components.",
+      "Step 1 — Find 2 Telescope,Harmonic Oculus components. (1st - Luminarium)(2nd - Machina Astralis).",
+      "Step 2 — Go to Observatory Dome and interact with Telescope to install Components.",
       "Step 3 — Defend Telescope for 45 seconds to unlock Pack-A-Punch.",
-      "Step 4 — Collect Car Battery. (With a Pack-A-Punched weapon, shoot hood of Ol' Tessie).",
+      "Step 4 — Collect Car Battery. (Need a Pack-A-Punched weapon)(Shoot hood of Ol' Tessie).",
       "Step 5 — Add step here.",
       "Step 6 — Add step here.",
       "Step 7 — Add step here.",
