@@ -8,6 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
   setupEmbers();
   setupTracker();
   setupRequestBuilder();
+  setupBackToTopButton();
   setCurrentYear();
   trackPageView();
 });
@@ -218,7 +219,6 @@ function getCardMarkup(guide, isFeatured = false) {
       </div>
     `
     : "";
-
   const lastUpdatedMarkup = guide.lastUpdated
     ? `<div class="card-updated">Last Updated: ${escapeHtml(guide.lastUpdated)}</div>`
     : "";
@@ -357,7 +357,6 @@ function renderGuidePage() {
   }
 
   const hasBossSteps = guideHasBossSteps(guide);
-
   if (bossJumpLink) {
     bossJumpLink.hidden = !hasBossSteps;
   }
@@ -384,6 +383,7 @@ function renderGuidePage() {
 
   if (toolbar) {
     let trackerActions = document.getElementById("trackerActionGroup");
+
     if (!trackerActions) {
       trackerActions = document.createElement("div");
       trackerActions.id = "trackerActionGroup";
@@ -442,8 +442,7 @@ function renderGuidePage() {
     const match = step.match(/^(Step\s+\d+)\s*—\s*([^:]+):\s*(.*)$/);
 
     if (match) {
-      const [, , phase] = match;
-      const phaseSlug = phase.trim().toLowerCase().replace(/\s+/g, "-");
+      const phaseSlug = match[2].trim().toLowerCase().replace(/\s+/g, "-");
 
       if (phaseSlug !== lastPhaseSlug) {
         const divider = document.createElement("li");
@@ -455,7 +454,7 @@ function renderGuidePage() {
         }
 
         divider.innerHTML = `
-          <div class="step-section-divider-label">${escapeHtml(phase.trim())} Phase</div>
+          <div class="step-section-divider-label">${escapeHtml(match[2].trim())} Phase</div>
         `;
         stepsList.appendChild(divider);
         lastPhaseSlug = phaseSlug;
@@ -1071,6 +1070,41 @@ function setupRequestBuilder() {
   }
 
   updateEmailLink();
+}
+
+function setupBackToTopButton() {
+  const page = document.body.dataset.page || "";
+  const shouldShowButton = page === "guide" || page === "maps";
+
+  if (!shouldShowButton) return;
+
+  let button = document.getElementById("backToTopButton");
+
+  if (!button) {
+    button = document.createElement("button");
+    button.type = "button";
+    button.id = "backToTopButton";
+    button.className = "back-to-top-button";
+    button.setAttribute("aria-label", "Back to top");
+    button.textContent = "TOP";
+    document.body.appendChild(button);
+  }
+
+  function updateButtonVisibility() {
+    const scrollY = window.scrollY || window.pageYOffset;
+    const shouldBeVisible = scrollY > 260;
+    button.classList.toggle("is-visible", shouldBeVisible);
+  }
+
+  button.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  });
+
+  window.addEventListener("scroll", updateButtonVisibility, { passive: true });
+  updateButtonVisibility();
 }
 
 function setCurrentYear() {
