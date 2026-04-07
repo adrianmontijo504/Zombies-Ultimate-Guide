@@ -11,7 +11,7 @@ window.MAP_GUIDES = [
     notes: "Coming Soon!.",
     quickNotes: ["Coming Soon!."],
     steps: [
-      "Step 1 — Find 2 Telescope (Harmonic Oculus) components. (1st - Luminarium, 2nd - Machina Astralis)."
+      "Step 1 — Find 2 Telescope (Harmonic Oculus) components. (1st - Luminarium, 2nd - Machina Astralis).",
       "Step 2 — ."
     ]
   },
