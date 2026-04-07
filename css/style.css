@@ -1354,6 +1354,12 @@ body[data-page="guide"] .content {
   color: #ffb0b0;
 }
 
+.step-phase-guide {
+  background: rgba(255, 170, 70, 0.14);
+  border: 1px solid rgba(255, 170, 70, 0.28);
+  color: #ffd38c;
+}
+
 .step-body {
   color: rgba(255, 255, 255, 0.94);
   font-size: 1rem;
@@ -1435,6 +1441,10 @@ body[data-page="guide"] .content {
   font-size: 0.92rem;
   font-weight: 600;
   color: rgba(255, 226, 169, 0.9);
+}
+
+.step-group-guide {
+  border-color: rgba(255, 170, 70, 0.08) !important;
 }
 
 .step-group-boss {
